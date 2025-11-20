@@ -4,23 +4,24 @@ const BLOG = {
   API_BASE_URL: process.env.API_BASE_URL || 'https://www.notion.so/api/v3', // API默??求地址,可以配置成自己的地址例如：https://[xxxxx].notion.site/api/v3
   // Important page_id！！！Duplicate Template from  https://tanghh.notion.site/02ab3b8678004aa69e9e415905ef32a5
   NOTION_PAGE_ID:
-    process.env.NOTION_PAGE_ID || '2b0b219f5e518183945deb507bf944fa',
-  THEME: process.env.NEXT_PUBLIC_THEME || 'heo', // 当前主?，在themes文件?下可找到所有支持的主?；主?名称就是文件?名，例如 example,fukasawa,gitbook,heo,hexo,landing,matery,medium,next,nobelium,plog,simple
+    process.env.NOTION_PAGE_ID ||
+    '02ab3b8678004aa69e9e415905ef32a5,en:7c1d570661754c8fbc568e00a01fd70e',
+  THEME: process.env.NEXT_PUBLIC_THEME || 'simple', // 当前主?，在themes文件?下可找到所有支持的主?；主?名称就是文件?名，例如 example,fukasawa,gitbook,heo,hexo,landing,matery,medium,next,nobelium,plog,simple
   LANG: process.env.NEXT_PUBLIC_LANG || 'zh-CN', // e.g 'zh-CN','en-US'  see /lib/lang.js for more.
-  SINCE: process.env.NEXT_PUBLIC_SINCE || 2025, // e.g if leave this empty, current year will be used.
+  SINCE: process.env.NEXT_PUBLIC_SINCE || 2021, // e.g if leave this empty, current year will be used.
 
   PSEUDO_STATIC: process.env.NEXT_PUBLIC_PSEUDO_STATIC || false, // ?静?路径，??后所有文章URL都以 .html ?尾。
   NEXT_REVALIDATE_SECOND: process.env.NEXT_PUBLIC_REVALIDATE_SECOND || 60, // 更新?存?隔 ?位(秒)；即?个?面有60秒的?静?期、此期?无?多少次??都不会抓取notion数据；?大??有助于?省Vercel?源、同?提升??速率，但也会使文章更新有延?。
   APPEARANCE: process.env.NEXT_PUBLIC_APPEARANCE || 'light', // ['light', 'dark', 'auto'], // light 日?模式 ， dark夜?模式， auto根据??和主?自?夜?模式
   APPEARANCE_DARK_TIME: process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || [18, 6], // 夜?模式起至??，false???根据??自?切?夜?模式
 
-  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'asami', // ?的昵称 例如 tangly1024
-  BIO: process.env.NEXT_PUBLIC_BIO || '情報科の教員', // 作者?介
-  LINK: process.env.NEXT_PUBLIC_LINK || 'https://asami.chiba.jp', // 网站地址
-  KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || '情報,高校,情報科,ICT,情報学,DX,教育,情報教育', // 网站??? 英文逗号隔?
+  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'NotionNext', // ?的昵称 例如 tangly1024
+  BIO: process.env.NEXT_PUBLIC_BIO || '一个普通的干?人??', // 作者?介
+  LINK: process.env.NEXT_PUBLIC_LINK || 'https://tangly1024.com', // 网站地址
+  KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || 'Notion, 博客', // 网站??? 英文逗号隔?
   BLOG_FAVICON: process.env.NEXT_PUBLIC_FAVICON || '/favicon.ico', // blog favicon 配置, 默?使用 /public/favicon.ico，支持在??片，如 https://img.imesong.com/favicon.png
-  BEI_AN: process.env.NEXT_PUBLIC_BEI_AN || '', // 
-  BEI_AN_LINK: process.env.NEXT_PUBLIC_BEI_AN_LINK || '', // ?案???接，如果用了萌?等?案?在?里填写
+  BEI_AN: process.env.NEXT_PUBLIC_BEI_AN || '', // ?案号 ?ICP?XXXXXX
+  BEI_AN_LINK: process.env.NEXT_PUBLIC_BEI_AN_LINK || 'https://beian.miit.gov.cn/', // ?案???接，如果用了萌?等?案?在?里填写
   BEI_AN_GONGAN: process.env.NEXT_PUBLIC_BEI_AN_GONGAN || '', // 公安?案号，例如 '浙公网安?3xxxxxxxx8号'
 
   // RSS??
@@ -64,7 +65,7 @@ const BLOG = {
   // ?迎?打字效果,Hexo,Matery主?支持, 英文逗号隔?多个?迎?。
   GREETING_WORDS:
     process.env.NEXT_PUBLIC_GREETING_WORDS ||
-    '情報教育を頑張りたい人が趣味で更新しているWebサイト',
+    'Hi，我是一个程序?, Hi，我是一个打工人,Hi，我是一个干?人,?迎来到我的博客??',
 
   // uuid重定向至 slug
   UUID_REDIRECT: process.env.UUID_REDIRECT || false
