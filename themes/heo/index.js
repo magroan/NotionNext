@@ -60,10 +60,10 @@ const LayoutBase = props => {
 
   const headerSlot = (
     <header>
-      {/* 顶部导航 */}
+      {/* TopNavi */}
       <Header {...props} />
 
-      {/* 通知横幅 */}
+      {/* 通知バナー */}
       {router.route === '/' ? (
         <>
           <NoticeBar />
@@ -98,10 +98,10 @@ const LayoutBase = props => {
       className={`${siteConfig('FONT_STYLE')} bg-[#f7f9fe] dark:bg-[#18171d] h-full min-h-screen flex flex-col scroll-smooth`}>
       <Style />
 
-      {/* 顶部嵌入 导航栏，首页放hero，文章页放文章详情 */}
+      {/* 上部埋め込み ナビゲーション，トップhero？，詳細 */}
       {headerSlot}
 
-      {/* 主区块 */}
+      {/* メイン */}
       <main
         id='wrapper-outer'
         className={`flex-grow w-full ${maxWidth} mx-auto relative md:px-5`}>
@@ -109,7 +109,7 @@ const LayoutBase = props => {
           id='container-inner'
           className={`${HEO_HERO_BODY_REVERSE ? 'flex-row-reverse' : ''} w-full mx-auto lg:flex justify-center relative z-10`}>
           <div className={`w-full h-auto ${className || ''}`}>
-            {/* 主区上部嵌入 */}
+            {/* メイン上部 */}
             {slotTop}
             {children}
           </div>
@@ -117,13 +117,13 @@ const LayoutBase = props => {
           <div className='lg:px-2'></div>
 
           <div className='hidden xl:block'>
-            {/* 主区快右侧 */}
+            {/* メイン右 */}
             {slotRight}
           </div>
         </div>
       </main>
 
-      {/* 页脚 */}
+      {/* フッター */}
       <Footer />
 
       {HEO_LOADING_COVER && <LoadingCover />}
@@ -140,7 +140,7 @@ const LayoutBase = props => {
 const LayoutIndex = props => {
   return (
     <div id='post-outer-wrapper' className='px-5 md:px-0'>
-      {/* 文章分类条 */}
+      {/* カテゴリ */}
       <CategoryBar {...props} />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
@@ -159,7 +159,7 @@ const LayoutIndex = props => {
 const LayoutPostList = props => {
   return (
     <div id='post-outer-wrapper' className='px-5  md:px-0'>
-      {/* 文章分类条 */}
+      {/* カテゴリ */}
       <CategoryBar {...props} />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
@@ -226,7 +226,7 @@ const LayoutArchive = props => {
 
   return (
     <div className='p-5 rounded-xl border dark:border-gray-600 max-w-6xl w-full bg-white dark:bg-[#1e1e1e]'>
-      {/* 文章分类条 */}
+      {/* カテゴリ */}
       <CategoryBar {...props} border={false} />
 
       <div className='px-3'>
@@ -281,7 +281,7 @@ const LayoutSlug = props => {
             )
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
+                console.warn('ページが見つかりません。', router.asPath)
               })
             }
           }
@@ -294,12 +294,12 @@ const LayoutSlug = props => {
     <>
       <div
         className={`article h-full w-full ${fullWidth ? '' : 'xl:max-w-5xl'} ${hasCode ? 'xl:w-[73.15vw]' : ''}  bg-white dark:bg-[#18171d] dark:border-gray-600 lg:hover:shadow lg:border rounded-2xl lg:px-2 lg:py-4 `}>
-        {/* 文章锁 */}
+        {/* 記事ロック */}
         {lock && <PostLock validPassword={validPassword} />}
 
         {!lock && post && (
           <div className='mx-auto md:w-full md:px-5'>
-            {/* 文章主体 */}
+            {/* 本文 */}
             <article
               id='article-wrapper'
               itemScope
@@ -318,27 +318,27 @@ const LayoutSlug = props => {
               {/* 上一篇\下一篇文章 */}
               <PostAdjacent {...props} />
 
-              {/* 分享 */}
+              {/* 共有 */}
               <ShareBar post={post} />
               {post?.type === 'Post' && (
                 <div className='px-5'>
-                  {/* 版权 */}
+                  {/* 著作権 */}
                   <PostCopyright {...props} />
-                  {/* 文章推荐 */}
+                  {/* おすすめ */}
                   <PostRecommend {...props} />
                 </div>
               )}
             </article>
 
-            {/* 评论区 */}
+            {/* コメント欄 */}
             {fullWidth ? null : (
               <div className={`${commentEnable && post ? '' : 'hidden'}`}>
                 <hr className='my-4 border-dashed' />
-                {/* 评论区上方广告 */}
+                {/* コメント上の広告 */}
                 <div className='py-2'>
                   <AdSlot />
                 </div>
-                {/* 评论互动 */}
+                {/* コメント交流？ */}
                 <div className='duration-200 overflow-x-auto px-5'>
                   <div className='text-2xl dark:text-white'>
                     <i className='fas fa-comment mr-1' />
@@ -396,10 +396,10 @@ const Layout404 = props => {
                 <h1 className='error-title font-extrabold md:text-9xl text-7xl dark:text-white'>
                   404
                 </h1>
-                <div className='dark:text-white'>请尝试站内搜索寻找文章</div>
+                <div className='dark:text-white'>サイト内検索をお試しください</div>
                 <SmartLink href='/'>
                   <button className='bg-blue-500 py-2 px-4 text-white shadow rounded-lg hover:bg-blue-600 hover:shadow-md duration-200 transition-all'>
-                    回到主页
+                    TOPに戻る
                   </button>
                 </SmartLink>
               </div>
