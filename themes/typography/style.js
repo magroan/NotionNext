@@ -6,7 +6,7 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{````css
+    <style jsx global>{`
 html {
   -webkit-font-smoothing: antialiased;
 }
@@ -87,7 +87,7 @@ html {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-````}</style>);
+`}</style>);
 };
 
 export { Style };

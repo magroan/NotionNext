@@ -5,7 +5,7 @@
  * @returns
  */
 const Style = () => {
-  return <style jsx global>{````css
+  return <style jsx global>{`
 body {
     background-color: #fbfbfb;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -97,7 +97,7 @@ body {
 .dark body{
     background-color: black;
 }
-````
+`
     }</style>;
 };
 
