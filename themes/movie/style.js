@@ -6,7 +6,7 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{````css
+    <style jsx global>{`
       // 背景色
       .dark body {
         background-color: black;
@@ -45,7 +45,7 @@ const Style = () => {
         height: auto !important;
         aspect-ratio: 2/1 !important;
       }
-````}</style>);
+`}</style>);
 
 };
 
