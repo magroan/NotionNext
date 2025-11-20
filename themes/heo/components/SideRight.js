@@ -37,19 +37,19 @@ export default function SideRight(props) {
       <InfoCard {...props} className='w-72 wow fadeInUp' />
 
       <div className='sticky top-20 space-y-4'>
-        {/* 文章页显示目录 */}
+        {/* もくじ */}
         {post && post.toc && post.toc.length > 0 && (
           <Card className='bg-white dark:bg-[#1e1e1e] wow fadeInUp'>
             <Catalog toc={post.toc} />
           </Card>
         )}
 
-        {/* 联系交流群 */}
+        {/* 連絡先 */}
         <div className='wow fadeInUp'>
           <TouchMeCard />
         </div>
 
-        {/* 最新文章列表 */}
+        {/* 最新記事 */}
         <div
           className={
             'border wow fadeInUp  hover:border-indigo-600  dark:hover:border-yellow-600 duration-200 dark:border-gray-700 dark:bg-[#1e1e1e] dark:text-white rounded-xl lg:p-6 p-4 hidden lg:block bg-white'
@@ -62,7 +62,7 @@ export default function SideRight(props) {
         <FaceBookPage />
         <Live2D />
 
-        {/* 标签和成绩 */}
+        {/* Tag？ */}
         <Card
           className={
             'bg-white dark:bg-[#1e1e1e] dark:text-white hover:border-indigo-600  dark:hover:border-yellow-600 duration-200'
