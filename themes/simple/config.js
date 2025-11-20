@@ -3,7 +3,7 @@ const CONFIG = {
   SIMPLE_LOGO_IMG: '/Logo.webp',
   SIMPLE_TOP_BAR: true, // 显示顶栏
   SIMPLE_TOP_BAR_CONTENT: process.env.NEXT_PUBLIC_THEME_SIMPLE_TOP_TIPS || '',
-  SIMPLE_LOGO_DESCRIPTION: process.env.NEXT_PUBLIC_THEME_SIMPLE_LOGO_DESCRIPTION || '<div>编程爱好者<br/>/互联网从业者<br/>/知识分享博主</div>',
+  SIMPLE_LOGO_DESCRIPTION: process.env.NEXT_PUBLIC_THEME_SIMPLE_LOGO_DESCRIPTION || "<div>\u30D7\u30ED\u30B0\u30E9\u30DF\u30F3\u30B0\u611B\u597D\u8005<br/>/\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u696D\u754C\u306E\u5F93\u4E8B\u8005<br/>/\u77E5\u8B58\u5171\u6709\u30D6\u30ED\u30AC\u30FC</div>",
 
   SIMPLE_AUTHOR_LINK: process.env.NEXT_PUBLIC_AUTHOR_LINK || '#',
 
@@ -18,5 +18,5 @@ const CONFIG = {
   SIMPLE_MENU_TAG: true, // 显示标签
   SIMPLE_MENU_ARCHIVE: true, // 显示归档
   SIMPLE_MENU_SEARCH: true // 显示搜索
-}
-export default CONFIG
+};
+export default CONFIG;

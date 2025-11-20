@@ -1,55 +1,55 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'fs';
+import path from 'path';
 
 interface QueueItem<T> {
-  requestFunc: () => Promise<T>
-  resolve: (value: T) => void
-  reject: (err: any) => void
+  requestFunc: () => Promise<T>;
+  resolve: (value: T) => void;
+  reject: (err: any) => void;
 }
 
 export class RateLimiter {
-  private queue: QueueItem<any>[] = []
-  private inflight = new Set<string>()
-  private isProcessing = false
-  private lastRequestTime = 0
-  private requestCount = 0
-  private windowStart = Date.now()
+  private queue: QueueItem<any>[] = [];
+  private inflight = new Set<string>();
+  private isProcessing = false;
+  private lastRequestTime = 0;
+  private requestCount = 0;
+  private windowStart = Date.now();
 
   constructor(
-    private maxRequestsPerMinute = 200,
-    private lockFilePath?: string
-  ) { }
+  private maxRequestsPerMinute = 200,
+  private lockFilePath?: string)
+  {}
 
   private async acquireLock() {
-    if (!this.lockFilePath) return
+    if (!this.lockFilePath) return;
     // 如果锁文件存在且创建时间过久（比如 >5分钟），认为是陈旧锁，直接删除
     if (fs.existsSync(this.lockFilePath)) {
-      const stats = fs.statSync(this.lockFilePath)
-      const age = Date.now() - stats.ctimeMs
-      if (age > 30 * 1000) { // 30秒
+      const stats = fs.statSync(this.lockFilePath);
+      const age = Date.now() - stats.ctimeMs;
+      if (age > 30 * 1000) {// 30秒
         try {
-          fs.unlinkSync(this.lockFilePath)
-          console.warn('[限流] 删除陈旧锁文件:', this.lockFilePath)
+          fs.unlinkSync(this.lockFilePath);
+          console.warn("[\u6D41\u91CF\u5236\u9650] \u53E4\u3044\u30ED\u30C3\u30AF\u30D5\u30A1\u30A4\u30EB\u3092\u524A\u9664:", this.lockFilePath);
         } catch (err) {
-          console.error('[限流] 删除陈旧锁失败:', err)
+          console.error("[\u5236\u9650] \u53E4\u3044\u30ED\u30C3\u30AF\u306E\u524A\u9664\u306B\u5931\u6557\u3057\u307E\u3057\u305F:", err);
         }
       }
     }
     while (true) {
       try {
-        fs.writeFileSync(this.lockFilePath, process.pid.toString(), { flag: 'wx' })
-        return
+        fs.writeFileSync(this.lockFilePath, process.pid.toString(), { flag: 'wx' });
+        return;
       } catch (err: any) {
-        if (err.code === 'EEXIST') await new Promise(res => setTimeout(res, 100))
-        else throw err
+        if (err.code === 'EEXIST') await new Promise((res) => setTimeout(res, 100));else
+        throw err;
       }
     }
   }
 
   private releaseLock() {
-    if (!this.lockFilePath) return
-    try { if (fs.existsSync(this.lockFilePath)) fs.unlinkSync(this.lockFilePath) }
-    catch (err) { console.error('释放锁失败', err) }
+    if (!this.lockFilePath) return;
+    try {if (fs.existsSync(this.lockFilePath)) fs.unlinkSync(this.lockFilePath);}
+    catch (err) {console.error("\u30ED\u30C3\u30AF\u306E\u89E3\u9664\u306B\u5931\u6557\u3057\u307E\u3057\u305F", err);}
   }
 
   public enqueue<T>(key: string, requestFunc: () => Promise<T>): Promise<T> {
@@ -57,57 +57,57 @@ export class RateLimiter {
       return new Promise((resolve, reject) => {
         const interval = setInterval(() => {
           if (!this.inflight.has(key)) {
-            clearInterval(interval)
-            this.enqueue(key, requestFunc).then(resolve).catch(reject)
+            clearInterval(interval);
+            this.enqueue(key, requestFunc).then(resolve).catch(reject);
           }
-        }, 50)
-      })
+        }, 50);
+      });
     }
 
     return new Promise((resolve, reject) => {
-      this.queue.push({ requestFunc, resolve, reject })
-      if (!this.isProcessing) this.processQueue()
-    })
+      this.queue.push({ requestFunc, resolve, reject });
+      if (!this.isProcessing) this.processQueue();
+    });
   }
 
   private async processQueue() {
-    if (this.queue.length === 0) { this.isProcessing = false; return }
-    this.isProcessing = true
+    if (this.queue.length === 0) {this.isProcessing = false;return;}
+    this.isProcessing = true;
 
     try {
-      await this.acquireLock()
-      const now = Date.now()
-      const elapsed = now - this.windowStart
+      await this.acquireLock();
+      const now = Date.now();
+      const elapsed = now - this.windowStart;
 
-      if (elapsed > 60_000) { this.requestCount = 0; this.windowStart = now }
+      if (elapsed > 60_000) {this.requestCount = 0;this.windowStart = now;}
       if (this.requestCount >= this.maxRequestsPerMinute) {
-        const waitTime = 60_000 - elapsed + 100
-        await new Promise(res => setTimeout(res, waitTime))
-        this.requestCount = 0
-        this.windowStart = Date.now()
+        const waitTime = 60_000 - elapsed + 100;
+        await new Promise((res) => setTimeout(res, waitTime));
+        this.requestCount = 0;
+        this.windowStart = Date.now();
       }
 
-      const minInterval = 300
-      const waitTime = Math.max(0, minInterval - (now - this.lastRequestTime))
-      if (waitTime > 0) await new Promise(res => setTimeout(res, waitTime))
+      const minInterval = 300;
+      const waitTime = Math.max(0, minInterval - (now - this.lastRequestTime));
+      if (waitTime > 0) await new Promise((res) => setTimeout(res, waitTime));
 
-      const { requestFunc, resolve, reject } = this.queue.shift()!
-      const key = crypto.randomUUID()
-      this.inflight.add(key)
+      const { requestFunc, resolve, reject } = this.queue.shift()!;
+      const key = crypto.randomUUID();
+      this.inflight.add(key);
 
       try {
-        const result = await requestFunc()
-        this.lastRequestTime = Date.now()
-        this.requestCount++
-        resolve(result)
-      } catch (err) { reject(err) }
-      finally { this.inflight.delete(key) }
+        const result = await requestFunc();
+        this.lastRequestTime = Date.now();
+        this.requestCount++;
+        resolve(result);
+      } catch (err) {reject(err);} finally
+      {this.inflight.delete(key);}
 
     } catch (err) {
-      console.error('限流队列异常', err)
+      console.error("\u30EA\u30DF\u30C3\u30C8\u30EA\u30AF\u30A8\u30B9\u30C8\u30AD\u30E5\u30FC\u306E\u4F8B\u5916", err);
     } finally {
-      this.releaseLock()
-      setTimeout(() => this.processQueue(), 0)
+      this.releaseLock();
+      setTimeout(() => this.processQueue(), 0);
     }
   }
 }

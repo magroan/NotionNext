@@ -2,11 +2,11 @@ const CONFIG = {
   HEXO_HOME_BANNER_ENABLE: true,
   // 3.14.1以后的版本中，欢迎语在blog.config.js中配置，用英文逗号','隔开多个。
   HEXO_HOME_BANNER_GREETINGS: [
-    'Hi，我是一个程序员',
-    'Hi，我是一个打工人',
-    'Hi，我是一个干饭人',
-    '欢迎来到我的博客🎉'
-  ], // 首页大图标语文字
+  "\u3053\u3093\u306B\u3061\u306F\u3001\u79C1\u306F\u30D7\u30ED\u30B0\u30E9\u30DE\u30FC\u3067\u3059\u3002",
+  "\u3053\u3093\u306B\u3061\u306F\u3001\u79C1\u306F\u30A2\u30EB\u30D0\u30A4\u30C8\u3067\u3059\u3002",
+  "\u3053\u3093\u306B\u3061\u306F\u3001\u79C1\u306F\u3054\u98EF\u3092\u98DF\u3079\u308B\u4EBA\u3067\u3059\u3002",
+  "\u79C1\u306E\u30D6\u30ED\u30B0\u3078\u3088\u3046\u3053\u305D\uD83C\uDF89"],
+  // 首页大图标语文字
 
   HEXO_HOME_NAV_BUTTONS: true, // 首页是否显示分类大图标按钮
   // 已知未修复bug, 在移动端开启true后会加载不出图片； 暂时建议设置为false。
@@ -43,5 +43,5 @@ const CONFIG = {
   HEXO_WIDGET_TOC: true, // 移动端悬浮目录
 
   HEXO_THEME_COLOR: '#928CEE' // 主题色配置（默认为 #928CEE）
-}
-export default CONFIG
+};
+export default CONFIG;

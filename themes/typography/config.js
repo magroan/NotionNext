@@ -12,6 +12,6 @@ const CONFIG = {
   // 菜单配置
   TYPOGRAPHY_MENU_CATEGORY: true, // 显示分类
   TYPOGRAPHY_MENU_TAG: true, // 显示标签
-  TYPOGRAPHY_MENU_ARCHIVE: true, // 显示归档
-}
-export default CONFIG
+  TYPOGRAPHY_MENU_ARCHIVE: true // 显示归档
+};
+export default CONFIG;

@@ -1,63 +1,63 @@
-import { AdSlot } from '@/components/GoogleAdsense'
-import replaceSearchResult from '@/components/Mark'
-import NotionPage from '@/components/NotionPage'
-import { siteConfig } from '@/lib/config'
-import { useGlobal } from '@/lib/global'
-import { isBrowser } from '@/lib/utils'
-import { Transition } from '@headlessui/react'
-import dynamic from 'next/dynamic'
-import SmartLink from '@/components/SmartLink'
-import { useRouter } from 'next/router'
-import { createContext, useContext, useEffect, useRef } from 'react'
-import BlogPostBar from './components/BlogPostBar'
-import CONFIG from './config'
-import { Style } from './style'
+import { AdSlot } from '@/components/GoogleAdsense';
+import replaceSearchResult from '@/components/Mark';
+import NotionPage from '@/components/NotionPage';
+import { siteConfig } from '@/lib/config';
+import { useGlobal } from '@/lib/global';
+import { isBrowser } from '@/lib/utils';
+import { Transition } from '@headlessui/react';
+import dynamic from 'next/dynamic';
+import SmartLink from '@/components/SmartLink';
+import { useRouter } from 'next/router';
+import { createContext, useContext, useEffect, useRef } from 'react';
+import BlogPostBar from './components/BlogPostBar';
+import CONFIG from './config';
+import { Style } from './style';
 
 const AlgoliaSearchModal = dynamic(
   () => import('@/components/AlgoliaSearchModal'),
   { ssr: false }
-)
+);
 
 // 主题组件
 const BlogListScroll = dynamic(() => import('./components/BlogListScroll'), {
   ssr: false
-})
+});
 const BlogArchiveItem = dynamic(() => import('./components/BlogArchiveItem'), {
   ssr: false
-})
+});
 const ArticleLock = dynamic(() => import('./components/ArticleLock'), {
   ssr: false
-})
+});
 const ArticleInfo = dynamic(() => import('./components/ArticleInfo'), {
   ssr: false
-})
-const Comment = dynamic(() => import('@/components/Comment'), { ssr: false })
+});
+const Comment = dynamic(() => import('@/components/Comment'), { ssr: false });
 const ArticleAround = dynamic(() => import('./components/ArticleAround'), {
   ssr: false
-})
-const ShareBar = dynamic(() => import('@/components/ShareBar'), { ssr: false })
-const TopBar = dynamic(() => import('./components/TopBar'), { ssr: false })
-const Header = dynamic(() => import('./components/Header'), { ssr: false })
-const NavBar = dynamic(() => import('./components/NavBar'), { ssr: false })
-const SideBar = dynamic(() => import('./components/SideBar'), { ssr: false })
+});
+const ShareBar = dynamic(() => import('@/components/ShareBar'), { ssr: false });
+const TopBar = dynamic(() => import('./components/TopBar'), { ssr: false });
+const Header = dynamic(() => import('./components/Header'), { ssr: false });
+const NavBar = dynamic(() => import('./components/NavBar'), { ssr: false });
+const SideBar = dynamic(() => import('./components/SideBar'), { ssr: false });
 const JumpToTopButton = dynamic(() => import('./components/JumpToTopButton'), {
   ssr: false
-})
-const Footer = dynamic(() => import('./components/Footer'), { ssr: false })
+});
+const Footer = dynamic(() => import('./components/Footer'), { ssr: false });
 const SearchInput = dynamic(() => import('./components/SearchInput'), {
   ssr: false
-})
-const WWAds = dynamic(() => import('@/components/WWAds'), { ssr: false })
+});
+const WWAds = dynamic(() => import('@/components/WWAds'), { ssr: false });
 const BlogListPage = dynamic(() => import('./components/BlogListPage'), {
   ssr: false
-})
+});
 const RecommendPosts = dynamic(() => import('./components/RecommendPosts'), {
   ssr: false
-})
+});
 
 // 主题全局状态
-const ThemeGlobalSimple = createContext()
-export const useSimpleGlobal = () => useContext(ThemeGlobalSimple)
+const ThemeGlobalSimple = createContext();
+export const useSimpleGlobal = () => useContext(ThemeGlobalSimple);
 
 /**
  * 基础布局
@@ -65,10 +65,10 @@ export const useSimpleGlobal = () => useContext(ThemeGlobalSimple)
  * @param {*} props
  * @returns
  */
-const LayoutBase = props => {
-  const { children, slotTop } = props
-  const { onLoading, fullWidth } = useGlobal()
-  const searchModal = useRef(null)
+const LayoutBase = (props) => {
+  const { children, slotTop } = props;
+  const { onLoading, fullWidth } = useGlobal();
+  const searchModal = useRef(null);
 
   return (
     <ThemeGlobalSimple.Provider value={{ searchModal }}>
@@ -89,9 +89,9 @@ const LayoutBase = props => {
         <div
           id='container-wrapper'
           className={
-            (JSON.parse(siteConfig('LAYOUT_SIDEBAR_REVERSE'))
-              ? 'flex-row-reverse'
-              : '') + ' w-full flex-1 flex items-start max-w-9/10 mx-auto pt-12'
+          (JSON.parse(siteConfig('LAYOUT_SIDEBAR_REVERSE')) ?
+          'flex-row-reverse' :
+          '') + ' w-full flex-1 flex items-start max-w-9/10 mx-auto pt-12'
           }>
           <div id='container-inner ' className='w-full flex-grow min-h-fit'>
             <Transition
@@ -111,13 +111,13 @@ const LayoutBase = props => {
             <AdSlot type='native' />
           </div>
 
-          {fullWidth ? null : (
-            <div
-              id='right-sidebar'
-              className='hidden xl:block flex-none sticky top-8 w-96 border-l dark:border-gray-800 pl-12 border-gray-100'>
+          {fullWidth ? null :
+          <div
+            id='right-sidebar'
+            className='hidden xl:block flex-none sticky top-8 w-96 border-l dark:border-gray-800 pl-12 border-gray-100'>
               <SideBar {...props} />
             </div>
-          )}
+          }
         </div>
 
         <div className='fixed right-4 bottom-4 z-20'>
@@ -129,9 +129,9 @@ const LayoutBase = props => {
 
         <Footer {...props} />
       </div>
-    </ThemeGlobalSimple.Provider>
-  )
-}
+    </ThemeGlobalSimple.Provider>);
+
+};
 
 /**
  * 博客首页
@@ -139,26 +139,26 @@ const LayoutBase = props => {
  * @param {*} props
  * @returns
  */
-const LayoutIndex = props => {
-  return <LayoutPostList {...props} />
-}
+const LayoutIndex = (props) => {
+  return <LayoutPostList {...props} />;
+};
 /**
  * 博客列表
  * @param {*} props
  * @returns
  */
-const LayoutPostList = props => {
+const LayoutPostList = (props) => {
   return (
     <>
       <BlogPostBar {...props} />
-      {siteConfig('POST_LIST_STYLE') === 'page' ? (
-        <BlogListPage {...props} />
-      ) : (
-        <BlogListScroll {...props} />
-      )}
-    </>
-  )
-}
+      {siteConfig('POST_LIST_STYLE') === 'page' ?
+      <BlogListPage {...props} /> :
+
+      <BlogListScroll {...props} />
+      }
+    </>);
+
+};
 
 /**
  * 搜索页
@@ -166,8 +166,8 @@ const LayoutPostList = props => {
  * @param {*} props
  * @returns
  */
-const LayoutSearch = props => {
-  const { keyword } = props
+const LayoutSearch = (props) => {
+  const { keyword } = props;
 
   useEffect(() => {
     if (isBrowser) {
@@ -178,54 +178,54 @@ const LayoutSearch = props => {
           element: 'span',
           className: 'text-red-500 border-b border-dashed'
         }
-      })
+      });
     }
-  }, [])
+  }, []);
 
-  const slotTop = siteConfig('ALGOLIA_APP_ID') ? null : (
-    <SearchInput {...props} />
-  )
+  const slotTop = siteConfig('ALGOLIA_APP_ID') ? null :
+  <SearchInput {...props} />;
 
-  return <LayoutPostList {...props} slotTop={slotTop} />
-}
+
+  return <LayoutPostList {...props} slotTop={slotTop} />;
+};
 
 /**
  * 归档页
  * @param {*} props
  * @returns
  */
-const LayoutArchive = props => {
-  const { archivePosts } = props
+const LayoutArchive = (props) => {
+  const { archivePosts } = props;
   return (
     <>
       <div className='mb-10 pb-20 md:py-12 p-3  min-h-screen w-full'>
-        {Object.keys(archivePosts).map(archiveTitle => (
-          <BlogArchiveItem
-            key={archiveTitle}
-            archiveTitle={archiveTitle}
-            archivePosts={archivePosts}
-          />
-        ))}
+        {Object.keys(archivePosts).map((archiveTitle) =>
+        <BlogArchiveItem
+          key={archiveTitle}
+          archiveTitle={archiveTitle}
+          archivePosts={archivePosts} />
+
+        )}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 文章详情
  * @param {*} props
  * @returns
  */
-const LayoutSlug = props => {
-  const { post, lock, validPassword, prev, next, recommendPosts } = props
-  const { fullWidth } = useGlobal()
+const LayoutSlug = (props) => {
+  const { post, lock, validPassword, prev, next, recommendPosts } = props;
+  const { fullWidth } = useGlobal();
 
   return (
     <>
       {lock && <ArticleLock validPassword={validPassword} />}
 
-      {!lock && post && (
-        <div className={`px-2  ${fullWidth ? '' : 'xl:max-w-4xl 2xl:max-w-6xl'}`}>
+      {!lock && post &&
+      <div className={`px-2  ${fullWidth ? '' : 'xl:max-w-4xl 2xl:max-w-6xl'}`}>
           {/* 文章信息 */}
           <ArticleInfo post={post} />
 
@@ -244,62 +244,62 @@ const LayoutSlug = props => {
           {/* 广告嵌入 */}
           <AdSlot type={'in-article'} />
 
-          {post?.type === 'Post' && (
-            <>
+          {post?.type === 'Post' &&
+        <>
               <ArticleAround prev={prev} next={next} />
               <RecommendPosts recommendPosts={recommendPosts} />
             </>
-          )}
+        }
 
           {/* 评论区 */}
           <Comment frontMatter={post} />
         </div>
-      )}
-    </>
-  )
-}
+      }
+    </>);
+
+};
 
 /**
  * 404
  * @param {*} props
  * @returns
  */
-const Layout404 = props => {
-  const { post } = props
-  const router = useRouter()
-  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+const Layout404 = (props) => {
+  const { post } = props;
+  const router = useRouter();
+  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000;
   useEffect(() => {
     // 404
     if (!post) {
       setTimeout(
         () => {
           if (isBrowser) {
-            const article = document.querySelector('#article-wrapper #notion-article')
+            const article = document.querySelector('#article-wrapper #notion-article');
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
-              })
+                console.warn("\u30DA\u30FC\u30B8\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002", router.asPath);
+              });
             }
           }
         },
         waiting404
-      )
+      );
     }
-  }, [post])
-  return <>404 Not found.</>
-}
+  }, [post]);
+  return <>404 Not found.</>;
+};
 
 /**
  * 分类列表
  * @param {*} props
  * @returns
  */
-const LayoutCategoryIndex = props => {
-  const { categoryOptions } = props
+const LayoutCategoryIndex = (props) => {
+  const { categoryOptions } = props;
   return (
     <>
       <div id='category-list' className='duration-200 flex flex-wrap'>
-        {categoryOptions?.map(category => {
+        {categoryOptions?.map((category) => {
           return (
             <SmartLink
               key={category.name}
@@ -308,30 +308,30 @@ const LayoutCategoryIndex = props => {
               legacyBehavior>
               <div
                 className={
-                  'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
+                'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
                 }>
                 <i className='mr-4 fas fa-folder' />
                 {category.name}({category.count})
               </div>
-            </SmartLink>
-          )
+            </SmartLink>);
+
         })}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 标签列表
  * @param {*} props
  * @returns
  */
-const LayoutTagIndex = props => {
-  const { tagOptions } = props
+const LayoutTagIndex = (props) => {
+  const { tagOptions } = props;
   return (
     <>
       <div id='tags-list' className='duration-200 flex flex-wrap'>
-        {tagOptions.map(tag => {
+        {tagOptions.map((tag) => {
           return (
             <div key={tag.name} className='p-2'>
               <SmartLink
@@ -344,13 +344,13 @@ const LayoutTagIndex = props => {
                   {tag.name + (tag.count ? `(${tag.count})` : '')}{' '}
                 </div>
               </SmartLink>
-            </div>
-          )
+            </div>);
+
         })}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 export {
   Layout404,
@@ -362,5 +362,4 @@ export {
   LayoutSearch,
   LayoutSlug,
   LayoutTagIndex,
-  CONFIG as THEME_CONFIG
-}
+  CONFIG as THEME_CONFIG };

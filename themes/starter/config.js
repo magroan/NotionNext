@@ -10,13 +10,13 @@ const CONFIG = {
 
   // 英雄区块导航
   STARTER_HERO_ENABLE: true, // 开启英雄区
-  STARTER_HERO_TITLE_1: '开源且免费的基于 Notion 笔记的网站构建工具', // 英雄区文字
-  STARTER_HERO_TITLE_2: '通过笔记无感知地建站、成倍放大您的价值', // 英雄区文字
+  STARTER_HERO_TITLE_1: "\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9\u3067\u7121\u6599\u306ENotion\u30D9\u30FC\u30B9\u306E\u30CE\u30FC\u30C8\u4F5C\u6210\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u30D3\u30EB\u30C0\u30FC", // 英雄区文字
+  STARTER_HERO_TITLE_2: "\u30CE\u30FC\u30C8\u3092\u4F7F\u3063\u3066\u7121\u611F\u77E5\u3067\u30B5\u30A4\u30C8\u3092\u69CB\u7BC9\u3057\u3001\u4FA1\u5024\u3092\u500D\u5897\u3055\u305B\u307E\u3057\u3087\u3046\u3002", // 英雄区文字
   // 英雄区两个按钮，如果TEXT留空则隐藏按钮
-  STARTER_HERO_BUTTON_1_TEXT: '开始体验', // 英雄区按钮
+  STARTER_HERO_BUTTON_1_TEXT: "\u4F53\u9A13\u3092\u59CB\u3081\u308B", // 英雄区按钮
   STARTER_HERO_BUTTON_1_URL:
-    'https://docs.tangly1024.com/article/vercel-deploy-notion-next', // 英雄区按钮
-  STARTER_HERO_BUTTON_2_TEXT: '在Github上关注', // 英雄区按钮
+  'https://docs.tangly1024.com/article/vercel-deploy-notion-next', // 英雄区按钮
+  STARTER_HERO_BUTTON_2_TEXT: "GitHub\u3067\u30D5\u30A9\u30ED\u30FC\u3059\u308B", // 英雄区按钮
   STARTER_HERO_BUTTON_2_URL: 'https://github.com/tangly1024/NotionNext', // 英雄区按钮
   STARTER_HERO_BUTTON_2_ICON: '/images/starter/github.svg', // 英雄区按钮2的图标，不需要则留空
 
@@ -34,216 +34,216 @@ const CONFIG = {
   // 特性区块
   STARTER_FEATURE_ENABLE: true, // 特性区块开关
   STARTER_FEATURE_TITLE: '特性', // 特性
-  STARTER_FEATURE_TEXT_1: 'NotionNext的主要特性', // 特性
+  STARTER_FEATURE_TEXT_1: "NotionNext\u306E\u4E3B\u306A\u7279\u5FB4", // 特性
   STARTER_FEATURE_TEXT_2:
-    'NotionNext的愿景是帮助您简单、无感知地稳定地搭建自己的网站，放大品牌的价值。 ', // 特性
+  "NotionNext\u306E\u30D3\u30B8\u30E7\u30F3\u306F\u3001\u3042\u306A\u305F\u304C\u30B7\u30F3\u30D7\u30EB\u3067\u4EBA\u76EE\u3092\u5F15\u304B\u305A\u306B\u5B89\u5B9A\u3057\u3066\u81EA\u5206\u306E\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u3092\u69CB\u7BC9\u3057\u3001\u30D6\u30E9\u30F3\u30C9\u306E\u4FA1\u5024\u3092\u62E1\u5927\u3059\u308B\u624B\u52A9\u3051\u3092\u3059\u308B\u3053\u3068\u3067\u3059\u3002", // 特性
 
-  STARTER_FEATURE_1_TITLE_1: '免费且开源', // 特性1
-  STARTER_FEATURE_1_TEXT_1: '项目源码在Github上完全开放共享，遵循MIT协议', // 特性1
-  STARTER_FEATURE_1_BUTTON_TEXT: '了解更多', // 特性1
+  STARTER_FEATURE_1_TITLE_1: "\u7121\u6599\u3067\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9", // 特性1
+  STARTER_FEATURE_1_TEXT_1: "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306FGitHub\u3067\u5B8C\u5168\u306B\u30AA\u30FC\u30D7\u30F3\u306B\u5171\u6709\u3055\u308C\u3066\u304A\u308A\u3001MIT\u30E9\u30A4\u30BB\u30F3\u30B9\u306B\u5F93\u3063\u3066\u3044\u307E\u3059\u3002", // 特性1
+  STARTER_FEATURE_1_BUTTON_TEXT: "\u3082\u3063\u3068\u8A73\u3057\u304F\u77E5\u308B", // 特性1
   STARTER_FEATURE_1_BUTTON_URL: 'https://github.com/tangly1024/NotionNext', // 特性1
 
-  STARTER_FEATURE_2_TITLE_1: '多种主题定制', // 特性2
-  STARTER_FEATURE_2_TEXT_1: '数十种主题,适用于不同场景，总有一款适合你', // 特性2
-  STARTER_FEATURE_2_BUTTON_TEXT: '了解更多', // 特性2
+  STARTER_FEATURE_2_TITLE_1: "\u8907\u6570\u306E\u30C6\u30FC\u30DE\u30AB\u30B9\u30BF\u30DE\u30A4\u30BA", // 特性2
+  STARTER_FEATURE_2_TEXT_1: "\u6570\u5341\u7A2E\u985E\u306E\u30C6\u30FC\u30DE\u304C\u3042\u308A\u3001\u3055\u307E\u3056\u307E\u306A\u30B7\u30FC\u30F3\u306B\u9069\u5FDC\u3067\u304D\u308B\u306E\u3067\u3001\u5FC5\u305A\u3042\u306A\u305F\u306B\u3074\u3063\u305F\u308A\u306E\u4E00\u3064\u304C\u3042\u308A\u307E\u3059\u3002", // 特性2
+  STARTER_FEATURE_2_BUTTON_TEXT: "\u3082\u3063\u3068\u8A73\u3057\u304F\u77E5\u308B", // 特性2
   STARTER_FEATURE_2_BUTTON_URL:
-    'https://docs.tangly1024.com/article/notion-next-themes', // 特性2
+  'https://docs.tangly1024.com/article/notion-next-themes', // 特性2
 
-  STARTER_FEATURE_3_TITLE_1: '优秀的性能', // 特性3
-  STARTER_FEATURE_3_TEXT_1: '基于NextJS开发，更快的响应速度，更好的SEO', // 特性3
-  STARTER_FEATURE_3_BUTTON_TEXT: '了解更多', // 特性3
+  STARTER_FEATURE_3_TITLE_1: "\u512A\u308C\u305F\u30D1\u30D5\u30A9\u30FC\u30DE\u30F3\u30B9", // 特性3
+  STARTER_FEATURE_3_TEXT_1: "NextJS\u3092\u57FA\u306B\u958B\u767A\u3055\u308C\u3066\u304A\u308A\u3001\u3088\u308A\u901F\u3044\u5FDC\u7B54\u901F\u5EA6\u3068\u3088\u308A\u826F\u3044SEO\u3092\u5B9F\u73FE\u3057\u3066\u3044\u307E\u3059\u3002", // 特性3
+  STARTER_FEATURE_3_BUTTON_TEXT: "\u3082\u3063\u3068\u8A73\u3057\u304F\u77E5\u308B", // 特性3
   STARTER_FEATURE_3_BUTTON_URL: 'https://docs.tangly1024.com/article/next-js', // 特性3
 
-  STARTER_FEATURE_4_TITLE_1: '便捷的写作体验', // 特性4
-  STARTER_FEATURE_4_TEXT_1: '只需在Notion笔记中编修，自动同步到网站', // 特性4
-  STARTER_FEATURE_4_BUTTON_TEXT: '了解更多', // 特性4
+  STARTER_FEATURE_4_TITLE_1: "\u4FBF\u5229\u306A\u57F7\u7B46\u4F53\u9A13", // 特性4
+  STARTER_FEATURE_4_TEXT_1: "Notion\u30CE\u30FC\u30C8\u3067\u7DE8\u96C6\u3059\u308B\u3060\u3051\u3067\u3001\u81EA\u52D5\u7684\u306B\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u306B\u540C\u671F\u3055\u308C\u307E\u3059\u3002", // 特性4
+  STARTER_FEATURE_4_BUTTON_TEXT: "\u3082\u3063\u3068\u8A73\u3057\u304F\u77E5\u308B", // 特性4
   STARTER_FEATURE_4_BUTTON_URL: 'https://docs.tangly1024.com/about', // 特性4
 
   // 首页ABOUT区块
   STARTER_ABOUT_ENABLE: true, // ABOUT区块开关
-  STARTER_ABOUT_TITLE: '一套轻量实用的建站解决方案',
+  STARTER_ABOUT_TITLE: "\u8EFD\u91CF\u3067\u5B9F\u7528\u7684\u306A\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u69CB\u7BC9\u30BD\u30EA\u30E5\u30FC\u30B7\u30E7\u30F3\u306E\u30BB\u30C3\u30C8",
   STARTER_ABOUT_TEXT:
-    'NotionNext的愿景是帮助非技术人员的小白，最低成本、最快速地搭建自己的网站，帮助您将自己的产品与故事高效地传达给世界。 <br /> <br /> 功能强大的Notion笔记，简单快速的Vercel托管平台，组成一个简单的网站',
-  STARTER_ABOUT_BUTTON_TEXT: '了解更多',
+  "NotionNext\u306E\u30D3\u30B8\u30E7\u30F3\u306F\u3001\u975E\u6280\u8853\u8005\u306E\u521D\u5FC3\u8005\u304C\u6700\u4F4E\u30B3\u30B9\u30C8\u3067\u3001\u6700\u3082\u8FC5\u901F\u306B\u81EA\u5206\u306E\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u3092\u69CB\u7BC9\u3059\u308B\u624B\u52A9\u3051\u3092\u3057\u3001\u81EA\u5206\u306E\u88FD\u54C1\u3068\u30B9\u30C8\u30FC\u30EA\u30FC\u3092\u4E16\u754C\u306B\u52B9\u7387\u7684\u306B\u4F1D\u3048\u308B\u3053\u3068\u3067\u3059\u3002<br /><br /> \u6A5F\u80FD\u8C4A\u5BCC\u306ANotion\u306E\u30CE\u30FC\u30C8\u3068\u3001\u30B7\u30F3\u30D7\u30EB\u3067\u8FC5\u901F\u306AVercel\u30DB\u30B9\u30C6\u30A3\u30F3\u30B0\u30D7\u30E9\u30C3\u30C8\u30D5\u30A9\u30FC\u30E0\u304C\u7D44\u307F\u5408\u308F\u3055\u308A\u3001\u7C21\u5358\u306A\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u3092\u69CB\u6210\u3057\u307E\u3059\u3002",
+  STARTER_ABOUT_BUTTON_TEXT: "\u3082\u3063\u3068\u8A73\u3057\u304F\u77E5\u308B",
   STARTER_ABOUT_BUTTON_URL: 'https://docs.tangly1024.com/about',
   STARTER_ABOUT_IMAGE_1: '/images/starter/about/about-image-01.jpg',
   STARTER_ABOUT_IMAGE_2: '/images/starter/about/about-image-02.jpg',
   STARTER_ABOUT_TIPS_1: '7000+',
-  STARTER_ABOUT_TIPS_2: '博客站点',
-  STARTER_ABOUT_TIPS_3: '正在线上运行',
+  STARTER_ABOUT_TIPS_2: "\u30D6\u30ED\u30B0\u30B5\u30A4\u30C8",
+  STARTER_ABOUT_TIPS_3: "\u30AA\u30F3\u30E9\u30A4\u30F3\u3067\u5B9F\u884C\u4E2D",
 
   // 首页价格区块
   STARTER_PRICING_ENABLE: true, // 价格区块开关
-  STARTER_PRICING_TITLE: '价格表',
-  STARTER_PRICING_TEXT_1: '很棒的定价计划',
+  STARTER_PRICING_TITLE: "\u4FA1\u683C\u8868",
+  STARTER_PRICING_TEXT_1: "\u7D20\u6674\u3089\u3057\u3044\u4FA1\u683C\u30D7\u30E9\u30F3",
   STARTER_PRICING_TEXT_2:
-    '我们制定了灵活的付费模式，您可以按需选择。（NotionNext免费开源，这里仅演示产品订阅付费功能，请勿下单购买！）',
+  "\u67D4\u8EDF\u306A\u652F\u6255\u3044\u30E2\u30C7\u30EB\u3092\u8A2D\u5B9A\u3057\u3066\u304A\u308A\u3001\u3054\u8981\u671B\u306B\u5FDC\u3058\u3066\u9078\u629E\u3067\u304D\u307E\u3059\u3002\uFF08NotionNext\u306F\u7121\u6599\u306E\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9\u3067\u3042\u308A\u3001\u3053\u3053\u3067\u306F\u5546\u54C1\u306E\u30B5\u30D6\u30B9\u30AF\u30EA\u30D7\u30B7\u30E7\u30F3\u652F\u6255\u3044\u6A5F\u80FD\u3092\u793A\u3057\u3066\u3044\u307E\u3059\u306E\u3067\u3001\u6CE8\u6587\u3057\u306A\u3044\u3067\u304F\u3060\u3055\u3044\uFF01\uFF09",
 
-  STARTER_PRICING_1_TITLE: '入门版',
+  STARTER_PRICING_1_TITLE: "\u5165\u9580\u7248",
   STARTER_PRICING_1_PRICE: '19.9',
   STARTER_PRICING_1_PRICE_CURRENCY: '$',
-  STARTER_PRICING_1_PRICE_PERIOD: '每月',
-  STARTER_PRICING_1_HEADER: '功能点',
-  STARTER_PRICING_1_FEATURES: '所有的主题,免费更新,帮助手册', // 英文逗号隔开
-  STARTER_PRICING_1_BUTTON_TEXT: '立即购买',
+  STARTER_PRICING_1_PRICE_PERIOD: "\u6BCE\u6708",
+  STARTER_PRICING_1_HEADER: "\u6A5F\u80FD\u30DD\u30A4\u30F3\u30C8",
+  STARTER_PRICING_1_FEATURES: "\u3059\u3079\u3066\u306E\u30C6\u30FC\u30DE\u3001\u7121\u6599\u66F4\u65B0\u3001\u30D8\u30EB\u30D7\u30DE\u30CB\u30E5\u30A2\u30EB", // 英文逗号隔开
+  STARTER_PRICING_1_BUTTON_TEXT: "\u4ECA\u3059\u3050\u8CFC\u5165",
   STARTER_PRICING_1_BUTTON_URL:
-    'https://tangly1024.lemonsqueezy.com/checkout/buy/c1a38a65-362e-44c5-8065-733fee39eb54',
+  'https://tangly1024.lemonsqueezy.com/checkout/buy/c1a38a65-362e-44c5-8065-733fee39eb54',
 
-  STARTER_PRICING_2_TAG: '推荐',
-  STARTER_PRICING_2_TITLE: '基础版',
+  STARTER_PRICING_2_TAG: "\u304A\u3059\u3059\u3081",
+  STARTER_PRICING_2_TITLE: "\u30D9\u30FC\u30B7\u30C3\u30AF\u7248",
   STARTER_PRICING_2_PRICE: '39.9',
   STARTER_PRICING_2_PRICE_CURRENCY: '$',
-  STARTER_PRICING_2_PRICE_PERIOD: '每月',
-  STARTER_PRICING_2_HEADER: '功能点',
-  STARTER_PRICING_2_FEATURES: '包含入门版,项目源码,内部社群,技术咨询,SEO优化', // 英文逗号隔开
-  STARTER_PRICING_2_BUTTON_TEXT: '立即购买',
+  STARTER_PRICING_2_PRICE_PERIOD: "\u6BCE\u6708",
+  STARTER_PRICING_2_HEADER: "\u6A5F\u80FD\u30DD\u30A4\u30F3\u30C8",
+  STARTER_PRICING_2_FEATURES: "\u5165\u9580\u7248\u3001\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u3001\u5185\u90E8\u30B3\u30DF\u30E5\u30CB\u30C6\u30A3\u3001\u6280\u8853\u76F8\u8AC7\u3001SEO\u6700\u9069\u5316", // 英文逗号隔开
+  STARTER_PRICING_2_BUTTON_TEXT: "\u4ECA\u3059\u3050\u8CFC\u5165",
   STARTER_PRICING_2_BUTTON_URL:
-    'https://tangly1024.lemonsqueezy.com/checkout/buy/590ad70a-c3b7-4caf-94ec-9ca27bde06d4',
+  'https://tangly1024.lemonsqueezy.com/checkout/buy/590ad70a-c3b7-4caf-94ec-9ca27bde06d4',
 
-  STARTER_PRICING_3_TITLE: '高级版',
+  STARTER_PRICING_3_TITLE: "\u30D7\u30EC\u30DF\u30A2\u30E0\u7248",
   STARTER_PRICING_3_PRICE: '59.9',
   STARTER_PRICING_3_PRICE_CURRENCY: '$',
-  STARTER_PRICING_3_PRICE_PERIOD: '每月',
-  STARTER_PRICING_3_HEADER: '功能点',
-  STARTER_PRICING_3_FEATURES: '包含基础版,功能定制开发', // 英文逗号隔开
-  STARTER_PRICING_3_BUTTON_TEXT: '立即购买',
+  STARTER_PRICING_3_PRICE_PERIOD: "\u6BCE\u6708",
+  STARTER_PRICING_3_HEADER: "\u6A5F\u80FD\u30DD\u30A4\u30F3\u30C8",
+  STARTER_PRICING_3_FEATURES: "\u57FA\u672C\u7248\u3092\u542B\u3080\u3001\u6A5F\u80FD\u30AB\u30B9\u30BF\u30DE\u30A4\u30BA\u958B\u767A", // 英文逗号隔开
+  STARTER_PRICING_3_BUTTON_TEXT: "\u4ECA\u3059\u3050\u8CFC\u5165",
   STARTER_PRICING_3_BUTTON_URL:
-    'https://tangly1024.lemonsqueezy.com/checkout/buy/df924d66-09dc-42a4-a632-a6b0c5cc4f28',
+  'https://tangly1024.lemonsqueezy.com/checkout/buy/df924d66-09dc-42a4-a632-a6b0c5cc4f28',
 
   // 首页用户测评区块
   STARTER_TESTIMONIALS_ENABLE: true, // 测评区块开关
-  STARTER_TESTIMONIALS_TITLE: '用户反馈',
-  STARTER_TESTIMONIALS_TEXT_1: '我们的用户怎么说',
+  STARTER_TESTIMONIALS_TITLE: "\u30E6\u30FC\u30B6\u30FC\u304B\u3089\u306E\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF",
+  STARTER_TESTIMONIALS_TEXT_1: "\u30E6\u30FC\u30B6\u30FC\u306E\u58F0",
   STARTER_TESTIMONIALS_TEXT_2:
-    '数千位站长选择用NotionNext搭建他们的网站,通过帮助手册、交流社群以及技术咨询，大家成功上线了自己的网站',
+  "\u6570\u5343\u4EBA\u306E\u30A6\u30A7\u30D6\u30DE\u30B9\u30BF\u30FC\u304CNotionNext\u3092\u4F7F\u3063\u3066\u81EA\u5206\u306E\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u3092\u69CB\u7BC9\u3057\u307E\u3057\u305F\u3002\u30DE\u30CB\u30E5\u30A2\u30EB\u3001\u4EA4\u6D41\u30B3\u30DF\u30E5\u30CB\u30C6\u30A3\u3001\u6280\u8853\u76F8\u8AC7\u3092\u901A\u3058\u3066\u3001\u7686\u3055\u3093\u306F\u7121\u4E8B\u306B\u81EA\u5206\u306E\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u3092\u7ACB\u3061\u4E0A\u3052\u307E\u3057\u305F\u3002",
   STARTER_TESTIMONIALS_STAR_ICON: '/images/starter/testimonials/icon-star.svg', // 评分图标
 
   // 这里不支持CONFIG和环境变量，需要一一修改此处代码。
   STARTER_TESTIMONIALS_ITEMS: [
-    {
-      STARTER_TESTIMONIALS_ITEM_TEXT:
-        '感谢大佬的方法。之前尝试过Super、Potion等国外的第三方平台，实现效果一般，个性化程度远不如这个方法，已经用起来了！ ',
-      STARTER_TESTIMONIALS_ITEM_AVATAR:
-        'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F22de3fcb-d90d-4271-bc01-f815f476122b%2F4FE0A0C0-E487-4C74-BF8E-6F01A27461B8-14186-000008094BC289A6.jpg?table=collection&id=a320a2cc-6ebe-4a8d-95cc-ea94e63bced9&width=200',
-      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'Ryan_G',
-      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'Ryan`Log 站长',
-      STARTER_TESTIMONIALS_ITEM_URL: 'https://blog.gaoran.xyz/'
-    },
-    {
-      STARTER_TESTIMONIALS_ITEM_TEXT:
-        '很喜欢这个主题，本代码小白用三天台风假期搭建出来了，还根据大佬的教程弄了自定义域名，十分感谢，已请喝咖啡~',
-      STARTER_TESTIMONIALS_ITEM_AVATAR:
-        'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F0d33d169-f932-41ff-ac6b-88a923c08e02%2F%25E5%25A4%25B4%25E5%2583%258F.jfif?table=collection&id=7787658d-d5c0-4f34-8e32-60c523dfaba3&width=400',
-      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'Asenkits',
-      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: '阿森的百宝袋 站长',
-      STARTER_TESTIMONIALS_ITEM_URL: 'https://asenkits.top/'
-    },
-    {
-      STARTER_TESTIMONIALS_ITEM_TEXT:
-        '呜呜呜，经过一个下午的努力，终于把博客部署好啦，非常感谢Tangly1024大佬的框架和教程，这是我有生之年用过的最好用的博客框架┭┮﹏┭┮。从今之后，我就可以在自己的博客里bb啦，( •̀ ω •́ )y ',
-      STARTER_TESTIMONIALS_ITEM_AVATAR:
-        'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6c096b44-beb9-48ee-8f92-1efdde47f3a3%2F338962f1-d352-49c7-9a1b-746e35a7005c%2Fhf.png?table=block&id=ce5a48a9-d77a-4843-a3d9-a78cd4f794ce&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
-      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'DWIND',
-      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: '且听风吟 站长',
-      STARTER_TESTIMONIALS_ITEM_URL: 'https://www.dwind.top/'
-    },
-    {
-      STARTER_TESTIMONIALS_ITEM_TEXT:
-        '感谢提供这么好的项目哈哈 之前一直不知道怎么部署(别的项目好难好复杂)这个相对非常简单 新手非常友好哦',
-      STARTER_TESTIMONIALS_ITEM_AVATAR:
-        'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd52f6766-3e32-4c3d-8529-46e1f214360f%2Ffavicon.svg?table=collection&id=7d76aad5-a2c4-4d9a-887c-c7913fae4eed&width=400',
-      STARTER_TESTIMONIALS_ITEM_NICKNAME: '迪升disheng ',
-      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'AI资源分享 Blog',
-      STARTER_TESTIMONIALS_ITEM_URL: 'https://blog.disheng.org/'
-    },
-    {
-      STARTER_TESTIMONIALS_ITEM_TEXT:
-        '灰常感谢大佬的博客项目，能将博客和notion结合起来，这一直是我挺期待的博客模式。',
-      STARTER_TESTIMONIALS_ITEM_AVATAR:
-        'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fafb21381-f51b-4fd0-9998-800dbeb64dbe%2Favatar.png?table=block&id=195935d2-0d8d-49fc-bd81-1db42ee50840&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
-      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'AnJhon',
-      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'Anjhon`s Blog 站长',
-      STARTER_TESTIMONIALS_ITEM_URL: 'https://www.anjhon.top'
-    },
-    {
-      STARTER_TESTIMONIALS_ITEM_TEXT: '用好久了，太感谢了',
-      STARTER_TESTIMONIALS_ITEM_AVATAR:
-        'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe4f391d7-7d65-4c05-a82c-c6e2c40f06e4%2Fa2a7641a26b367608c6ef28ce9b7e983_(2).png?table=block&id=a386eb0e-4c07-4b18-9ece-bba4e79ce21c&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
-      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'LUCEN',
-      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'LUCEN考验辅导 站长',
-      STARTER_TESTIMONIALS_ITEM_URL: 'https://www.lucenczz.top/'
-    }
-  ],
+  {
+    STARTER_TESTIMONIALS_ITEM_TEXT:
+    "\u5927\u4F6C\u306E\u65B9\u6CD5\u306B\u611F\u8B1D\u3057\u307E\u3059\u3002\u4EE5\u524D\u3001Super\u3084Potion\u306A\u3069\u306E\u6D77\u5916\u306E\u30B5\u30FC\u30C9\u30D1\u30FC\u30C6\u30A3\u30D7\u30E9\u30C3\u30C8\u30D5\u30A9\u30FC\u30E0\u3092\u8A66\u3057\u307E\u3057\u305F\u304C\u3001\u52B9\u679C\u306F\u666E\u901A\u3067\u3001\u30D1\u30FC\u30BD\u30CA\u30E9\u30A4\u30BA\u306E\u7A0B\u5EA6\u306F\u3053\u306E\u65B9\u6CD5\u306B\u306F\u9060\u304F\u53CA\u3073\u307E\u305B\u3093\u3002\u3082\u3046\u4F7F\u3044\u59CB\u3081\u3066\u3044\u307E\u3059\uFF01",
+    STARTER_TESTIMONIALS_ITEM_AVATAR:
+    'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F22de3fcb-d90d-4271-bc01-f815f476122b%2F4FE0A0C0-E487-4C74-BF8E-6F01A27461B8-14186-000008094BC289A6.jpg?table=collection&id=a320a2cc-6ebe-4a8d-95cc-ea94e63bced9&width=200',
+    STARTER_TESTIMONIALS_ITEM_NICKNAME: 'Ryan_G',
+    STARTER_TESTIMONIALS_ITEM_DESCRIPTION: "Ryan`\u30ED\u30B0\u7BA1\u7406\u8005",
+    STARTER_TESTIMONIALS_ITEM_URL: 'https://blog.gaoran.xyz/'
+  },
+  {
+    STARTER_TESTIMONIALS_ITEM_TEXT:
+    "\u3053\u306E\u30C6\u30FC\u30DE\u304C\u5927\u597D\u304D\u3067\u3059\u3002\u3053\u306E\u30B3\u30FC\u30C9\u521D\u5FC3\u8005\u306F\u4E09\u65E5\u306E\u53F0\u98A8\u4F11\u6687\u3067\u69CB\u7BC9\u3057\u307E\u3057\u305F\u3057\u3001\u5148\u8F29\u306E\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u306B\u5F93\u3063\u3066\u30AB\u30B9\u30BF\u30E0\u30C9\u30E1\u30A4\u30F3\u3082\u8A2D\u5B9A\u3057\u307E\u3057\u305F\u3002\u672C\u5F53\u306B\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\u3001\u30B3\u30FC\u30D2\u30FC\u3092\u5962\u3063\u3066\u3044\u305F\u3060\u304D\u307E\u3057\u305F~",
+    STARTER_TESTIMONIALS_ITEM_AVATAR:
+    'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F0d33d169-f932-41ff-ac6b-88a923c08e02%2F%25E5%25A4%25B4%25E5%2583%258F.jfif?table=collection&id=7787658d-d5c0-4f34-8e32-60c523dfaba3&width=400',
+    STARTER_TESTIMONIALS_ITEM_NICKNAME: 'Asenkits',
+    STARTER_TESTIMONIALS_ITEM_DESCRIPTION: "\u30A2\u30BB\u30F3\u306E\u5B9D\u888B \u30B9\u30BF\u30C3\u30D5",
+    STARTER_TESTIMONIALS_ITEM_URL: 'https://asenkits.top/'
+  },
+  {
+    STARTER_TESTIMONIALS_ITEM_TEXT:
+    "\u3046\u3046\u3046\u3001\u5348\u5F8C\u306E\u52AA\u529B\u306E\u672B\u3001\u3064\u3044\u306B\u30D6\u30ED\u30B0\u306E\u30C7\u30D7\u30ED\u30A4\u304C\u5B8C\u4E86\u3057\u307E\u3057\u305F\uFF01Tangly1024\u5927\u4F6C\u306E\u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF\u3068\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u306B\u5FC3\u304B\u3089\u611F\u8B1D\u3057\u307E\u3059\u3002\u3053\u308C\u307E\u3067\u306E\u4EBA\u751F\u3067\u4F7F\u3063\u305F\u4E2D\u3067\u6700\u9AD8\u306E\u30D6\u30ED\u30B0\u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF\u3067\u3059\u252D\u252E\uFE4F\u252D\u252E\u3002\u3053\u308C\u304B\u3089\u306F\u81EA\u5206\u306E\u30D6\u30ED\u30B0\u3067\u3044\u308D\u3044\u308D\u3068\u767A\u4FE1\u3067\u304D\u307E\u3059\u306D\u3001( \u2022\u0300 \u03C9 \u2022\u0301 )y",
+    STARTER_TESTIMONIALS_ITEM_AVATAR:
+    'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6c096b44-beb9-48ee-8f92-1efdde47f3a3%2F338962f1-d352-49c7-9a1b-746e35a7005c%2Fhf.png?table=block&id=ce5a48a9-d77a-4843-a3d9-a78cd4f794ce&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+    STARTER_TESTIMONIALS_ITEM_NICKNAME: 'DWIND',
+    STARTER_TESTIMONIALS_ITEM_DESCRIPTION: "\u4E14\u542C\u98CE\u541F \u30B9\u30BF\u30C3\u30D5",
+    STARTER_TESTIMONIALS_ITEM_URL: 'https://www.dwind.top/'
+  },
+  {
+    STARTER_TESTIMONIALS_ITEM_TEXT:
+    "\u3053\u3093\u306A\u7D20\u6674\u3089\u3057\u3044\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3092\u63D0\u4F9B\u3057\u3066\u304F\u308C\u3066\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF08\u7B11\uFF09\u524D\u306F\u3069\u3046\u3084\u3063\u3066\u30C7\u30D7\u30ED\u30A4\u3059\u308B\u306E\u304B\u5168\u7136\u308F\u304B\u3089\u306A\u304B\u3063\u305F\uFF08\u4ED6\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306F\u96E3\u3057\u304F\u3066\u8907\u96D1\u3059\u304E\u308B\uFF09\u3053\u308C\u306B\u95A2\u3057\u3066\u306F\u76F8\u5BFE\u7684\u306B\u3068\u3066\u3082\u7C21\u5358\u3067\u3001\u65B0\u4EBA\u306B\u3082\u975E\u5E38\u306B\u512A\u3057\u3044\u3067\u3059\u3088\u3002",
+    STARTER_TESTIMONIALS_ITEM_AVATAR:
+    'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd52f6766-3e32-4c3d-8529-46e1f214360f%2Ffavicon.svg?table=collection&id=7d76aad5-a2c4-4d9a-887c-c7913fae4eed&width=400',
+    STARTER_TESTIMONIALS_ITEM_NICKNAME: "\u30C7\u30A3\u30B7\u30A7\u30F3",
+    STARTER_TESTIMONIALS_ITEM_DESCRIPTION: "AI\u30EA\u30BD\u30FC\u30B9\u5171\u6709\u30D6\u30ED\u30B0",
+    STARTER_TESTIMONIALS_ITEM_URL: 'https://blog.disheng.org/'
+  },
+  {
+    STARTER_TESTIMONIALS_ITEM_TEXT:
+    "\u5927\u5909\u611F\u8B1D\u3057\u3066\u304A\u308A\u307E\u3059\u3001\u5148\u8F29\u306E\u30D6\u30ED\u30B0\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3002\u30D6\u30ED\u30B0\u3068Notion\u3092\u7D44\u307F\u5408\u308F\u305B\u308B\u3053\u3068\u304C\u3067\u304D\u308B\u306E\u306F\u3001\u79C1\u304C\u305A\u3063\u3068\u671F\u5F85\u3057\u3066\u3044\u305F\u30D6\u30ED\u30B0\u306E\u30B9\u30BF\u30A4\u30EB\u3067\u3059\u3002",
+    STARTER_TESTIMONIALS_ITEM_AVATAR:
+    'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fafb21381-f51b-4fd0-9998-800dbeb64dbe%2Favatar.png?table=block&id=195935d2-0d8d-49fc-bd81-1db42ee50840&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+    STARTER_TESTIMONIALS_ITEM_NICKNAME: 'AnJhon',
+    STARTER_TESTIMONIALS_ITEM_DESCRIPTION: "Anjhon\u306E\u30D6\u30ED\u30B0 \u7BA1\u7406\u8005",
+    STARTER_TESTIMONIALS_ITEM_URL: 'https://www.anjhon.top'
+  },
+  {
+    STARTER_TESTIMONIALS_ITEM_TEXT: "\u9577\u3044\u9593\u4F7F\u3063\u3066\u304F\u308C\u3066\u3001\u672C\u5F53\u306B\u3042\u308A\u304C\u3068\u3046\u3002",
+    STARTER_TESTIMONIALS_ITEM_AVATAR:
+    'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe4f391d7-7d65-4c05-a82c-c6e2c40f06e4%2Fa2a7641a26b367608c6ef28ce9b7e983_(2).png?table=block&id=a386eb0e-4c07-4b18-9ece-bba4e79ce21c&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+    STARTER_TESTIMONIALS_ITEM_NICKNAME: 'LUCEN',
+    STARTER_TESTIMONIALS_ITEM_DESCRIPTION: "LUCEN\u8A66\u9A13\u30AC\u30A4\u30C9 \u7BA1\u7406\u8005",
+    STARTER_TESTIMONIALS_ITEM_URL: 'https://www.lucenczz.top/'
+  }],
+
 
   //   FAQ 常见问题模块
   STARTER_FAQ_ENABLE: true, // 常见问题模块开关
-  STARTER_FAQ_TITLE: '常见问题解答',
-  STARTER_FAQ_TEXT_1: '有任何问题吗？请看这里',
-  STARTER_FAQ_TEXT_2: '我们收集了常见的用户疑问',
+  STARTER_FAQ_TITLE: "\u3088\u304F\u3042\u308B\u8CEA\u554F",
+  STARTER_FAQ_TEXT_1: "\u4F55\u304B\u554F\u984C\u304C\u3042\u308A\u307E\u3059\u304B\uFF1F\u3053\u3061\u3089\u3092\u3054\u89A7\u304F\u3060\u3055\u3044\u3002",
+  STARTER_FAQ_TEXT_2: "\u3088\u304F\u3042\u308B\u30E6\u30FC\u30B6\u30FC\u306E\u7591\u554F\u3092\u96C6\u3081\u307E\u3057\u305F",
 
-  STARTER_FAQ_1_QUESTION: 'NotionNext有帮助文档吗？',
+  STARTER_FAQ_1_QUESTION: "NotionNext\u306B\u306F\u30D8\u30EB\u30D7\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\u304C\u3042\u308A\u307E\u3059\u304B\uFF1F",
   STARTER_FAQ_1_ANSWER:
-    'NotionNext提供了<a href="https://docs.tangly1024.com/about" className="underline">帮助文档</a>，操作<a href="https://www.bilibili.com/video/BV1fM4y1L7Qi/" className="underline">演示视频</a>，以及<a href="https://docs.tangly1024.com/article/chat-community" className="underline">交流社群</a>来协助您完成网站的搭建部署',
+  "NotionNext\u3067\u306F\u3001<a href=\"https://docs.tangly1024.com/about\" className=\"underline\">\u30D8\u30EB\u30D7\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8</a>\u3001\u64CD\u4F5C\u306E\u305F\u3081\u306E<a href=\"https://www.bilibili.com/video/BV1fM4y1L7Qi/\" className=\"underline\">\u30C7\u30E2\u52D5\u753B</a>\u3001\u304A\u3088\u3073<a href=\"https://docs.tangly1024.com/article/chat-community\" className=\"underline\">\u30B3\u30DF\u30E5\u30CB\u30C6\u30A3</a>\u3092\u63D0\u4F9B\u3057\u3066\u3001\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u306E\u69CB\u7BC9\u3068\u30C7\u30D7\u30ED\u30A4\u3092\u30B5\u30DD\u30FC\u30C8\u3057\u307E\u3059\u3002",
 
-  STARTER_FAQ_2_QUESTION: '部署后要如何编写文章？',
+  STARTER_FAQ_2_QUESTION: "\u30C7\u30D7\u30ED\u30A4\u5F8C\u306F\u3001\u3069\u306E\u3088\u3046\u306B\u8A18\u4E8B\u3092\u66F8\u3051\u3070\u3088\u3044\u3067\u3059\u304B\uFF1F",
   STARTER_FAQ_2_ANSWER:
-    '您可以在Notion中之间添加或修改类型为Post的页面，内容将被实时同步在站点中，详情参考<a className="underline" href="https://docs.tangly1024.com/article/start-to-write">《帮助文档》</a>',
+  "Notion\u3067Post\u30BF\u30A4\u30D7\u306E\u30DA\u30FC\u30B8\u3092\u8FFD\u52A0\u307E\u305F\u306F\u5909\u66F4\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u3001\u5185\u5BB9\u306F\u30B5\u30A4\u30C8\u5185\u3067\u30EA\u30A2\u30EB\u30BF\u30A4\u30E0\u306B\u540C\u671F\u3055\u308C\u307E\u3059\u3002\u8A73\u3057\u304F\u306F<a className=\"underline\" href=\"https://docs.tangly1024.com/article/start-to-write\">\u300A\u30D8\u30EB\u30D7\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\u300B</a>\u3092\u53C2\u7167\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
 
-  STARTER_FAQ_3_QUESTION: '站点部署失败，更新失败？',
+  STARTER_FAQ_3_QUESTION: "\u30B5\u30A4\u30C8\u306E\u30C7\u30D7\u30ED\u30A4\u306B\u5931\u6557\u3057\u307E\u3057\u305F\u3002\u66F4\u65B0\u306B\u5931\u6557\u3057\u307E\u3057\u305F\u304B\uFF1F",
   STARTER_FAQ_3_ANSWER:
-    '通常是配置修改错误导致，请检查配置或者重试操作步骤，或者通过Vercel后台的Deployments中找到错误日志，并向网友求助',
+  "\u901A\u5E38\u306F\u8A2D\u5B9A\u306E\u5909\u66F4\u30A8\u30E9\u30FC\u304C\u539F\u56E0\u3067\u3059\u3002\u8A2D\u5B9A\u3092\u78BA\u8A8D\u3059\u308B\u304B\u3001\u64CD\u4F5C\u624B\u9806\u3092\u518D\u8A66\u884C\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u307E\u305F\u306F\u3001Vercel\u306E\u30D0\u30C3\u30AF\u30A8\u30F3\u30C9\u306EDeployments\u3067\u30A8\u30E9\u30FC\u30ED\u30B0\u3092\u898B\u3064\u3051\u3001\u4ED6\u306E\u30E6\u30FC\u30B6\u30FC\u306B\u52A9\u3051\u3092\u6C42\u3081\u3066\u304F\u3060\u3055\u3044\u3002",
 
-  STARTER_FAQ_4_QUESTION: '文章没有实时同步？',
+  STARTER_FAQ_4_QUESTION: "\u8A18\u4E8B\u306F\u30EA\u30A2\u30EB\u30BF\u30A4\u30E0\u3067\u540C\u671F\u3055\u308C\u3066\u3044\u307E\u305B\u3093\u304B\uFF1F",
   STARTER_FAQ_4_ANSWER:
-    '先检查Notion_Page_ID是否正确配置，其次由于博客的每个页面都有独立缓存，刷新网页后即可解决',
+  "\u307E\u305ANotion_Page_ID\u304C\u6B63\u3057\u304F\u8A2D\u5B9A\u3055\u308C\u3066\u3044\u308B\u304B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u305D\u3057\u3066\u30D6\u30ED\u30B0\u306E\u5404\u30DA\u30FC\u30B8\u306B\u306F\u72EC\u81EA\u306E\u30AD\u30E3\u30C3\u30B7\u30E5\u304C\u3042\u308B\u305F\u3081\u3001\u30A6\u30A7\u30D6\u30DA\u30FC\u30B8\u3092\u30EA\u30D5\u30EC\u30C3\u30B7\u30E5\u3059\u308B\u3053\u3068\u3067\u89E3\u6C7A\u3067\u304D\u307E\u3059\u3002",
 
   // 团队成员区块
   STARTER_TEAM_ENABLE: true, // 团队成员区块开关
-  STARTER_TEAM_TITLE: '团队成员',
-  STARTER_TEAM_TEXT_1: '我们的开发者团队',
+  STARTER_TEAM_TITLE: "\u30C1\u30FC\u30E0\u30E1\u30F3\u30D0\u30FC",
+  STARTER_TEAM_TEXT_1: "\u79C1\u305F\u3061\u306E\u958B\u767A\u8005\u30C1\u30FC\u30E0",
   STARTER_TEAM_TEXT_2:
-    'NotionNext 由众多开源技术爱好者们共同合作完成，感谢每一位<a className="underline" href="https://github.com/tangly1024/NotionNext/graphs/contributors">贡献者</a>',
+  "NotionNext\u306F\u591A\u304F\u306E\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9\u6280\u8853\u611B\u597D\u8005\u305F\u3061\u306E\u5354\u529B\u306B\u3088\u3063\u3066\u5B8C\u6210\u3057\u307E\u3057\u305F\u3002\u3059\u3079\u3066\u306E<a className=\"underline\" href=\"https://github.com/tangly1024/NotionNext/graphs/contributors\">\u8CA2\u732E\u8005</a>\u306B\u611F\u8B1D\u3057\u307E\u3059\u3002",
 
   // 这里不支持CONFIG和环境变量，需要一一修改此处代码。
   STARTER_TEAM_ITEMS: [
-    {
-      STARTER_TEAM_ITEM_AVATAR:
-        'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fa06c61bb-980e-4180-bc18-c15f92c78bb4%2Ftangly1024.jpg?table=collection&id=8e7acf17-de09-4fa1-abde-b5b80ad4a813&t=8e7acf17-de09-4fa1-abde-b5b80ad4a813&width=100&cache=v2',
-      STARTER_TEAM_ITEM_NICKNAME: 'Tangly',
-      STARTER_TEAM_ITEM_DESCRIPTION: 'Developer'
-    },
-    {
-      STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-01.png',
-      STARTER_TEAM_ITEM_NICKNAME: 'Melissa Tatcher',
-      STARTER_TEAM_ITEM_DESCRIPTION: 'Marketing Expert'
-    },
-    {
-      STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-02.png',
-      STARTER_TEAM_ITEM_NICKNAME: 'Stuard Ferrel',
-      STARTER_TEAM_ITEM_DESCRIPTION: 'Digital Marketer'
-    },
-    {
-      STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-03.png',
-      STARTER_TEAM_ITEM_NICKNAME: 'Eva Hudson',
-      STARTER_TEAM_ITEM_DESCRIPTION: 'Creative Designer'
-    }
-  ],
+  {
+    STARTER_TEAM_ITEM_AVATAR:
+    'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fa06c61bb-980e-4180-bc18-c15f92c78bb4%2Ftangly1024.jpg?table=collection&id=8e7acf17-de09-4fa1-abde-b5b80ad4a813&t=8e7acf17-de09-4fa1-abde-b5b80ad4a813&width=100&cache=v2',
+    STARTER_TEAM_ITEM_NICKNAME: 'Tangly',
+    STARTER_TEAM_ITEM_DESCRIPTION: 'Developer'
+  },
+  {
+    STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-01.png',
+    STARTER_TEAM_ITEM_NICKNAME: 'Melissa Tatcher',
+    STARTER_TEAM_ITEM_DESCRIPTION: 'Marketing Expert'
+  },
+  {
+    STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-02.png',
+    STARTER_TEAM_ITEM_NICKNAME: 'Stuard Ferrel',
+    STARTER_TEAM_ITEM_DESCRIPTION: 'Digital Marketer'
+  },
+  {
+    STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-03.png',
+    STARTER_TEAM_ITEM_NICKNAME: 'Eva Hudson',
+    STARTER_TEAM_ITEM_DESCRIPTION: 'Creative Designer'
+  }],
+
 
   // 博客文章区块
   STARTER_BLOG_ENABLE: true, // 首页博文区块开关
-  STARTER_BLOG_TITLE: '我们的博客',
+  STARTER_BLOG_TITLE: "\u79C1\u305F\u3061\u306E\u30D6\u30ED\u30B0",
   STARTER_BLOG_COUNT: 3, // 首页博文区块默认展示前3篇文章
-  STARTER_BLOG_TEXT_1: '最近的新闻',
+  STARTER_BLOG_TEXT_1: "\u6700\u8FD1\u306E\u30CB\u30E5\u30FC\u30B9",
   STARTER_BLOG_TEXT_2:
-    '这里会发布一些关于NotionNext的最新动态，包括新的动向、新的未来计划，以及新功能的特性',
+  "\u3053\u3053\u3067\u306F\u3001NotionNext\u306B\u95A2\u3059\u308B\u6700\u65B0\u306E\u52D5\u5411\u3001\u65B0\u3057\u3044\u8A08\u753B\u3001\u305D\u3057\u3066\u65B0\u6A5F\u80FD\u306E\u7279\u9577\u306B\u3064\u3044\u3066\u767A\u8868\u3057\u307E\u3059\u3002",
 
   // 联系模块
   STARTER_CONTACT_ENABLE: true, // 联系模块开关
-  STARTER_CONTACT_TITLE: '联系我们',
-  STARTER_CONTACT_TEXT: '告诉我们您遇到的问题',
-  STARTER_CONTACT_LOCATION_TITLE: '我们的位置',
-  STARTER_CONTACT_LOCATION_TEXT: '中国，福建',
-  STARTER_CONTACT_EMAIL_TITLE: '我们如何帮助您？',
+  STARTER_CONTACT_TITLE: "\u304A\u554F\u3044\u5408\u308F\u305B",
+  STARTER_CONTACT_TEXT: "\u554F\u984C\u3092\u6559\u3048\u3066\u304F\u3060\u3055\u3044\u3002",
+  STARTER_CONTACT_LOCATION_TITLE: "\u79C1\u305F\u3061\u306E\u4F4D\u7F6E",
+  STARTER_CONTACT_LOCATION_TEXT: "\u4E2D\u56FD\u3001\u798F\u5EFA",
+  STARTER_CONTACT_EMAIL_TITLE: "\u79C1\u305F\u3061\u306F\u3069\u306E\u3088\u3046\u306B\u304A\u624B\u4F1D\u3044\u3067\u304D\u307E\u3059\u304B\uFF1F",
   STARTER_CONTACT_EMAIL_TEXT: 'mail@tangly1024.com',
 
   // 嵌入外部表单
@@ -260,119 +260,119 @@ const CONFIG = {
   // 合作伙伴的图标
   STARTER_BRANDS_ENABLE: true, // 合作伙伴开关
   STARTER_BRANDS: [
-    {
-      IMAGE: '/images/starter/brands/graygrids.svg',
-      IMAGE_WHITE: '/images/starter/brands/graygrids-white.svg',
-      URL: 'https://graygrids.com/',
-      TITLE: 'graygrids'
-    },
-    {
-      IMAGE: '/images/starter/brands/lineicons.svg',
-      IMAGE_WHITE: '/images/starter/brands/lineicons-white.svg',
-      URL: 'https://lineicons.com/',
-      TITLE: 'lineicons'
-    },
-    {
-      IMAGE: '/images/starter/brands/uideck.svg',
-      IMAGE_WHITE: '/images/starter/brands/uideck-white.svg',
-      URL: 'https://uideck.com/',
-      TITLE: 'uideck'
-    },
-    {
-      IMAGE: '/images/starter/brands/ayroui.svg',
-      IMAGE_WHITE: '/images/starter/brands/ayroui-white.svg',
-      URL: 'https://ayroui.com/',
-      TITLE: 'ayroui'
-    },
-    {
-      IMAGE: '/images/starter/brands/tailgrids.svg',
-      IMAGE_WHITE: '/images/starter/brands/tailgrids-white.svg',
-      URL: '"https://tailgrids.com/',
-      TITLE: 'tailgrids'
-    }
-  ],
+  {
+    IMAGE: '/images/starter/brands/graygrids.svg',
+    IMAGE_WHITE: '/images/starter/brands/graygrids-white.svg',
+    URL: 'https://graygrids.com/',
+    TITLE: 'graygrids'
+  },
+  {
+    IMAGE: '/images/starter/brands/lineicons.svg',
+    IMAGE_WHITE: '/images/starter/brands/lineicons-white.svg',
+    URL: 'https://lineicons.com/',
+    TITLE: 'lineicons'
+  },
+  {
+    IMAGE: '/images/starter/brands/uideck.svg',
+    IMAGE_WHITE: '/images/starter/brands/uideck-white.svg',
+    URL: 'https://uideck.com/',
+    TITLE: 'uideck'
+  },
+  {
+    IMAGE: '/images/starter/brands/ayroui.svg',
+    IMAGE_WHITE: '/images/starter/brands/ayroui-white.svg',
+    URL: 'https://ayroui.com/',
+    TITLE: 'ayroui'
+  },
+  {
+    IMAGE: '/images/starter/brands/tailgrids.svg',
+    IMAGE_WHITE: '/images/starter/brands/tailgrids-white.svg',
+    URL: '"https://tailgrids.com/',
+    TITLE: 'tailgrids'
+  }],
 
-  STARTER_FOOTER_SLOGAN: '我们通过技术为品牌和公司创造数字体验。',
+
+  STARTER_FOOTER_SLOGAN: "\u79C1\u305F\u3061\u306F\u3001\u6280\u8853\u3092\u901A\u3058\u3066\u30D6\u30E9\u30F3\u30C9\u3084\u4F01\u696D\u306B\u30C7\u30B8\u30BF\u30EB\u4F53\u9A13\u3092\u63D0\u4F9B\u3057\u307E\u3059\u3002",
 
   // 页脚三列菜单组
   STARTER_FOOTER_LINK_GROUP: [
+  {
+    TITLE: "\u79C1\u305F\u3061\u306B\u3064\u3044\u3066",
+    LINK_GROUP: [
+    { TITLE: "\u516C\u5F0F\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8", URL: '/#home' },
+    { TITLE: "\u64CD\u4F5C\u30DE\u30CB\u30E5\u30A2\u30EB", URL: 'https://docs.tangly1024.com/about' },
     {
-      TITLE: '关于我们',
-      LINK_GROUP: [
-        { TITLE: '官方主页', URL: '/#home' },
-        { TITLE: '操作文档', URL: 'https://docs.tangly1024.com/about' },
-        {
-          TITLE: '帮助支持',
-          URL: 'https://docs.tangly1024.com/article/how-to-question'
-        },
-        {
-          TITLE: '合作申请',
-          URL: 'https://docs.tangly1024.com/article/my-service'
-        }
-      ]
+      TITLE: "\u30D8\u30EB\u30D7\u3068\u30B5\u30DD\u30FC\u30C8",
+      URL: 'https://docs.tangly1024.com/article/how-to-question'
     },
     {
-      TITLE: '功能特性',
-      LINK_GROUP: [
-        {
-          TITLE: '部署指南',
-          URL: 'https://docs.tangly1024.com/article/vercel-deploy-notion-next'
-        },
-        {
-          TITLE: '升级指南',
-          URL: 'https://docs.tangly1024.com/article/how-to-update-notionnext'
-        },
-        { TITLE: '最新版本', URL: 'https://docs.tangly1024.com/article/latest' }
-      ]
+      TITLE: "\u30B3\u30E9\u30DC\u30EC\u30FC\u30B7\u30E7\u30F3\u7533\u8ACB",
+      URL: 'https://docs.tangly1024.com/article/my-service'
+    }]
+
+  },
+  {
+    TITLE: "\u6A5F\u80FD\u7279\u6027",
+    LINK_GROUP: [
+    {
+      TITLE: "\u30C7\u30D7\u30ED\u30A4\u30AC\u30A4\u30C9",
+      URL: 'https://docs.tangly1024.com/article/vercel-deploy-notion-next'
     },
     {
-      TITLE: 'Notion写作',
-      LINK_GROUP: [
-        {
-          TITLE: 'Notion开始写作',
-          URL: 'https://docs.tangly1024.com/article/start-to-write'
-        },
-        {
-          TITLE: '快捷键提升效率',
-          URL: 'https://docs.tangly1024.com/article/notion-short-key'
-        },
-        {
-          TITLE: '中国大陆使用Notion',
-          URL: 'https://docs.tangly1024.com/article/notion-faster'
-        }
-      ]
-    }
-  ],
+      TITLE: "\u30A2\u30C3\u30D7\u30B0\u30EC\u30FC\u30C9\u30AC\u30A4\u30C9",
+      URL: 'https://docs.tangly1024.com/article/how-to-update-notionnext'
+    },
+    { TITLE: "\u6700\u65B0\u30D0\u30FC\u30B8\u30E7\u30F3", URL: 'https://docs.tangly1024.com/article/latest' }]
 
-  STARTER_FOOTER_BLOG_LATEST_TITLE: '最新文章',
+  },
+  {
+    TITLE: "Notion\u306E\u57F7\u7B46",
+    LINK_GROUP: [
+    {
+      TITLE: "Notion\u3067\u57F7\u7B46\u3092\u958B\u59CB\u3059\u308B",
+      URL: 'https://docs.tangly1024.com/article/start-to-write'
+    },
+    {
+      TITLE: "\u30B7\u30E7\u30FC\u30C8\u30AB\u30C3\u30C8\u30AD\u30FC\u3067\u52B9\u7387\u3092\u30A2\u30C3\u30D7",
+      URL: 'https://docs.tangly1024.com/article/notion-short-key'
+    },
+    {
+      TITLE: "\u4E2D\u56FD\u672C\u571F\u3067Notion\u3092\u4F7F\u7528\u3059\u308B",
+      URL: 'https://docs.tangly1024.com/article/notion-faster'
+    }]
 
-  STARTER_FOOTER_PRIVACY_POLICY_TEXT: '隐私政策',
+  }],
+
+
+  STARTER_FOOTER_BLOG_LATEST_TITLE: "\u6700\u65B0\u306E\u8A18\u4E8B",
+
+  STARTER_FOOTER_PRIVACY_POLICY_TEXT: "\u30D7\u30E9\u30A4\u30D0\u30B7\u30FC\u30DD\u30EA\u30B7\u30FC",
   STARTER_FOOTER_PRIVACY_POLICY_URL: '/privacy-policy',
 
   STARTER_FOOTER_PRIVACY_LEGAL_NOTICE_TEXT: '法律声明',
   STARTER_FOOTER_PRIVACY_LEGAL_NOTICE_URL: '/legacy-notice',
 
-  STARTER_FOOTER_PRIVACY_TERMS_OF_SERVICE_TEXT: '服务协议',
+  STARTER_FOOTER_PRIVACY_TERMS_OF_SERVICE_TEXT: "\u30B5\u30FC\u30D3\u30B9\u5951\u7D04",
   STARTER_FOOTER_PRIVACY_TERMS_OF_SERVICE_URL: '/terms-of-use',
 
   // 404页面的提示语
-  STARTER_404_TITLE: '我们似乎找不到您要找的页面。',
-  STARTER_404_TEXT: '抱歉！您要查找的页面不存在。可能已经移动或删除。',
-  STARTER_404_BACK: '回到主页',
+  STARTER_404_TITLE: "\u304A\u63A2\u3057\u306E\u30DA\u30FC\u30B8\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002",
+  STARTER_404_TEXT: "\u7533\u3057\u8A33\u3042\u308A\u307E\u305B\u3093\uFF01\u304A\u63A2\u3057\u306E\u30DA\u30FC\u30B8\u306F\u5B58\u5728\u3057\u307E\u305B\u3093\u3002\u79FB\u52D5\u307E\u305F\u306F\u524A\u9664\u3055\u308C\u305F\u53EF\u80FD\u6027\u304C\u3042\u308A\u307E\u3059\u3002",
+  STARTER_404_BACK: "\u30DB\u30FC\u30E0\u306B\u623B\u308B",
 
   // 页面底部的行动呼吁模块
   STARTER_CTA_ENABLE: true,
-  STARTER_CTA_TITLE: '你还在等待什么呢？',
-  STARTER_CTA_TITLE_2: '现在开始吧',
+  STARTER_CTA_TITLE: "\u4F55\u3092\u307E\u3060\u5F85\u3063\u3066\u3044\u308B\u306E\u3067\u3059\u304B\uFF1F",
+  STARTER_CTA_TITLE_2: "\u3055\u3042\u3001\u59CB\u3081\u307E\u3057\u3087\u3046\u3002",
   STARTER_CTA_DESCRIPTION:
-    '访问NotionNext的操作文档，我们提供了详细的教程，帮助你即刻搭建站点',
+  "NotionNext\u306E\u64CD\u4F5C\u30DE\u30CB\u30E5\u30A2\u30EB\u306B\u30A2\u30AF\u30BB\u30B9\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u6211\u3005\u306F\u8A73\u7D30\u306A\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3092\u63D0\u4F9B\u3057\u3066\u304A\u308A\u3001\u3042\u306A\u305F\u304C\u3059\u3050\u306B\u30B5\u30A4\u30C8\u3092\u69CB\u7BC9\u3067\u304D\u308B\u3088\u3046\u30B5\u30DD\u30FC\u30C8\u3057\u307E\u3059\u3002",
   STARTER_CTA_BUTTON: true, // 是否显示按钮
   STARTER_CTA_BUTTON_URL:
-    'https://docs.tangly1024.com/article/vercel-deploy-notion-next',
-  STARTER_CTA_BUTTON_TEXT: '开始体验',
+  'https://docs.tangly1024.com/article/vercel-deploy-notion-next',
+  STARTER_CTA_BUTTON_TEXT: "\u4F53\u9A13\u3092\u59CB\u3081\u308B",
 
   STARTER_POST_REDIRECT_ENABLE: true, // 默認開啟重定向
   STARTER_POST_REDIRECT_URL: 'https://blog.tangly1024.com', // 重定向域名
   STARTER_NEWSLETTER: process.env.NEXT_PUBLIC_THEME_STARTER_NEWSLETTER || false // 是否开启邮件订阅 请先配置mailchimp功能 https://docs.tangly1024.com/article/notion-next-mailchimp
-}
-export default CONFIG
+};
+export default CONFIG;

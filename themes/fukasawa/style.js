@@ -5,8 +5,8 @@
  * @returns
  */
 const Style = () => {
-  return <style jsx global>{`
-    // 底色
+  return <style jsx global>{````css
+    // 背景色
     body{
         background-color: #eeedee;
     }
@@ -14,14 +14,14 @@ const Style = () => {
         background-color: black;
     }
     
-    /* fukasawa的首页响应式分栏 */
+    /* fukasawaのホームページレスポンシブカラム */
     #theme-fukasawa .grid-item {
         height: auto;
         break-inside: avoid-column;
         margin-bottom: .5rem;
     }
     
-    /* 大屏幕（宽度≥1024px）下显示3列 */
+    /* 大画面（幅≥1024px）で3列表示 */
     @media (min-width: 1024px) {
         #theme-fukasawa .grid-container {
         column-count: 3;
@@ -29,7 +29,7 @@ const Style = () => {
         }
     }
     
-    /* 小屏幕（宽度≥640px）下显示2列 */
+    /* 小画面（幅≥640px）で2列表示 */
     @media (min-width: 640px) and (max-width: 1023px) {
         #theme-fukasawa .grid-container {
         column-count: 2;
@@ -37,7 +37,7 @@ const Style = () => {
         }
     }
     
-    /* 移动端（宽度<640px）下显示1列 */
+    /* モバイル（幅<640px）で1列表示 */
     @media (max-width: 639px) {
         #theme-fukasawa .grid-container {
         column-count: 1;
@@ -51,9 +51,8 @@ const Style = () => {
             grid-gap: 10px;
             padding: 10px;
         }
+````
+    }</style>;
+};
 
-  `}</style>
-}
-
-export { Style }
-
+export { Style };

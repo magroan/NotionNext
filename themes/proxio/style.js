@@ -6,9 +6,8 @@
  * @returns
  */
 const Style = () => {
-    return <style jsx global>{`
-
-    // 底色
+  return <style jsx global>{````css
+    // 背景色
     body{
         background-color: white;
     }
@@ -70,7 +69,7 @@ const Style = () => {
   }
   
 
-  .dark\:bg-dark:is(.dark *) {
+  .dark:bg-dark:is(.dark *) {
     background-color: black!important;
  }
 
@@ -259,7 +258,8 @@ const Style = () => {
   height: auto;
   width: auto;
 }
-  `}</style>
-}
+````
+    }</style>;
+};
 
-export { Style }
+export { Style };

@@ -1,12 +1,12 @@
-import { siteConfig } from '@/lib/config'
-import { loadExternalResource } from '@/lib/utils'
-import { useEffect } from 'react'
+import { siteConfig } from '@/lib/config';
+import { loadExternalResource } from '@/lib/utils';
+import { useEffect } from 'react';
 
 const ValineComponent = ({ path }) => {
   const loadValine = async () => {
     try {
-      await loadExternalResource(siteConfig('COMMENT_VALINE_CDN'), 'js')
-      const Valine = window.Valine
+      await loadExternalResource(siteConfig('COMMENT_VALINE_CDN'), 'js');
+      const Valine = window.Valine;
       // eslint-disable-next-line no-unused-vars
       const valine = new Valine({
         el: '#valine', // 容器元素
@@ -19,17 +19,17 @@ const ValineComponent = ({ path }) => {
         placeholder: siteConfig('COMMENT_VALINE_PLACEHOLDER'),
         serverURLs: siteConfig('COMMENT_VALINE_SERVER_URLS'),
         visitor: true
-      })
+      });
     } catch (error) {
-      console.error('twikoo 加载失败', error)
+      console.error("twikoo\u306E\u8AAD\u307F\u8FBC\u307F\u306B\u5931\u6557\u3057\u307E\u3057\u305F", error);
     }
-  }
+  };
 
   useEffect(() => {
-    loadValine()
-  }, [])
+    loadValine();
+  }, []);
 
-  return <div id="valine"></div>
+  return <div id="valine"></div>;
 
   //   const updateValine = url => {
   //     // 移除旧的评论区，否则会重复渲染。
@@ -51,9 +51,9 @@ const ValineComponent = ({ path }) => {
   //     }
   //   }, [])
 
-//   return <div id='v-wrapper'>
-//       <div id='v-comments'></div>
-//   </div>
-}
+  //   return <div id='v-wrapper'>
+  //       <div id='v-comments'></div>
+  //   </div>
+};
 
-export default ValineComponent
+export default ValineComponent;

@@ -6,12 +6,11 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{`
-      body {
+    <style jsx global>{`body {
         background-color: #f7f9fe;
       }
 
-      // 公告栏中的字体固定白色
+      // お知らせエリアのフォントは固定で白色
       #theme-heo #announcement-content .notion {
         color: white;
       }
@@ -48,7 +47,7 @@ const Style = () => {
         box-sizing: border-box;
       }
 
-      // 标签滚动动画
+      // タグスクロールアニメーション
       .tags-group-wrapper {
         animation: rowup 60s linear infinite;
       }
@@ -60,10 +59,10 @@ const Style = () => {
         100% {
           transform: translateX(-50%);
         }
-      }
-    `}</style>
-  )
-}
+      }`
 
-export { Style }
+      }</style>);
 
+};
+
+export { Style };

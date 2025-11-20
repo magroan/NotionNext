@@ -1,58 +1,58 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 /**
  * 余额
  * @returns
  */
 export default function DashboardItemBalance() {
-  const [selectedCard, setSelectedCard] = useState(null)
-  const [amount, setAmount] = useState(0)
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [amount, setAmount] = useState(0);
 
   const cards = [
-    {
-      title: '0 积分',
-      desc: '当前余额',
-      className: 'bg-blue-600 hover:bg-blue-700 text-white'
-    },
-    {
-      title: '0 积分',
-      desc: '累计消费',
-      className: 'bg-cyan-600 hover:bg-cyan-700 text-white'
-    },
-    {
-      title: '0',
-      desc: '累计佣金',
-      className: 'bg-pink-600 hover:bg-pink-700 text-white'
-    }
-  ]
+  {
+    title: "0 \u30DD\u30A4\u30F3\u30C8",
+    desc: "\u73FE\u5728\u306E\u6B8B\u9AD8",
+    className: 'bg-blue-600 hover:bg-blue-700 text-white'
+  },
+  {
+    title: "0 \u30DD\u30A4\u30F3\u30C8",
+    desc: "\u7D2F\u8A08\u6D88\u8CBB",
+    className: 'bg-cyan-600 hover:bg-cyan-700 text-white'
+  },
+  {
+    title: '0',
+    desc: "\u7D2F\u7A4D\u30B3\u30DF\u30C3\u30B7\u30E7\u30F3",
+    className: 'bg-pink-600 hover:bg-pink-700 text-white'
+  }];
+
 
   const cardData = [
-    { points: '1积分', price: '￥1' },
-    { points: '10积分', price: '￥10' },
-    { points: '50积分', price: '￥50' },
-    { points: '100积分', price: '￥100' },
-    { points: '300积分', price: '￥300' },
-    { points: '500积分', price: '￥500' }
-  ]
+  { points: "1\u30DD\u30A4\u30F3\u30C8", price: '￥1' },
+  { points: "10\u30DD\u30A4\u30F3\u30C8", price: '￥10' },
+  { points: "50\u30DD\u30A4\u30F3\u30C8", price: '￥50' },
+  { points: "100\u30DD\u30A4\u30F3\u30C8", price: '￥100' },
+  { points: "300\u30DD\u30A4\u30F3\u30C8", price: '￥300' },
+  { points: "500\u30DD\u30A4\u30F3\u30C8", price: '￥500' }];
 
-  const handleCardSelect = index => {
-    setSelectedCard(index)
-  }
 
-  const handleAmountChange = e => {
-    const value = e.target.value
-    setAmount(value)
-  }
+  const handleCardSelect = (index) => {
+    setSelectedCard(index);
+  };
+
+  const handleAmountChange = (e) => {
+    const value = e.target.value;
+    setAmount(value);
+  };
 
   useEffect(() => {
     if (selectedCard !== null) {
       // 如果用户选中了充值卡片，则自动更新支付金额
-      const selectedPrice = cardData[selectedCard]?.price
+      const selectedPrice = cardData[selectedCard]?.price;
       if (selectedPrice) {
-        setAmount(selectedPrice.replace('￥', ''))
+        setAmount(selectedPrice.replace('￥', ''));
       }
     }
-  }, [selectedCard])
+  }, [selectedCard]);
 
   return (
     <div className='bg-white rounded-lg shadow-lg p-6 border'>
@@ -63,34 +63,34 @@ export default function DashboardItemBalance() {
 
       {/* 余额卡片 */}
       <div className='grid grid-cols-3 gap-4'>
-        {cards?.map((card, index) => (
-          <div
-            key={index}
-            className={`block max-w-sm p-6 text-center border cursor-pointer rounded-lg shadow  ${card.className}`}
-            onClick={() => handleCardSelect(index)}>
+        {cards?.map((card, index) =>
+        <div
+          key={index}
+          className={`block max-w-sm p-6 text-center border cursor-pointer rounded-lg shadow  ${card.className}`}
+          onClick={() => handleCardSelect(index)}>
             <h5 className='mb-2 text-2xl font-bold tracking-tight'>
               {card.title}
             </h5>
             <p className='font-normal'>{card.desc}</p>
           </div>
-        ))}
+        )}
       </div>
 
       <form className='mt-6'>
         <div className='py-2'>充值项目（充值比例：1元=1积分）</div>
         {/* 充值选项 */}
         <div className='grid gap-6 mb-6 grid-cols-4'>
-          {cardData?.map((item, index) => (
-            <div
-              key={index}
-              className={`border rounded-lg text-center bg-gray-50 py-4 cursor-pointer ${
-                selectedCard === index ? 'bg-blue-100' : ''
-              }`}
-              onClick={() => handleCardSelect(index)}>
+          {cardData?.map((item, index) =>
+          <div
+            key={index}
+            className={`border rounded-lg text-center bg-gray-50 py-4 cursor-pointer ${
+            selectedCard === index ? 'bg-blue-100' : ''}`
+            }
+            onClick={() => handleCardSelect(index)}>
               <h3 className='text-yellow-500 font-bold'>{item.points}</h3>
               <span>{item.price}</span>
             </div>
-          ))}
+          )}
         </div>
         <hr className='my-6' />
 
@@ -105,11 +105,11 @@ export default function DashboardItemBalance() {
               type='number'
               id='amount'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-              placeholder='输入数量'
+              placeholder="\u6570\u91CF\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044"
               value={amount}
               onChange={handleAmountChange}
-              required
-            />
+              required />
+
           </div>
         </div>
 
@@ -132,6 +132,6 @@ export default function DashboardItemBalance() {
           <li>余额永久有效，无时间限制</li>
         </ul>
       </form>
-    </div>
-  )
+    </div>);
+
 }

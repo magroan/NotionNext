@@ -1,42 +1,41 @@
-'user client'
-import { useGlobal } from '@/lib/global'
-import { useEffect, useState } from 'react'
+'user client';
+import { useGlobal } from '@/lib/global';
+import { useEffect, useState } from 'react';
 /**
  * @see https://css-loaders.com/
  * @returns 加载动画
  */
 export default function LoadingCover() {
-  const { onLoading, setOnLoading } = useGlobal()
-  const [isVisible, setIsVisible] = useState(false) // 初始状态设置为false，避免服务端渲染与客户端渲染不一致
+  const { onLoading, setOnLoading } = useGlobal();
+  const [isVisible, setIsVisible] = useState(false); // 初始状态设置为false，避免服务端渲染与客户端渲染不一致
 
   useEffect(() => {
     // 确保在客户端渲染时才设置可见性
     if (onLoading) {
-      setIsVisible(true)
+      setIsVisible(true);
     } else {
-      setIsVisible(false)
+      setIsVisible(false);
     }
-  }, [onLoading])
+  }, [onLoading]);
 
   const handleClick = () => {
-    setOnLoading(false) // 强行关闭 LoadingCover
-  }
+    setOnLoading(false); // 强行关闭 LoadingCover
+  };
 
   if (typeof window === 'undefined') {
-    return null // 避免在服务端渲染时渲染出这个组件
+    return null; // 避免在服务端渲染时渲染出这个组件
   }
 
-  return isVisible ? (
-    <div
-      id='loading-cover'
-      onClick={handleClick}
-      className={`dark:text-white text-black bg-white dark:bg-black animate__animated animate__faster ${
-        onLoading ? 'animate__fadeIn' : 'animate__fadeOut'
-      } flex flex-col justify-center z-50 w-full h-screen fixed top-0 left-0`}>
+  return isVisible ?
+  <div
+    id='loading-cover'
+    onClick={handleClick}
+    className={`dark:text-white text-black bg-white dark:bg-black animate__animated animate__faster ${
+    onLoading ? 'animate__fadeIn' : 'animate__fadeOut'} flex flex-col justify-center z-50 w-full h-screen fixed top-0 left-0`
+    }>
       <div className='mx-auto'>
         <style global>
-          {`
-          .loader {
+          {`.loader {
             width: 20px;
             aspect-ratio: 1;
             border-radius: 50%;
@@ -58,20 +57,21 @@ export default function LoadingCover() {
           .loader:after {
             animation-delay: -1s;
           }
-            /* 深色模式下的样式 */
+            /* ダークモードのスタイル */
           .dark .loader {
-            background: #fff; /* 白色或灰色 */
-            box-shadow: 0 0 0 0 #fff4; /* 使用白色阴影 */
+            background: #fff; /* 白または灰色 */
+            box-shadow: 0 0 0 0 #fff4; /* 白色の影を使用 */
           }
           @keyframes l2 {
             100% {
               box-shadow: 0 0 0 40px #0000;
             }
-          }
-      `}
+          }`
+
+        }
         </style>
         <div className='loader'></div>
       </div>
-    </div>
-  ) : null
+    </div> :
+  null;
 }

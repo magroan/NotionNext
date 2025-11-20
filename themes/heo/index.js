@@ -6,44 +6,44 @@
  *  2. 更多说明参考此[文档](https://docs.tangly1024.com/article/notionnext-heo)
  */
 
-import Comment from '@/components/Comment'
-import { AdSlot } from '@/components/GoogleAdsense'
-import { HashTag } from '@/components/HeroIcons'
-import LazyImage from '@/components/LazyImage'
-import LoadingCover from '@/components/LoadingCover'
-import replaceSearchResult from '@/components/Mark'
-import NotionPage from '@/components/NotionPage'
-import ShareBar from '@/components/ShareBar'
-import WWAds from '@/components/WWAds'
-import { siteConfig } from '@/lib/config'
-import { useGlobal } from '@/lib/global'
-import { loadWowJS } from '@/lib/plugins/wow'
-import { isBrowser } from '@/lib/utils'
-import { Transition } from '@headlessui/react'
-import SmartLink from '@/components/SmartLink'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import BlogPostArchive from './components/BlogPostArchive'
-import BlogPostListPage from './components/BlogPostListPage'
-import BlogPostListScroll from './components/BlogPostListScroll'
-import CategoryBar from './components/CategoryBar'
-import FloatTocButton from './components/FloatTocButton'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import LatestPostsGroup from './components/LatestPostsGroup'
-import { NoticeBar } from './components/NoticeBar'
-import PostAdjacent from './components/PostAdjacent'
-import PostCopyright from './components/PostCopyright'
-import PostHeader from './components/PostHeader'
-import { PostLock } from './components/PostLock'
-import PostRecommend from './components/PostRecommend'
-import SearchNav from './components/SearchNav'
-import SideRight from './components/SideRight'
-import CONFIG from './config'
-import { Style } from './style'
-import AISummary from '@/components/AISummary'
-import ArticleExpirationNotice from '@/components/ArticleExpirationNotice'
+import Comment from '@/components/Comment';
+import { AdSlot } from '@/components/GoogleAdsense';
+import { HashTag } from '@/components/HeroIcons';
+import LazyImage from '@/components/LazyImage';
+import LoadingCover from '@/components/LoadingCover';
+import replaceSearchResult from '@/components/Mark';
+import NotionPage from '@/components/NotionPage';
+import ShareBar from '@/components/ShareBar';
+import WWAds from '@/components/WWAds';
+import { siteConfig } from '@/lib/config';
+import { useGlobal } from '@/lib/global';
+import { loadWowJS } from '@/lib/plugins/wow';
+import { isBrowser } from '@/lib/utils';
+import { Transition } from '@headlessui/react';
+import SmartLink from '@/components/SmartLink';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import BlogPostArchive from './components/BlogPostArchive';
+import BlogPostListPage from './components/BlogPostListPage';
+import BlogPostListScroll from './components/BlogPostListScroll';
+import CategoryBar from './components/CategoryBar';
+import FloatTocButton from './components/FloatTocButton';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import LatestPostsGroup from './components/LatestPostsGroup';
+import { NoticeBar } from './components/NoticeBar';
+import PostAdjacent from './components/PostAdjacent';
+import PostCopyright from './components/PostCopyright';
+import PostHeader from './components/PostHeader';
+import { PostLock } from './components/PostLock';
+import PostRecommend from './components/PostRecommend';
+import SearchNav from './components/SearchNav';
+import SideRight from './components/SideRight';
+import CONFIG from './config';
+import { Style } from './style';
+import AISummary from '@/components/AISummary';
+import ArticleExpirationNotice from '@/components/ArticleExpirationNotice';
 
 /**
  * 基础布局 采用上中下布局，移动端使用顶部侧边导航栏
@@ -51,46 +51,46 @@ import ArticleExpirationNotice from '@/components/ArticleExpirationNotice'
  * @returns {JSX.Element}
  * @constructor
  */
-const LayoutBase = props => {
-  const { children, slotTop, className } = props
+const LayoutBase = (props) => {
+  const { children, slotTop, className } = props;
 
   // 全屏模式下的最大宽度
-  const { fullWidth, isDarkMode } = useGlobal()
-  const router = useRouter()
+  const { fullWidth, isDarkMode } = useGlobal();
+  const router = useRouter();
 
-  const headerSlot = (
-    <header>
+  const headerSlot =
+  <header>
       {/* TopNavi */}
       <Header {...props} />
 
       {/* 通知バナー */}
-      {router.route === '/' ? (
-        <>
+      {router.route === '/' ?
+    <>
           <NoticeBar />
           <Hero {...props} />
-        </>
-      ) : null}
+        </> :
+    null}
       {fullWidth ? null : <PostHeader {...props} isDarkMode={isDarkMode} />}
-    </header>
-  )
+    </header>;
+
 
   // 右侧栏 用户信息+标签列表
   const slotRight =
-    router.route === '/404' || fullWidth ? null : <SideRight {...props} />
+  router.route === '/404' || fullWidth ? null : <SideRight {...props} />;
 
-  const maxWidth = fullWidth ? 'max-w-[96rem] mx-auto' : 'max-w-[86rem]' // 普通最大宽度是86rem和顶部菜单栏对齐，留空则与窗口对齐
+  const maxWidth = fullWidth ? 'max-w-[96rem] mx-auto' : 'max-w-[86rem]'; // 普通最大宽度是86rem和顶部菜单栏对齐，留空则与窗口对齐
 
   const HEO_HERO_BODY_REVERSE = siteConfig(
     'HEO_HERO_BODY_REVERSE',
     false,
     CONFIG
-  )
-  const HEO_LOADING_COVER = siteConfig('HEO_LOADING_COVER', true, CONFIG)
+  );
+  const HEO_LOADING_COVER = siteConfig('HEO_LOADING_COVER', true, CONFIG);
 
   // 加载wow动画
   useEffect(() => {
-    loadWowJS()
-  }, [])
+    loadWowJS();
+  }, []);
 
   return (
     <div
@@ -127,9 +127,9 @@ const LayoutBase = props => {
       <Footer />
 
       {HEO_LOADING_COVER && <LoadingCover />}
-    </div>
-  )
-}
+    </div>);
+
+};
 
 /**
  * 首页
@@ -137,48 +137,48 @@ const LayoutBase = props => {
  * @param {*} props
  * @returns
  */
-const LayoutIndex = props => {
+const LayoutIndex = (props) => {
   return (
     <div id='post-outer-wrapper' className='px-5 md:px-0'>
       {/* カテゴリ */}
       <CategoryBar {...props} />
-      {siteConfig('POST_LIST_STYLE') === 'page' ? (
-        <BlogPostListPage {...props} />
-      ) : (
-        <BlogPostListScroll {...props} />
-      )}
-    </div>
-  )
-}
+      {siteConfig('POST_LIST_STYLE') === 'page' ?
+      <BlogPostListPage {...props} /> :
+
+      <BlogPostListScroll {...props} />
+      }
+    </div>);
+
+};
 
 /**
  * 博客列表
  * @param {*} props
  * @returns
  */
-const LayoutPostList = props => {
+const LayoutPostList = (props) => {
   return (
     <div id='post-outer-wrapper' className='px-5  md:px-0'>
       {/* カテゴリ */}
       <CategoryBar {...props} />
-      {siteConfig('POST_LIST_STYLE') === 'page' ? (
-        <BlogPostListPage {...props} />
-      ) : (
-        <BlogPostListScroll {...props} />
-      )}
-    </div>
-  )
-}
+      {siteConfig('POST_LIST_STYLE') === 'page' ?
+      <BlogPostListPage {...props} /> :
+
+      <BlogPostListScroll {...props} />
+      }
+    </div>);
+
+};
 
 /**
  * 搜索
  * @param {*} props
  * @returns
  */
-const LayoutSearch = props => {
-  const { keyword } = props
-  const router = useRouter()
-  const currentSearch = keyword || router?.query?.s
+const LayoutSearch = (props) => {
+  const { keyword } = props;
+  const router = useRouter();
+  const currentSearch = keyword || router?.query?.s;
 
   useEffect(() => {
     // 高亮搜索结果
@@ -191,36 +191,36 @@ const LayoutSearch = props => {
             element: 'span',
             className: 'text-red-500 border-b border-dashed'
           }
-        })
-      }, 100)
+        });
+      }, 100);
     }
-  }, [])
+  }, []);
   return (
     <div currentSearch={currentSearch}>
       <div id='post-outer-wrapper' className='px-5  md:px-0'>
-        {!currentSearch ? (
-          <SearchNav {...props} />
-        ) : (
-          <div id='posts-wrapper'>
-            {siteConfig('POST_LIST_STYLE') === 'page' ? (
-              <BlogPostListPage {...props} />
-            ) : (
-              <BlogPostListScroll {...props} />
-            )}
+        {!currentSearch ?
+        <SearchNav {...props} /> :
+
+        <div id='posts-wrapper'>
+            {siteConfig('POST_LIST_STYLE') === 'page' ?
+          <BlogPostListPage {...props} /> :
+
+          <BlogPostListScroll {...props} />
+          }
           </div>
-        )}
+        }
       </div>
-    </div>
-  )
-}
+    </div>);
+
+};
 
 /**
  * 归档
  * @param {*} props
  * @returns
  */
-const LayoutArchive = props => {
-  const { archivePosts } = props
+const LayoutArchive = (props) => {
+  const { archivePosts } = props;
 
   // 归档页顶部显示条，如果是默认归档则不显示。分类详情页显示分类列表，标签详情页显示当前标签
 
@@ -230,46 +230,46 @@ const LayoutArchive = props => {
       <CategoryBar {...props} border={false} />
 
       <div className='px-3'>
-        {Object.keys(archivePosts).map(archiveTitle => (
-          <BlogPostArchive
-            key={archiveTitle}
-            posts={archivePosts[archiveTitle]}
-            archiveTitle={archiveTitle}
-          />
-        ))}
+        {Object.keys(archivePosts).map((archiveTitle) =>
+        <BlogPostArchive
+          key={archiveTitle}
+          posts={archivePosts[archiveTitle]}
+          archiveTitle={archiveTitle} />
+
+        )}
       </div>
-    </div>
-  )
-}
+    </div>);
+
+};
 
 /**
  * 文章详情
  * @param {*} props
  * @returns
  */
-const LayoutSlug = props => {
-  const { post, lock, validPassword } = props
-  const { locale, fullWidth } = useGlobal()
+const LayoutSlug = (props) => {
+  const { post, lock, validPassword } = props;
+  const { locale, fullWidth } = useGlobal();
 
-  const [hasCode, setHasCode] = useState(false)
+  const [hasCode, setHasCode] = useState(false);
 
   useEffect(() => {
-    const hasCode = document.querySelectorAll('[class^="language-"]').length > 0
-    setHasCode(hasCode)
-  }, [])
+    const hasCode = document.querySelectorAll('[class^="language-"]').length > 0;
+    setHasCode(hasCode);
+  }, []);
 
   const commentEnable =
-    siteConfig('COMMENT_TWIKOO_ENV_ID') ||
-    siteConfig('COMMENT_WALINE_SERVER_URL') ||
-    siteConfig('COMMENT_VALINE_APP_ID') ||
-    siteConfig('COMMENT_GISCUS_REPO') ||
-    siteConfig('COMMENT_CUSDIS_APP_ID') ||
-    siteConfig('COMMENT_UTTERRANCES_REPO') ||
-    siteConfig('COMMENT_GITALK_CLIENT_ID') ||
-    siteConfig('COMMENT_WEBMENTION_ENABLE')
+  siteConfig('COMMENT_TWIKOO_ENV_ID') ||
+  siteConfig('COMMENT_WALINE_SERVER_URL') ||
+  siteConfig('COMMENT_VALINE_APP_ID') ||
+  siteConfig('COMMENT_GISCUS_REPO') ||
+  siteConfig('COMMENT_CUSDIS_APP_ID') ||
+  siteConfig('COMMENT_UTTERRANCES_REPO') ||
+  siteConfig('COMMENT_GITALK_CLIENT_ID') ||
+  siteConfig('COMMENT_WEBMENTION_ENABLE');
 
-  const router = useRouter()
-  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+  const router = useRouter();
+  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000;
   useEffect(() => {
     // 404
     if (!post) {
@@ -278,18 +278,18 @@ const LayoutSlug = props => {
           if (isBrowser) {
             const article = document.querySelector(
               '#article-wrapper #notion-article'
-            )
+            );
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('ページが見つかりません。', router.asPath)
-              })
+                console.warn('ページが見つかりません。', router.asPath);
+              });
             }
           }
         },
         waiting404
-      )
+      );
     }
-  }, [post])
+  }, [post]);
   return (
     <>
       <div
@@ -297,17 +297,17 @@ const LayoutSlug = props => {
         {/* 記事ロック */}
         {lock && <PostLock validPassword={validPassword} />}
 
-        {!lock && post && (
-          <div className='mx-auto md:w-full md:px-5'>
+        {!lock && post &&
+        <div className='mx-auto md:w-full md:px-5'>
             {/* 本文 */}
             <article
-              id='article-wrapper'
-              itemScope
-              itemType='https://schema.org/Movie'>
+            id='article-wrapper'
+            itemScope
+            itemType='https://schema.org/Movie'>
               {/* Notion文章主体 */}
               <section
-                className='wow fadeInUp p-5 justify-center mx-auto'
-                data-wow-delay='.2s'>
+              className='wow fadeInUp p-5 justify-center mx-auto'
+              data-wow-delay='.2s'>
                 <ArticleExpirationNotice post={post} />
                 <AISummary aiSummary={post.aiSummary} />
                 <WWAds orientation='horizontal' className='w-full' />
@@ -320,19 +320,19 @@ const LayoutSlug = props => {
 
               {/* 共有 */}
               <ShareBar post={post} />
-              {post?.type === 'Post' && (
-                <div className='px-5'>
+              {post?.type === 'Post' &&
+            <div className='px-5'>
                   {/* 著作権 */}
                   <PostCopyright {...props} />
                   {/* おすすめ */}
                   <PostRecommend {...props} />
                 </div>
-              )}
+            }
             </article>
 
             {/* コメント欄 */}
-            {fullWidth ? null : (
-              <div className={`${commentEnable && post ? '' : 'hidden'}`}>
+            {fullWidth ? null :
+          <div className={`${commentEnable && post ? '' : 'hidden'}`}>
                 <hr className='my-4 border-dashed' />
                 {/* コメント上の広告 */}
                 <div className='py-2'>
@@ -347,24 +347,24 @@ const LayoutSlug = props => {
                   <Comment frontMatter={post} className='' />
                 </div>
               </div>
-            )}
+          }
           </div>
-        )}
+        }
       </div>
 
       <FloatTocButton {...props} />
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 404
  * @param {*} props
  * @returns
  */
-const Layout404 = props => {
+const Layout404 = (props) => {
   // const { meta, siteInfo } = props
-  const { onLoading, fullWidth } = useGlobal()
+  const { onLoading, fullWidth } = useGlobal();
   return (
     <>
       {/* 主区块 */}
@@ -388,7 +388,7 @@ const Layout404 = props => {
               <LazyImage
                 className='error-img h-60 md:h-full p-4'
                 src={
-                  'https://bu.dusays.com/2023/03/03/6401a7906aa4a.gif'
+                'https://bu.dusays.com/2023/03/03/6401a7906aa4a.gif'
                 }></LazyImage>
 
               {/* 右侧文字 */}
@@ -412,18 +412,18 @@ const Layout404 = props => {
           </Transition>
         </div>
       </main>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 分类列表
  * @param {*} props
  * @returns
  */
-const LayoutCategoryIndex = props => {
-  const { categoryOptions } = props
-  const { locale } = useGlobal()
+const LayoutCategoryIndex = (props) => {
+  const { categoryOptions } = props;
+  const { locale } = useGlobal();
 
   return (
     <div id='category-outer-wrapper' className='mt-8 px-5 md:px-0'>
@@ -433,7 +433,7 @@ const LayoutCategoryIndex = props => {
       <div
         id='category-list'
         className='duration-200 flex flex-wrap m-10 justify-center'>
-        {categoryOptions?.map(category => {
+        {categoryOptions?.map((category) => {
           return (
             <SmartLink
               key={category.name}
@@ -442,7 +442,7 @@ const LayoutCategoryIndex = props => {
               legacyBehavior>
               <div
                 className={
-                  'group mr-5 mb-5 flex flex-nowrap items-center border bg-white text-2xl rounded-xl dark:hover:text-white px-4 cursor-pointer py-3 hover:text-white hover:bg-indigo-600 transition-all hover:scale-110 duration-150'
+                'group mr-5 mb-5 flex flex-nowrap items-center border bg-white text-2xl rounded-xl dark:hover:text-white px-4 cursor-pointer py-3 hover:text-white hover:bg-indigo-600 transition-all hover:scale-110 duration-150'
                 }>
                 <HashTag className={'w-5 h-5 stroke-gray-500 stroke-2'} />
                 {category.name}
@@ -450,22 +450,22 @@ const LayoutCategoryIndex = props => {
                   {category.count}
                 </div>
               </div>
-            </SmartLink>
-          )
+            </SmartLink>);
+
         })}
       </div>
-    </div>
-  )
-}
+    </div>);
+
+};
 
 /**
  * 标签列表
  * @param {*} props
  * @returns
  */
-const LayoutTagIndex = props => {
-  const { tagOptions } = props
-  const { locale } = useGlobal()
+const LayoutTagIndex = (props) => {
+  const { tagOptions } = props;
+  const { locale } = useGlobal();
 
   return (
     <div id='tag-outer-wrapper' className='px-5 mt-8 md:px-0'>
@@ -475,7 +475,7 @@ const LayoutTagIndex = props => {
       <div
         id='tag-list'
         className='duration-200 flex flex-wrap space-x-5 space-y-5 m-10 justify-center'>
-        {tagOptions.map(tag => {
+        {tagOptions.map((tag) => {
           return (
             <SmartLink
               key={tag.name}
@@ -484,7 +484,7 @@ const LayoutTagIndex = props => {
               legacyBehavior>
               <div
                 className={
-                  'group flex flex-nowrap items-center border bg-white text-2xl rounded-xl dark:hover:text-white px-4 cursor-pointer py-3 hover:text-white hover:bg-indigo-600 transition-all hover:scale-110 duration-150'
+                'group flex flex-nowrap items-center border bg-white text-2xl rounded-xl dark:hover:text-white px-4 cursor-pointer py-3 hover:text-white hover:bg-indigo-600 transition-all hover:scale-110 duration-150'
                 }>
                 <HashTag className={'w-5 h-5 stroke-gray-500 stroke-2'} />
                 {tag.name}
@@ -492,13 +492,13 @@ const LayoutTagIndex = props => {
                   {tag.count}
                 </div>
               </div>
-            </SmartLink>
-          )
+            </SmartLink>);
+
         })}
       </div>
-    </div>
-  )
-}
+    </div>);
+
+};
 
 export {
   Layout404,
@@ -510,5 +510,4 @@ export {
   LayoutSearch,
   LayoutSlug,
   LayoutTagIndex,
-  CONFIG as THEME_CONFIG
-}
+  CONFIG as THEME_CONFIG };

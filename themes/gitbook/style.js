@@ -6,17 +6,17 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{`
-      // 底色
+    <style jsx global>{`// 背景色
       .dark body {
         background-color: black;
       }
 
       .bottom-button-group {
         box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.1);
-      }
-    `}</style>
-  )
-}
+      }`
 
-export { Style }
+      }</style>);
+
+};
+
+export { Style };

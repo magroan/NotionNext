@@ -1,28 +1,28 @@
-'use client'
+'use client';
 
-import Comment from '@/components/Comment'
-import replaceSearchResult from '@/components/Mark'
-import NotionPage from '@/components/NotionPage'
-import ShareBar from '@/components/ShareBar'
-import { siteConfig } from '@/lib/config'
-import { useGlobal } from '@/lib/global'
-import { isBrowser } from '@/lib/utils'
-import { Transition } from '@headlessui/react'
-import SmartLink from '@/components/SmartLink'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import BlogListArchive from './components/BlogListArchive'
-import { BlogListPage } from './components/BlogListPage'
-import { BlogListScroll } from './components/BlogListScroll'
-import { Footer } from './components/Footer'
-import { Header } from './components/Header'
-import { PostLock } from './components/PostLock'
-import { PostMeta } from './components/PostMeta'
-import SearchInput from './components/SearchInput'
-import { SideBar } from './components/SideBar'
-import TitleBar from './components/TitleBar'
-import CONFIG from './config'
-import { Style } from './style'
+import Comment from '@/components/Comment';
+import replaceSearchResult from '@/components/Mark';
+import NotionPage from '@/components/NotionPage';
+import ShareBar from '@/components/ShareBar';
+import { siteConfig } from '@/lib/config';
+import { useGlobal } from '@/lib/global';
+import { isBrowser } from '@/lib/utils';
+import { Transition } from '@headlessui/react';
+import SmartLink from '@/components/SmartLink';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import BlogListArchive from './components/BlogListArchive';
+import { BlogListPage } from './components/BlogListPage';
+import { BlogListScroll } from './components/BlogListScroll';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
+import { PostLock } from './components/PostLock';
+import { PostMeta } from './components/PostMeta';
+import SearchInput from './components/SearchInput';
+import { SideBar } from './components/SideBar';
+import TitleBar from './components/TitleBar';
+import CONFIG from './config';
+import { Style } from './style';
 
 /**
  * 基础布局框架
@@ -31,16 +31,16 @@ import { Style } from './style'
  * @returns {JSX.Element}
  * @constructor
  */
-const LayoutBase = props => {
-  const { children, post } = props
-  const { onLoading, fullWidth, locale } = useGlobal()
+const LayoutBase = (props) => {
+  const { children, post } = props;
+  const { onLoading, fullWidth, locale } = useGlobal();
 
   // 文章详情页左右布局改为上下布局
   const LAYOUT_VERTICAL =
-    post && siteConfig('EXAMPLE_ARTICLE_LAYOUT_VERTICAL', false, CONFIG)
+  post && siteConfig('EXAMPLE_ARTICLE_LAYOUT_VERTICAL', false, CONFIG);
 
   // 网站左右布局颠倒
-  const LAYOUT_SIDEBAR_REVERSE = siteConfig('LAYOUT_SIDEBAR_REVERSE', false)
+  const LAYOUT_SIDEBAR_REVERSE = siteConfig('LAYOUT_SIDEBAR_REVERSE', false);
 
   return (
     <div
@@ -81,16 +81,16 @@ const LayoutBase = props => {
           </div>
 
           {/* 侧边栏 */}
-          {!fullWidth && (
-            <div
-              className={`${
-                LAYOUT_VERTICAL
-                  ? 'flex space-x-0 md:space-x-2 md:flex-row flex-col w-full max-w-5xl justify-center xl:px-14 lg:px-4'
-                  : 'md:w-64 sticky top-8'
-              }`}>
+          {!fullWidth &&
+          <div
+            className={`${
+            LAYOUT_VERTICAL ?
+            'flex space-x-0 md:space-x-2 md:flex-row flex-col w-full max-w-5xl justify-center xl:px-14 lg:px-4' :
+            'md:w-64 sticky top-8'}`
+            }>
               <SideBar {...props} />
             </div>
-          )}
+          }
         </div>
       </div>
 
@@ -106,81 +106,81 @@ const LayoutBase = props => {
           <i className='fas fa-angle-up text-2xl' />
         </div>
       </div>
-    </div>
-  )
-}
+    </div>);
+
+};
 
 /**
  * 首页
  * @param {*} props
  * @returns 此主题首页就是列表
  */
-const LayoutIndex = props => {
-  return <LayoutPostList {...props} />
-}
+const LayoutIndex = (props) => {
+  return <LayoutPostList {...props} />;
+};
 
 /**
  * 文章列表
  * @param {*} props
  * @returns
  */
-const LayoutPostList = props => {
-  const { category, tag } = props
+const LayoutPostList = (props) => {
+  const { category, tag } = props;
 
   return (
     <>
       {/* 显示分类 */}
-      {category && (
-        <div className='pb-12'>
+      {category &&
+      <div className='pb-12'>
           <i className='mr-1 fas fa-folder-open' />
           {category}
         </div>
-      )}
+      }
       {/* 显示标签 */}
       {tag && <div className='pb-12'>#{tag}</div>}
 
-      {siteConfig('POST_LIST_STYLE') === 'page' ? (
-        <BlogListPage {...props} />
-      ) : (
-        <BlogListScroll {...props} />
-      )}
-    </>
-  )
-}
+      {siteConfig('POST_LIST_STYLE') === 'page' ?
+      <BlogListPage {...props} /> :
+
+      <BlogListScroll {...props} />
+      }
+    </>);
+
+};
 
 /**
  * 文章详情页
  * @param {*} props
  * @returns
  */
-const LayoutSlug = props => {
-  const { post, lock, validPassword } = props
-  const router = useRouter()
-  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+const LayoutSlug = (props) => {
+  const { post, lock, validPassword } = props;
+  const router = useRouter();
+  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000;
   useEffect(() => {
     // 404
     if (!post) {
       setTimeout(
         () => {
           if (isBrowser) {
-            const article = document.querySelector('#article-wrapper #notion-article')
+            const article = document.querySelector('#article-wrapper #notion-article');
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
-              })
+                console.warn("\u30DA\u30FC\u30B8\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002", router.asPath);
+              });
             }
           }
         },
         waiting404
-      )
+      );
     }
-  }, [post])
+  }, [post]);
   return (
     <>
-      {lock ? (
-        <PostLock validPassword={validPassword} />
-      ) : post && (
-        <div>
+      {lock ?
+      <PostLock validPassword={validPassword} /> :
+      post &&
+      <div>
           <PostMeta post={post} />
           <div id='article-wrapper'>
             <NotionPage post={post} />
@@ -188,29 +188,29 @@ const LayoutSlug = props => {
           </div>
           <Comment frontMatter={post} />
         </div>
-      )}
-    </>
-  )
-}
+      }
+    </>);
+
+};
 
 /**
  * 404页
  * @param {*} props
  * @returns
  */
-const Layout404 = props => {
-  const router = useRouter()
+const Layout404 = (props) => {
+  const router = useRouter();
   useEffect(() => {
     // 延时3秒如果加载失败就返回首页
     setTimeout(() => {
-      const article = isBrowser && document.getElementById('article-wrapper')
+      const article = isBrowser && document.getElementById('article-wrapper');
       if (!article) {
         router.push('/').then(() => {
+
           // console.log('找不到页面', router.asPath)
-        })
-      }
-    }, 3000)
-  }, [])
+        });}
+    }, 3000);
+  }, []);
 
   return <>
         <div className='md:-mt-20 text-black w-full h-screen text-center justify-center content-center items-center flex flex-col'>
@@ -221,21 +221,21 @@ const Layout404 = props => {
                 </div>
             </div>
         </div>
-    </>
-}
+    </>;
+};
 
 /**
  * 搜索页
  * @param {*} props
  * @returns
  */
-const LayoutSearch = props => {
-  const { keyword } = props
-  const router = useRouter()
+const LayoutSearch = (props) => {
+  const { keyword } = props;
+  const router = useRouter();
   useEffect(() => {
     if (isBrowser) {
       // 高亮搜索到的结果
-      const container = document.getElementById('posts-wrapper')
+      const container = document.getElementById('posts-wrapper');
       if (keyword && container) {
         replaceSearchResult({
           doms: container,
@@ -244,10 +244,10 @@ const LayoutSearch = props => {
             element: 'span',
             className: 'text-red-500 border-b border-dashed'
           }
-        })
+        });
       }
     }
-  }, [router])
+  }, [router]);
 
   return (
     <>
@@ -255,90 +255,90 @@ const LayoutSearch = props => {
         <SearchInput {...props} />
       </div>
       <LayoutPostList {...props} />
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 归档列表
  * @param {*} props
  * @returns 按照日期将文章分组排序
  */
-const LayoutArchive = props => {
-  const { archivePosts } = props
+const LayoutArchive = (props) => {
+  const { archivePosts } = props;
   return (
     <>
       <div className='mb-10 pb-20 md:py-12 p-3  min-h-screen w-full'>
-        {Object.keys(archivePosts).map(archiveTitle => (
-          <BlogListArchive
-            key={archiveTitle}
-            archiveTitle={archiveTitle}
-            archivePosts={archivePosts}
-          />
-        ))}
+        {Object.keys(archivePosts).map((archiveTitle) =>
+        <BlogListArchive
+          key={archiveTitle}
+          archiveTitle={archiveTitle}
+          archivePosts={archivePosts} />
+
+        )}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 分类列表
  * @param {*} props
  * @returns
  */
-const LayoutCategoryIndex = props => {
-  const { categoryOptions } = props
+const LayoutCategoryIndex = (props) => {
+  const { categoryOptions } = props;
   return (
     <>
       <div id='category-list' className='duration-200 flex flex-wrap'>
-        {categoryOptions?.map(category => (
-          <SmartLink
-            key={category.name}
-            href={`/category/${category.name}`}
-            passHref
-            legacyBehavior>
+        {categoryOptions?.map((category) =>
+        <SmartLink
+          key={category.name}
+          href={`/category/${category.name}`}
+          passHref
+          legacyBehavior>
             <div
-              className={
-                'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
-              }>
+            className={
+            'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
+            }>
               <i className='mr-4 fas fa-folder' />
               {category.name}({category.count})
             </div>
           </SmartLink>
-        ))}
+        )}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 标签列表
  * @param {*} props
  * @returns
  */
-const LayoutTagIndex = props => {
-  const { tagOptions } = props
+const LayoutTagIndex = (props) => {
+  const { tagOptions } = props;
   return (
     <>
       <div id='tags-list' className='duration-200 flex flex-wrap'>
-        {tagOptions.map(tag => (
-          <div key={tag.name} className='p-2'>
+        {tagOptions.map((tag) =>
+        <div key={tag.name} className='p-2'>
             <SmartLink
-              key={tag}
-              href={`/tag/${encodeURIComponent(tag.name)}`}
-              passHref
-              className={`cursor-pointer inline-block rounded hover:bg-gray-500 hover:text-white duration-200 mr-2 py-1 px-2 text-xs whitespace-nowrap dark:hover:text-white text-gray-600 hover:shadow-xl dark:border-gray-400 notion-${tag.color}_background dark:bg-gray-800`}>
+            key={tag}
+            href={`/tag/${encodeURIComponent(tag.name)}`}
+            passHref
+            className={`cursor-pointer inline-block rounded hover:bg-gray-500 hover:text-white duration-200 mr-2 py-1 px-2 text-xs whitespace-nowrap dark:hover:text-white text-gray-600 hover:shadow-xl dark:border-gray-400 notion-${tag.color}_background dark:bg-gray-800`}>
               <div className='font-light dark:text-gray-400'>
                 <i className='mr-1 fas fa-tag' />{' '}
                 {tag.name + (tag.count ? `(${tag.count})` : '')}{' '}
               </div>
             </SmartLink>
           </div>
-        ))}
+        )}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 export {
   Layout404,
@@ -350,5 +350,4 @@ export {
   LayoutSearch,
   LayoutSlug,
   LayoutTagIndex,
-  CONFIG as THEME_CONFIG
-}
+  CONFIG as THEME_CONFIG };

@@ -6,8 +6,8 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{`
-      // 底色
+    <style jsx global>{````css
+      // 背景色
       .dark body {
         background-color: black;
       }
@@ -18,9 +18,9 @@ const Style = () => {
           0 5px 14px 0 rgba(0, 0, 0, 0.18);
       }
 
-      // 视频聚合走马灯
+      // 動画アグリゲーションカルーセル
       .notion-carousel {
-        width: 100%; /* 根据需要调整 */
+        width: 100%; /* 必要に応じて調整 */
         overflow: hidden;
       }
 
@@ -45,8 +45,8 @@ const Style = () => {
         height: auto !important;
         aspect-ratio: 2/1 !important;
       }
-    `}</style>
-  )
-}
+````}</style>);
 
-export { Style }
+};
+
+export { Style };

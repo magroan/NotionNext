@@ -1,4 +1,4 @@
-import SmartLink from '@/components/SmartLink'
+import SmartLink from '@/components/SmartLink';
 
 /**
  * 联盟行销
@@ -6,41 +6,41 @@ import SmartLink from '@/components/SmartLink'
  */
 export default function DashboardItemAffliate() {
   const cards = [
-    {
-      title: '￥0.00',
-      desc: '累计佣金',
-      className: 'bg-blue-600 hover:bg-blue-700 text-white'
-    },
-    {
-      title: '￥0.00',
-      desc: '已提现',
-      className: 'bg-cyan-600 hover:bg-cyan-700 text-white'
-    },
-    {
-      title: '￥0.00',
-      desc: '提现中',
-      className: 'bg-pink-600 hover:bg-pink-700 text-white'
-    },
-    {
-      title: '￥0.00',
-      desc: '可提现',
-      className: 'bg-emerald-600 hover:bg-emerald-700 text-white'
-    }
-  ]
+  {
+    title: '￥0.00',
+    desc: "\u7D2F\u7A4D\u30B3\u30DF\u30C3\u30B7\u30E7\u30F3",
+    className: 'bg-blue-600 hover:bg-blue-700 text-white'
+  },
+  {
+    title: '￥0.00',
+    desc: "\u5F15\u304D\u51FA\u3057\u6E08\u307F",
+    className: 'bg-cyan-600 hover:bg-cyan-700 text-white'
+  },
+  {
+    title: '￥0.00',
+    desc: "\u51FA\u91D1\u4E2D",
+    className: 'bg-pink-600 hover:bg-pink-700 text-white'
+  },
+  {
+    title: '￥0.00',
+    desc: "\u5F15\u304D\u51FA\u3059\u3053\u3068\u304C\u3067\u304D\u307E\u3059",
+    className: 'bg-emerald-600 hover:bg-emerald-700 text-white'
+  }];
+
 
   return (
     <div className='bg-white rounded-lg shadow-lg p-6 border'>
       <div className='grid grid-cols-4 gap-4'>
-        {cards?.map((card, index) => (
-          <div
-            key={index}
-            className={`block max-w-sm p-6 text-center border cursor-pointer rounded-lg shadow ${card.className}`}>
+        {cards?.map((card, index) =>
+        <div
+          key={index}
+          className={`block max-w-sm p-6 text-center border cursor-pointer rounded-lg shadow ${card.className}`}>
             <h5 className='mb-2 text-2xl font-bold tracking-tight'>
               {card.title}
             </h5>
             <p className='font-normal'>{card.desc}</p>
           </div>
-        ))}
+        )}
       </div>
       <form className='mt-6'>
         <div className='grid gap-6 mb-6 md:grid-cols-2'>
@@ -56,8 +56,8 @@ export default function DashboardItemAffliate() {
               id='last_name'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='123'
-              required
-            />
+              required />
+
           </div>
           <div>
             <label
@@ -71,8 +71,8 @@ export default function DashboardItemAffliate() {
               id='company'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='https://tangly1024.com'
-              required
-            />
+              required />
+
           </div>
 
           <div>
@@ -87,8 +87,8 @@ export default function DashboardItemAffliate() {
               id='website'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='5%'
-              required
-            />
+              required />
+
           </div>
         </div>
 
@@ -106,8 +106,8 @@ export default function DashboardItemAffliate() {
               id='first_name'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='John'
-              required
-            />
+              required />
+
           </div>
 
           <div>
@@ -121,8 +121,8 @@ export default function DashboardItemAffliate() {
               id='visitors'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder=''
-              required
-            />
+              required />
+
           </div>
         </div>
 
@@ -133,8 +133,8 @@ export default function DashboardItemAffliate() {
               type='checkbox'
               value=''
               className='w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800'
-              required
-            />
+              required />
+
           </div>
           <label
             for='remember'
@@ -182,6 +182,6 @@ export default function DashboardItemAffliate() {
           </li>
         </ul>
       </form>
-    </div>
-  )
+    </div>);
+
 }

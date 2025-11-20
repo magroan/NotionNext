@@ -6,8 +6,7 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{`
-      // 底色
+    <style jsx global>{`// 背景色
       .dark body {
         background-color: black;
       }
@@ -16,7 +15,7 @@ const Style = () => {
         background-color: #ffffff;
       }
 
-      /* 自定义滚动条样式（适用于 Chrome、Safari 和 Edge） */
+      /* カスタムスクロールバースタイル（Chrome、Safari、Edgeに適用） */
       html::-webkit-scrollbar {
         width: 12px;
       }
@@ -27,9 +26,10 @@ const Style = () => {
 
       html::-webkit-scrollbar-thumb {
         background: #4e4e4e;
-      }
-    `}</style>
-  )
-}
+      }`
 
-export { Style }
+      }</style>);
+
+};
+
+export { Style };

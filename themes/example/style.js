@@ -5,13 +5,13 @@
  * @returns
  */
 const Style = () => {
-  return <style jsx global>{`
-    // 底色
+  return <style jsx global>{`// 背景色
     .dark body{
         background-color: black;
-    }
+    }`
 
-  `}</style>
-}
 
-export { Style }
+    }</style>;
+};
+
+export { Style };

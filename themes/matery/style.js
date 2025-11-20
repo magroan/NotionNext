@@ -6,8 +6,7 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{`
-      // 底色
+    <style jsx global>{`// 背景色
       body {
         background-color: #f5f5f5;
       }
@@ -15,7 +14,7 @@ const Style = () => {
         background-color: black;
       }
 
-      /* 设置了从上到下的渐变黑色 */
+      /* 上から下への黒のグラデーションを設定 */
       #theme-matery .header-cover::before {
         content: '';
         position: absolute;
@@ -33,7 +32,7 @@ const Style = () => {
         );
       }
 
-      // 自定义滚动条
+      // カスタムスクロールバー
       ::-webkit-scrollbar {
         width: 5px;
         height: 5px;
@@ -50,9 +49,10 @@ const Style = () => {
       * {
         scrollbar-width: thin;
         scrollbar-color: #4338ca transparent;
-      }
-    `}</style>
-  )
-}
+      }`
 
-export { Style }
+      }</style>);
+
+};
+
+export { Style };

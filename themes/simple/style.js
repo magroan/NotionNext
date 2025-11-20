@@ -5,13 +5,11 @@
  * @returns
  */
 const Style = () => {
-  return <style jsx global>{`
-    
-  // 底色
+  return <style jsx global>{`// 背景色
   .dark body{
       background-color: black;
   }
-  // 文本不可选取
+  // テキストを選択不可にする
     .forbid-copy {
         user-select: none;
         -webkit-user-select: none;
@@ -36,7 +34,7 @@ const Style = () => {
   }
   
   
-  /*  菜单下划线动画 */
+  /* メニュー下線アニメーション */
   #theme-simple .menu-link {
       text-decoration: none;
       background-image: linear-gradient(#dd3333, #dd3333);
@@ -50,11 +48,13 @@ const Style = () => {
       background-size: 100% 2px;
       color: #dd3333;
       cursor: pointer;
-  }
-  
-  
+  }`
 
-  `}</style>
-}
 
-export { Style }
+
+
+
+    }</style>;
+};
+
+export { Style };

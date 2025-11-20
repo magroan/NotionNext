@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 /**
  * 这是一个空白主题，方便您用作创建新主题时的模板，从而开发出您自己喜欢的主题
@@ -6,21 +6,21 @@
  * 2. 内容大部分是在此文件中写死，notion数据从props参数中传进来
  * 3. 您可在此网站找到更多喜欢的组件 https://www.tailwind-kit.com/
  */
-import Loading from '@/components/Loading'
-import NotionPage from '@/components/NotionPage'
-import { siteConfig } from '@/lib/config'
-import { isBrowser } from '@/lib/utils'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import Features from './components/Features'
-import FeaturesBlocks from './components/FeaturesBlocks'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Newsletter from './components/Newsletter'
-import { Pricing } from './components/Pricing'
-import Testimonials from './components/Testimonials'
-import CONFIG from './config'
+import Loading from '@/components/Loading';
+import NotionPage from '@/components/NotionPage';
+import { siteConfig } from '@/lib/config';
+import { isBrowser } from '@/lib/utils';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import Features from './components/Features';
+import FeaturesBlocks from './components/FeaturesBlocks';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Newsletter from './components/Newsletter';
+import { Pricing } from './components/Pricing';
+import Testimonials from './components/Testimonials';
+import CONFIG from './config';
 
 /**
  * 布局框架
@@ -29,8 +29,8 @@ import CONFIG from './config'
  * @param {*} props
  * @returns
  */
-const LayoutBase = props => {
-  const { children } = props
+const LayoutBase = (props) => {
+  const { children } = props;
 
   return (
     <div
@@ -44,16 +44,16 @@ const LayoutBase = props => {
 
       {/* 底部页脚 */}
       <Footer />
-    </div>
-  )
-}
+    </div>);
+
+};
 
 /**
  * 首页布局
  * @param {*} props
  * @returns
  */
-const LayoutIndex = props => {
+const LayoutIndex = (props) => {
   return (
     <>
       <Hero />
@@ -62,54 +62,54 @@ const LayoutIndex = props => {
       <Testimonials />
       <Pricing />
       <Newsletter />
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 文章详情页布局
  * @param {*} props
  * @returns
  */
-const LayoutSlug = props => {
-  const { post } = props
+const LayoutSlug = (props) => {
+  const { post } = props;
 
   // 如果 是 /article/[slug] 的文章路径则进行重定向到另一个域名
-  const router = useRouter()
-  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+  const router = useRouter();
+  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000;
   useEffect(() => {
     // 404
     if (!post) {
       setTimeout(
         () => {
           if (isBrowser) {
-            const article = document.querySelector('#article-wrapper #notion-article')
+            const article = document.querySelector('#article-wrapper #notion-article');
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
-              })
+                console.warn("\u30DA\u30FC\u30B8\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002", router.asPath);
+              });
             }
           }
         },
         waiting404
-      )
+      );
     }
-  }, [post])
+  }, [post]);
 
   if (
-    JSON.parse(siteConfig('LANDING_POST_REDIRECT_ENABLE', null, CONFIG)) &&
-    isBrowser &&
-    router.route === '/[prefix]/[slug]'
-  ) {
+  JSON.parse(siteConfig('LANDING_POST_REDIRECT_ENABLE', null, CONFIG)) &&
+  isBrowser &&
+  router.route === '/[prefix]/[slug]')
+  {
     const redirectUrl =
-      siteConfig('LANDING_POST_REDIRECT_URL', null, CONFIG) +
-      router.asPath.replace('?theme=landing', '')
-    router.push(redirectUrl)
+    siteConfig('LANDING_POST_REDIRECT_URL', null, CONFIG) +
+    router.asPath.replace('?theme=landing', '');
+    router.push(redirectUrl);
     return (
       <div id='theme-landing'>
         <Loading />
-      </div>
-    )
+      </div>);
+
   }
 
   return (
@@ -119,41 +119,41 @@ const LayoutSlug = props => {
           <NotionPage {...props} />
         </div>
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 // 其他布局暂时留空
-const LayoutSearch = props => (
-  <>
+const LayoutSearch = (props) =>
+<>
     <Hero />
-  </>
-)
-const LayoutArchive = props => (
-  <>
+  </>;
+
+const LayoutArchive = (props) =>
+<>
     <Hero />
-  </>
-)
-const Layout404 = props => (
-  <>
+  </>;
+
+const Layout404 = (props) =>
+<>
     <Hero />
-  </>
-)
-const LayoutCategoryIndex = props => (
-  <>
+  </>;
+
+const LayoutCategoryIndex = (props) =>
+<>
     <Hero />
-  </>
-)
-const LayoutPostList = props => (
-  <>
+  </>;
+
+const LayoutPostList = (props) =>
+<>
     <Hero />
-  </>
-)
-const LayoutTagIndex = props => (
-  <>
+  </>;
+
+const LayoutTagIndex = (props) =>
+<>
     <Hero />
-  </>
-)
+  </>;
+
 
 export {
   Layout404,
@@ -165,5 +165,4 @@ export {
   LayoutSearch,
   LayoutSlug,
   LayoutTagIndex,
-  CONFIG as THEME_CONFIG
-}
+  CONFIG as THEME_CONFIG };

@@ -5,8 +5,7 @@
  * @returns
  */
 const Style = () => {
-  return (<style jsx global>{`
-    // 底色
+  return <style jsx global>{`// 背景色
     body{
         background-color: #f5f5f5
     }
@@ -14,12 +13,12 @@ const Style = () => {
         background-color: black;
     }
 
-    // 产品介绍区域字体放大
+    // 商品紹介エリアのフォントサイズを拡大
     #brand-introduction .notion {
         font-size: 1.5rem !important;
     }
   
-    /*  菜单下划线动画 */
+    /* メニュー下線アニメーション */
     #theme-commerce .menu-link {
         text-decoration: none;
         background-image: linear-gradient(#D2232A, #D2232A);
@@ -34,7 +33,7 @@ const Style = () => {
         color: #D2232A;
     }
 
-    /* 设置了从上到下的渐变黑色 */
+    /* 上から下へのグラデーション黒色を設定 */
     #theme-commerce .header-cover::before {
         content: "";
         position: absolute;
@@ -45,17 +44,17 @@ const Style = () => {
         background:  linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0) 25%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0.5) 100%);
     }
 
-    /* Custem */
+    /* カスタム */
     .tk-footer{
         opacity: 0;
     }
 
-    // 选中字体颜色
+    // 選択されたフォントの色
     ::selection {
         background: rgba(45, 170, 219, 0.3);
     }
 
-    // 自定义滚动条
+    // カスタムスクロールバー
     ::-webkit-scrollbar {
         width: 5px;
         height: 5px;
@@ -72,10 +71,11 @@ const Style = () => {
     * {
         scrollbar-width:thin;
         scrollbar-color: #D2232A transparent
-    }
-    
+    }`
 
-  `}</style>)
-}
 
-export { Style }
+
+    }</style>;
+};
+
+export { Style };

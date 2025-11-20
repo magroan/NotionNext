@@ -1,30 +1,30 @@
-import Comment from '@/components/Comment'
-import replaceSearchResult from '@/components/Mark'
-import NotionPage from '@/components/NotionPage'
-import ShareBar from '@/components/ShareBar'
-import { siteConfig } from '@/lib/config'
-import { useGlobal } from '@/lib/global'
-import { isBrowser } from '@/lib/utils'
-import { Transition } from '@headlessui/react'
-import SmartLink from '@/components/SmartLink'
-import { useRouter } from 'next/router'
-import { createContext, useContext, useEffect, useState } from 'react'
-import { ArticleFooter } from './components/ArticleFooter'
-import { ArticleInfo } from './components/ArticleInfo'
-import { ArticleLock } from './components/ArticleLock'
-import BlogArchiveItem from './components/BlogArchiveItem'
-import { BlogListPage } from './components/BlogListPage'
-import { BlogListScroll } from './components/BlogListScroll'
-import BottomNav from './components/BottomNav'
-import Modal from './components/Modal'
-import Header from './components/Nav'
-import SearchNavBar from './components/SearchNavBar'
-import CONFIG from './config'
-import { Style } from './style'
+import Comment from '@/components/Comment';
+import replaceSearchResult from '@/components/Mark';
+import NotionPage from '@/components/NotionPage';
+import ShareBar from '@/components/ShareBar';
+import { siteConfig } from '@/lib/config';
+import { useGlobal } from '@/lib/global';
+import { isBrowser } from '@/lib/utils';
+import { Transition } from '@headlessui/react';
+import SmartLink from '@/components/SmartLink';
+import { useRouter } from 'next/router';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { ArticleFooter } from './components/ArticleFooter';
+import { ArticleInfo } from './components/ArticleInfo';
+import { ArticleLock } from './components/ArticleLock';
+import BlogArchiveItem from './components/BlogArchiveItem';
+import { BlogListPage } from './components/BlogListPage';
+import { BlogListScroll } from './components/BlogListScroll';
+import BottomNav from './components/BottomNav';
+import Modal from './components/Modal';
+import Header from './components/Nav';
+import SearchNavBar from './components/SearchNavBar';
+import CONFIG from './config';
+import { Style } from './style';
 
 // 主题全局状态
-const ThemeGlobalPlog = createContext()
-export const usePlogGlobal = () => useContext(ThemeGlobalPlog)
+const ThemeGlobalPlog = createContext();
+export const usePlogGlobal = () => useContext(ThemeGlobalPlog);
 
 /**
  * 基础布局 采用左右两侧布局，移动端使用顶部导航栏
@@ -32,24 +32,24 @@ export const usePlogGlobal = () => useContext(ThemeGlobalPlog)
  * @returns {JSX.Element}
  * @constructor
  */
-const LayoutBase = props => {
-  const { children, topSlot } = props
-  const { onLoading } = useGlobal()
-  const [showModal, setShowModal] = useState(false)
-  const [modalContent, setModalContent] = useState(null)
+const LayoutBase = (props) => {
+  const { children, topSlot } = props;
+  const { onLoading } = useGlobal();
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
 
   // 页面切换关闭遮罩
-  const router = useRouter()
+  const router = useRouter();
   const closeModal = () => {
-    setShowModal(false)
-  }
+    setShowModal(false);
+  };
 
   useEffect(() => {
-    router.events.on('routeChangeComplete', closeModal)
+    router.events.on('routeChangeComplete', closeModal);
     return () => {
-      router.events.off('routeChangeComplete', closeModal)
-    }
-  }, [router.events])
+      router.events.off('routeChangeComplete', closeModal);
+    };
+  }, [router.events]);
 
   return (
     <ThemeGlobalPlog.Provider
@@ -66,7 +66,7 @@ const LayoutBase = props => {
         <main
           id='out-wrapper'
           className={
-            'relative m-auto flex-grow w-full transition-all pb-16 pt-16 md:pt-0'
+          'relative m-auto flex-grow w-full transition-all pb-16 pt-16 md:pt-0'
           }>
           <Transition
             show={!onLoading}
@@ -90,9 +90,9 @@ const LayoutBase = props => {
         {/* 桌面端底部导航栏 */}
         <BottomNav {...props} />
       </div>
-    </ThemeGlobalPlog.Provider>
-  )
-}
+    </ThemeGlobalPlog.Provider>);
+
+};
 
 /**
  * 首页
@@ -100,26 +100,26 @@ const LayoutBase = props => {
  * @param {*} props
  * @returns
  */
-const LayoutIndex = props => {
-  return <LayoutPostList {...props} />
-}
+const LayoutIndex = (props) => {
+  return <LayoutPostList {...props} />;
+};
 
 /**
  * 博客列表
  * @param {*} props
  * @returns
  */
-const LayoutPostList = props => {
+const LayoutPostList = (props) => {
   return (
     <>
-      {siteConfig('POST_LIST_STYLE') === 'page' ? (
-        <BlogListPage {...props} />
-      ) : (
-        <BlogListScroll {...props} />
-      )}
-    </>
-  )
-}
+      {siteConfig('POST_LIST_STYLE') === 'page' ?
+      <BlogListPage {...props} /> :
+
+      <BlogListScroll {...props} />
+      }
+    </>);
+
+};
 
 /**
  * 搜索
@@ -127,8 +127,8 @@ const LayoutPostList = props => {
  * @param {*} props
  * @returns
  */
-const LayoutSearch = props => {
-  const { keyword } = props
+const LayoutSearch = (props) => {
+  const { keyword } = props;
 
   useEffect(() => {
     if (isBrowser) {
@@ -139,68 +139,68 @@ const LayoutSearch = props => {
           element: 'span',
           className: 'text-red-500 border-b border-dashed'
         }
-      })
+      });
     }
-  }, [])
+  }, []);
 
-  return <LayoutPostList {...props} topSlot={<SearchNavBar {...props} />} />
-}
+  return <LayoutPostList {...props} topSlot={<SearchNavBar {...props} />} />;
+};
 
 /**
  * 归档
  * @param {*} props
  * @returns
  */
-const LayoutArchive = props => {
-  const { archivePosts } = props
+const LayoutArchive = (props) => {
+  const { archivePosts } = props;
   return (
     <>
       <div className='mb-10 pb-20 md:py-12 p-3  min-h-screen w-full'>
-        {Object.keys(archivePosts).map(archiveTitle => (
-          <BlogArchiveItem
-            key={archiveTitle}
-            archiveTitle={archiveTitle}
-            archivePosts={archivePosts}
-          />
-        ))}
+        {Object.keys(archivePosts).map((archiveTitle) =>
+        <BlogArchiveItem
+          key={archiveTitle}
+          archiveTitle={archiveTitle}
+          archivePosts={archivePosts} />
+
+        )}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 文章详情
  * @param {*} props
  * @returns
  */
-const LayoutSlug = props => {
-  const { post, lock, validPassword } = props
-  const router = useRouter()
-  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+const LayoutSlug = (props) => {
+  const { post, lock, validPassword } = props;
+  const router = useRouter();
+  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000;
   useEffect(() => {
     // 404
     if (!post) {
       setTimeout(
         () => {
           if (isBrowser) {
-            const article = document.querySelector('#article-wrapper #notion-article')
+            const article = document.querySelector('#article-wrapper #notion-article');
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
-              })
+                console.warn("\u30DA\u30FC\u30B8\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002", router.asPath);
+              });
             }
           }
         },
         waiting404
-      )
+      );
     }
-  }, [post])
+  }, [post]);
   return (
     <>
       {lock && <ArticleLock validPassword={validPassword} />}
 
-      {!lock && post && (
-        <div className='px-2 my-16 max-w-6xl mx-auto'>
+      {!lock && post &&
+      <div className='px-2 my-16 max-w-6xl mx-auto'>
           <>
             <ArticleInfo post={post} />
             <div id='article-wrapper'>
@@ -211,29 +211,29 @@ const LayoutSlug = props => {
             <ArticleFooter />
           </>
         </div>
-      )}
-    </>
-  )
-}
+      }
+    </>);
+
+};
 
 /**
  * 404 页面
  * @param {*} props
  * @returns
  */
-const Layout404 = props => {
-  const router = useRouter()
+const Layout404 = (props) => {
+  const router = useRouter();
   useEffect(() => {
     // 延时3秒如果加载失败就返回首页
     setTimeout(() => {
-      const article = isBrowser && document.getElementById('article-wrapper')
+      const article = isBrowser && document.getElementById('article-wrapper');
       if (!article) {
         router.push('/').then(() => {
+
           // console.log('找不到页面', router.asPath)
-        })
-      }
-    }, 3000)
-  }, [])
+        });}
+    }, 3000);
+  }, []);
 
   return <>
         <div className='md:-mt-20 text-black w-full h-screen text-center justify-center content-center items-center flex flex-col'>
@@ -244,21 +244,21 @@ const Layout404 = props => {
                 </div>
             </div>
         </div>
-    </>
-}
+    </>;
+};
 
 /**
  * 文章分类列表
  * @param {*} props
  * @returns
  */
-const LayoutCategoryIndex = props => {
-  const { categoryOptions } = props
+const LayoutCategoryIndex = (props) => {
+  const { categoryOptions } = props;
 
   return (
     <>
       <div id='category-list' className='duration-200 flex flex-wrap'>
-        {categoryOptions?.map(category => {
+        {categoryOptions?.map((category) => {
           return (
             <SmartLink
               key={category.name}
@@ -267,31 +267,31 @@ const LayoutCategoryIndex = props => {
               legacyBehavior>
               <div
                 className={
-                  'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
+                'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
                 }>
                 <i className='mr-4 fas fa-folder' />
                 {category.name}({category.count})
               </div>
-            </SmartLink>
-          )
+            </SmartLink>);
+
         })}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 文章标签列表
  * @param {*} props
  * @returns
  */
-const LayoutTagIndex = props => {
-  const { tagOptions } = props
+const LayoutTagIndex = (props) => {
+  const { tagOptions } = props;
   return (
     <>
       <div>
         <div id='tags-list' className='duration-200 flex flex-wrap'>
-          {tagOptions.map(tag => {
+          {tagOptions.map((tag) => {
             return (
               <div key={tag.name} className='p-2'>
                 <SmartLink
@@ -304,14 +304,14 @@ const LayoutTagIndex = props => {
                     {tag.name + (tag.count ? `(${tag.count})` : '')}{' '}
                   </div>
                 </SmartLink>
-              </div>
-            )
+              </div>);
+
           })}
         </div>
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 export {
   Layout404,
@@ -323,5 +323,4 @@ export {
   LayoutSearch,
   LayoutSlug,
   LayoutTagIndex,
-  CONFIG as THEME_CONFIG
-}
+  CONFIG as THEME_CONFIG };

@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 /**
  * 下拉单选框
  */
 class Select extends React.Component {
-  handleChange = event => {
-    const { onChange } = this.props
-    onChange(event.target.value)
-  }
+  handleChange = (event) => {
+    const { onChange } = this.props;
+    onChange(event.target.value);
+  };
 
   render() {
     return (
@@ -17,22 +17,22 @@ class Select extends React.Component {
           value={this.props.value}
           onChange={this.handleChange}
           className='border p-1 rounded cursor-pointer'>
-          {this.props.options?.map(o => (
-            <option key={o.value} value={o.value}>
+          {this.props.options?.map((o) =>
+          <option key={o.value} value={o.value}>
               {o.text}
             </option>
-          ))}
+          )}
         </select>
-      </div>
-    )
+      </div>);
+
   }
 }
 Select.defaultProps = {
   label: '',
   value: '1',
   options: [
-    { value: '1', text: '选项1' },
-    { value: '2', text: '选项2' }
-  ]
-}
-export default Select
+  { value: '1', text: "\u30AA\u30D7\u30B7\u30E7\u30F31" },
+  { value: '2', text: "\u30AA\u30D7\u30B7\u30E7\u30F32" }]
+
+};
+export default Select;

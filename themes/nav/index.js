@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 /**
  * # NAV 主题说明
@@ -6,42 +6,42 @@
  * 开启方式 在blog.config.js 将主题配置为 `NAV`
  */
 
-import Comment from '@/components/Comment'
-import { AdSlot } from '@/components/GoogleAdsense'
-import Live2D from '@/components/Live2D'
-import NotionIcon from '@/components/NotionIcon'
-import NotionPage from '@/components/NotionPage'
-import { siteConfig } from '@/lib/config'
-import { useGlobal } from '@/lib/global'
-import { isBrowser } from '@/lib/utils'
-import { Transition } from '@headlessui/react'
-import dynamic from 'next/dynamic'
-import SmartLink from '@/components/SmartLink'
-import { useRouter } from 'next/router'
-import { createContext, useContext, useEffect, useState } from 'react'
-import Announcement from './components/Announcement'
-import { ArticleLock } from './components/ArticleLock'
-import BlogArchiveItem from './components/BlogArchiveItem'
-import BlogPostCard from './components/BlogPostCard'
-import BlogPostListAll from './components/BlogPostListAll'
-import CategoryItem from './components/CategoryItem'
-import FloatButtonCatalog from './components/FloatButtonCatalog'
-import Footer from './components/Footer'
-import JumpToTopButton from './components/JumpToTopButton'
-import LogoBar from './components/LogoBar'
-import { MenuItem } from './components/MenuItem'
-import PageNavDrawer from './components/PageNavDrawer'
-import TagItemMini from './components/TagItemMini'
-import TocDrawer from './components/TocDrawer'
-import TopNavBar from './components/TopNavBar'
-import CONFIG from './config'
-import { Style } from './style'
+import Comment from '@/components/Comment';
+import { AdSlot } from '@/components/GoogleAdsense';
+import Live2D from '@/components/Live2D';
+import NotionIcon from '@/components/NotionIcon';
+import NotionPage from '@/components/NotionPage';
+import { siteConfig } from '@/lib/config';
+import { useGlobal } from '@/lib/global';
+import { isBrowser } from '@/lib/utils';
+import { Transition } from '@headlessui/react';
+import dynamic from 'next/dynamic';
+import SmartLink from '@/components/SmartLink';
+import { useRouter } from 'next/router';
+import { createContext, useContext, useEffect, useState } from 'react';
+import Announcement from './components/Announcement';
+import { ArticleLock } from './components/ArticleLock';
+import BlogArchiveItem from './components/BlogArchiveItem';
+import BlogPostCard from './components/BlogPostCard';
+import BlogPostListAll from './components/BlogPostListAll';
+import CategoryItem from './components/CategoryItem';
+import FloatButtonCatalog from './components/FloatButtonCatalog';
+import Footer from './components/Footer';
+import JumpToTopButton from './components/JumpToTopButton';
+import LogoBar from './components/LogoBar';
+import { MenuItem } from './components/MenuItem';
+import PageNavDrawer from './components/PageNavDrawer';
+import TagItemMini from './components/TagItemMini';
+import TocDrawer from './components/TocDrawer';
+import TopNavBar from './components/TopNavBar';
+import CONFIG from './config';
+import { Style } from './style';
 
-const WWAds = dynamic(() => import('@/components/WWAds'), { ssr: false })
+const WWAds = dynamic(() => import('@/components/WWAds'), { ssr: false });
 
 // 主题全局变量
-const ThemeGlobalNav = createContext()
-export const useNavGlobal = () => useContext(ThemeGlobalNav)
+const ThemeGlobalNav = createContext();
+export const useNavGlobal = () => useContext(ThemeGlobalNav);
 
 /**
  * 基础布局
@@ -49,7 +49,7 @@ export const useNavGlobal = () => useContext(ThemeGlobalNav)
  * @returns {JSX.Element}
  * @constructor
  */
-const LayoutBase = props => {
+const LayoutBase = (props) => {
   const {
     customMenu,
     children,
@@ -58,32 +58,32 @@ const LayoutBase = props => {
     categoryOptions,
     slotLeft,
     slotTop
-  } = props
-  const { onLoading } = useGlobal()
-  const [tocVisible, changeTocVisible] = useState(false)
-  const [pageNavVisible, changePageNavVisible] = useState(false)
-  const [filteredNavPages, setFilteredNavPages] = useState(allNavPages)
+  } = props;
+  const { onLoading } = useGlobal();
+  const [tocVisible, changeTocVisible] = useState(false);
+  const [pageNavVisible, changePageNavVisible] = useState(false);
+  const [filteredNavPages, setFilteredNavPages] = useState(allNavPages);
 
-  const showTocButton = post?.toc?.length > 1
+  const showTocButton = post?.toc?.length > 1;
 
   useEffect(() => {
-    setFilteredNavPages(allNavPages)
-  }, [post])
+    setFilteredNavPages(allNavPages);
+  }, [post]);
 
-  let links = customMenu
+  let links = customMenu;
 
   // 默认使用自定义菜单，否则将遍历所有的category生成菜单
   if (!siteConfig('NAV_USE_CUSTOM_MENU', null, CONFIG)) {
     links =
-      categoryOptions &&
-      categoryOptions?.map(c => {
-        return {
-          id: c.name,
-          title: `# ${c.name}`,
-          href: `/category/${c.name}`,
-          show: true
-        }
-      })
+    categoryOptions &&
+    categoryOptions?.map((c) => {
+      return {
+        id: c.name,
+        title: `# ${c.name}`,
+        href: `/category/${c.name}`,
+        show: true
+      };
+    });
   }
 
   return (
@@ -112,14 +112,14 @@ const LayoutBase = props => {
         <main
           id='wrapper'
           className={
-            (JSON.parse(siteConfig('LAYOUT_SIDEBAR_REVERSE'))
-              ? 'flex-row-reverse'
-              : '') + ' relative flex justify-between w-full h-screen mx-auto'
+          (JSON.parse(siteConfig('LAYOUT_SIDEBAR_REVERSE')) ?
+          'flex-row-reverse' :
+          '') + ' relative flex justify-between w-full h-screen mx-auto'
           }>
           {/* 左侧推拉抽屉 */}
           <div
             className={
-              ' hidden md:block dark:border-transparent relative z-10 mx-4 w-52 max-h-full pb-44'
+            ' hidden md:block dark:border-transparent relative z-10 mx-4 w-52 max-h-full pb-44'
             }>
             {/* 图标Logo */}
             <div className='hidden md:block w-full top-0 left-5 md:left-4 z-40 pt-3 md:pt-4'>
@@ -132,9 +132,9 @@ const LayoutBase = props => {
               <div className='grid pt-2'>
                 {/* 显示菜单 */}
                 {links &&
-                  links?.map((link, index) => (
-                    <MenuItem key={index} link={link} />
-                  ))}
+                links?.map((link, index) =>
+                <MenuItem key={index} link={link} />
+                )}
               </div>
             </div>
 
@@ -185,51 +185,51 @@ const LayoutBase = props => {
         </main>
 
         {/* 移动端悬浮目录按钮 */}
-        {showTocButton && !tocVisible && (
-          <div className='md:hidden fixed right-0 bottom-52 z-30 bg-white border-l border-t border-b dark:border-neutral-800 rounded'>
+        {showTocButton && !tocVisible &&
+        <div className='md:hidden fixed right-0 bottom-52 z-30 bg-white border-l border-t border-b dark:border-neutral-800 rounded'>
             <FloatButtonCatalog {...props} />
           </div>
-        )}
+        }
 
         {/* 移动端导航抽屉 */}
         <PageNavDrawer {...props} filteredNavPages={filteredNavPages} />
       </div>
-    </ThemeGlobalNav.Provider>
-  )
-}
+    </ThemeGlobalNav.Provider>);
+
+};
 
 /**
  * 首页
  * @param {*} props
  * @returns 此主题首页就是列表
  */
-const LayoutIndex = props => {
-  return <LayoutPostListIndex {...props} />
-}
+const LayoutIndex = (props) => {
+  return <LayoutPostListIndex {...props} />;
+};
 
 /**
  * 首页列表
  * @param {*} props
  * @returns
  */
-const LayoutPostListIndex = props => {
+const LayoutPostListIndex = (props) => {
   // const { customMenu, children, post, allNavPages, categoryOptions, slotLeft, slotRight, slotTop, meta } = props
   // const [filteredNavPages, setFilteredNavPages] = useState(allNavPages)
   return (
     <>
       <Announcement {...props} />
       <BlogPostListAll {...props} />
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 文章列表
  * @param {*} props
  * @returns
  */
-const LayoutPostList = props => {
-  const { posts } = props
+const LayoutPostList = (props) => {
+  const { posts } = props;
   // 顶部如果是按照分类或标签查看文章列表，列表顶部嵌入一个横幅
   // 如果是搜索，则列表顶部嵌入 搜索框
   return (
@@ -238,60 +238,60 @@ const LayoutPostList = props => {
         <div
           id='posts-wrapper'
           class='card-list grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
-          {posts?.map(post => (
-            <BlogPostCard key={post.id} post={post} className='card' />
-          ))}
+          {posts?.map((post) =>
+          <BlogPostCard key={post.id} post={post} className='card' />
+          )}
         </div>
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 文章详情
  * @param {*} props
  * @returns
  */
-const LayoutSlug = props => {
-  const { post, lock, validPassword } = props
-  const router = useRouter()
-  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+const LayoutSlug = (props) => {
+  const { post, lock, validPassword } = props;
+  const router = useRouter();
+  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000;
   useEffect(() => {
     // 404
     if (!post) {
       setTimeout(
         () => {
           if (isBrowser) {
-            const article = document.querySelector('#article-wrapper #notion-article')
+            const article = document.querySelector('#article-wrapper #notion-article');
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
-              })
+                console.warn("\u30DA\u30FC\u30B8\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002", router.asPath);
+              });
             }
           }
         },
         waiting404
-      )
+      );
     }
-  }, [post])
+  }, [post]);
   return (
     <>
       {/* 文章锁 */}
       {lock && <ArticleLock validPassword={validPassword} />}
 
-      {!lock && (
-        <div id='container'>
+      {!lock &&
+      <div id='container'>
           {/* title */}
           <h1 className='text-3xl pt-4 md:pt-12  dark:text-gray-300'>
-            {siteConfig('POST_TITLE_ICON') && (
-              <NotionIcon icon={post?.pageIcon} />
-            )}
+            {siteConfig('POST_TITLE_ICON') &&
+          <NotionIcon icon={post?.pageIcon} />
+          }
             {post?.title}
           </h1>
 
           {/* Notion文章主体 */}
-          {post && (
-            <section className='px-1'>
+          {post &&
+        <section className='px-1'>
               <div id='article-wrapper'>
                 <NotionPage post={post} />
               </div>
@@ -300,14 +300,14 @@ const LayoutSlug = props => {
               {/* <ShareBar post={post} /> */}
               {/* 文章分类和标签信息 */}
               <div className='flex justify-between'>
-                {CONFIG.POST_DETAIL_CATEGORY && post?.category && (
-                  <CategoryItem category={post.category} />
-                )}
+                {CONFIG.POST_DETAIL_CATEGORY && post?.category &&
+            <CategoryItem category={post.category} />
+            }
                 <div>
                   {CONFIG.POST_DETAIL_TAG &&
-                    post?.tagItems?.map(tag => (
-                      <TagItemMini key={tag.name} tag={tag} />
-                    ))}
+              post?.tagItems?.map((tag) =>
+              <TagItemMini key={tag.name} tag={tag} />
+              )}
                 </div>
               </div>
 
@@ -319,14 +319,14 @@ const LayoutSlug = props => {
 
               <Comment frontMatter={post} />
             </section>
-          )}
+        }
 
           <TocDrawer {...props} />
         </div>
-      )}
-    </>
-  )
-}
+      }
+    </>);
+
+};
 
 /**
  * 没有搜索
@@ -334,9 +334,9 @@ const LayoutSlug = props => {
  * @param {*} props
  * @returns
  */
-const LayoutSearch = props => {
-  return <></>
-}
+const LayoutSearch = (props) => {
+  return <></>;
+};
 
 /**
  * 归档页面基本不会用到
@@ -344,41 +344,41 @@ const LayoutSearch = props => {
  * @param {*} props
  * @returns
  */
-const LayoutArchive = props => {
-  const { archivePosts } = props
+const LayoutArchive = (props) => {
+  const { archivePosts } = props;
   return (
     <>
       <div className='mb-10 pb-20 md:py-12 p-3  min-h-screen w-full'>
-        {Object.keys(archivePosts).map(archiveTitle => (
-          <BlogArchiveItem
-            key={archiveTitle}
-            archiveTitle={archiveTitle}
-            archivePosts={archivePosts}
-          />
-        ))}
+        {Object.keys(archivePosts).map((archiveTitle) =>
+        <BlogArchiveItem
+          key={archiveTitle}
+          archiveTitle={archiveTitle}
+          archivePosts={archivePosts} />
+
+        )}
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 404
  * @param {*} props
  * @returns
  */
-const Layout404 = props => {
-  const router = useRouter()
+const Layout404 = (props) => {
+  const router = useRouter();
   useEffect(() => {
     // 延时3秒如果加载失败就返回首页
     setTimeout(() => {
-      const article = isBrowser && document.getElementById('article-wrapper')
+      const article = isBrowser && document.getElementById('article-wrapper');
       if (!article) {
         router.push('/').then(() => {
+
           // console.log('找不到页面', router.asPath)
-        })
-      }
-    }, 3000)
-  }, [])
+        });}
+    }, 3000);
+  }, []);
 
   return <>
         <div className='md:-mt-20 text-black w-full h-screen text-center justify-center content-center items-center flex flex-col'>
@@ -389,15 +389,15 @@ const Layout404 = props => {
                 </div>
             </div>
         </div>
-    </>
-}
+    </>;
+};
 
 /**
  * 分类列表
  */
-const LayoutCategoryIndex = props => {
-  const { categoryOptions } = props
-  const { locale } = useGlobal()
+const LayoutCategoryIndex = (props) => {
+  const { categoryOptions } = props;
+  const { locale } = useGlobal();
   return (
     <>
       <div className='bg-white dark:bg-gray-700 py-10'>
@@ -406,7 +406,7 @@ const LayoutCategoryIndex = props => {
           {locale.COMMON.CATEGORY}:
         </div>
         <div id='category-list' className='duration-200 flex flex-wrap'>
-          {categoryOptions?.map(category => {
+          {categoryOptions?.map((category) => {
             return (
               <SmartLink
                 key={category.name}
@@ -415,26 +415,26 @@ const LayoutCategoryIndex = props => {
                 legacyBehavior>
                 <div
                   className={
-                    'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
+                  'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
                   }>
                   <i className='mr-4 fas fa-folder' />
                   {category.name}({category.count})
                 </div>
-              </SmartLink>
-            )
+              </SmartLink>);
+
           })}
         </div>
       </div>
-    </>
-  )
-}
+    </>);
+
+};
 
 /**
  * 标签列表
  */
-const LayoutTagIndex = props => {
-  return <></>
-}
+const LayoutTagIndex = (props) => {
+  return <></>;
+};
 
 export {
   Layout404,
@@ -446,5 +446,4 @@ export {
   LayoutSearch,
   LayoutSlug,
   LayoutTagIndex,
-  CONFIG as THEME_CONFIG
-}
+  CONFIG as THEME_CONFIG };

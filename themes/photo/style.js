@@ -6,12 +6,11 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{`
-      // 底色
+    <style jsx global>{`// 背景色
       .dark body {
         background-color: black;
       }
-      // 毛玻璃背景色
+      // マットガラス背景色
       .bg-glassmorphism {
         background: hsla(0, 0%, 100%, 0.4);
         -webkit-backdrop-filter: blur(10px);
@@ -22,9 +21,10 @@ const Style = () => {
         background: hsla(0, 0%, 0%, 0.4);
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
-      }
-    `}</style>
-  )
-}
+      }`
 
-export { Style }
+      }</style>);
+
+};
+
+export { Style };

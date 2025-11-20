@@ -6,8 +6,7 @@
  */
 const Style = () => {
   return (
-    <style jsx global>{`
-      // 底色
+    <style jsx global>{`// 背景色
       body {
         background-color: #eeedee;
       }
@@ -15,7 +14,7 @@ const Style = () => {
         background-color: black;
       }
 
-      // 菜单下划线动画
+      // メニュー下線アニメーション
       #theme-next .menu-link {
         text-decoration: none;
         background-image: linear-gradient(#4e80ee, #4e80ee);
@@ -27,9 +26,10 @@ const Style = () => {
       #theme-next .menu-link:hover {
         background-size: 100% 2px;
         color: #4e80ee;
-      }
-    `}</style>
-  )
-}
+      }`
 
-export { Style }
+      }</style>);
+
+};
+
+export { Style };

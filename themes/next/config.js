@@ -1,11 +1,11 @@
 const CONFIG = {
   NEXT_HOME_BANNER: true, // 首页是否显示大图及标语 [true,false]
   NEXT_HOME_BANNER_STRINGS: [
-    'Hi，我是一个程序员',
-    'Hi，我是一个打工人',
-    'Hi，我是一个干饭人',
-    '欢迎来到我的博客🎉'
-  ], // 首页大图标语文字
+  "\u3053\u3093\u306B\u3061\u306F\u3001\u79C1\u306F\u30D7\u30ED\u30B0\u30E9\u30DE\u30FC\u3067\u3059\u3002",
+  "\u3053\u3093\u306B\u3061\u306F\u3001\u79C1\u306F\u30A2\u30EB\u30D0\u30A4\u30C8\u3067\u3059\u3002",
+  "\u3053\u3093\u306B\u3061\u306F\u3001\u79C1\u306F\u3054\u98EF\u3092\u98DF\u3079\u308B\u4EBA\u3067\u3059\u3002",
+  "\u79C1\u306E\u30D6\u30ED\u30B0\u3078\u3088\u3046\u3053\u305D\uD83C\uDF89"],
+  // 首页大图标语文字
 
   NEXT_NAV_TYPE: 'normal', // ['fixed','autoCollapse','normal'] 分别是固定屏幕顶部并始终显示、固定屏幕顶部且滚动时隐藏，不固定屏幕顶部
 
@@ -40,6 +40,6 @@ const CONFIG = {
   NEXT_ARTICLE_COPYRIGHT: true, // 文章版权声明
   NEXT_ARTICLE_NOT_BY_AI: false, // 显示非AI写作
   NEXT_ARTICLE_INFO: true // 显示文章信息
-}
+};
 
-export default CONFIG
+export default CONFIG;
