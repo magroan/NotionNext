@@ -6,7 +6,7 @@ const BLOG = {
   NOTION_PAGE_ID:
     process.env.NOTION_PAGE_ID || '2b0b219f5e518183945deb507bf944fa',
   THEME: process.env.NEXT_PUBLIC_THEME || 'heo', // 当前主?，在themes文件?下可找到所有支持的主?；主?名称就是文件?名，例如 example,fukasawa,gitbook,heo,hexo,landing,matery,medium,next,nobelium,plog,simple
-  LANG: process.env.NEXT_PUBLIC_LANG || 'zh-CN', // e.g 'zh-CN','en-US'  see /lib/lang.js for more.
+  LANG: process.env.NEXT_PUBLIC_LANG || 'ja-JP', // e.g 'zh-CN','en-US'  see /lib/lang.js for more.
   SINCE: process.env.NEXT_PUBLIC_SINCE || 2025, // e.g if leave this empty, current year will be used.
 
   PSEUDO_STATIC: process.env.NEXT_PUBLIC_PSEUDO_STATIC || false, // ?静?路径，??后所有文章URL都以 .html ?尾。
