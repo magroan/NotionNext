@@ -43,7 +43,7 @@ export default function ReadingProgress() {
   }, [])
 
   return (<div
-        title={'阅读进度'}
+        title={'全体の'}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className={`${scrollPercentage > 0 ? 'w-10 h-10 ' : 'w-0 h-0 opacity-0'} group cursor-pointer  hover:bg-black hover:bg-opacity-10 rounded-full flex justify-center items-center duration-200 transition-all`}
     >
