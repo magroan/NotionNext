@@ -74,7 +74,7 @@ const CursorDot = () => {
   }, [router]);
 
   return (
-    <style jsx global>{````css
+    <style jsx global>{`
 .cursor-dot {
     position: fixed;
     width: 12px;
@@ -100,7 +100,7 @@ const CursorDot = () => {
 .dark .cursor-dot-hover {
     border: 1px solid rgba(66, 66, 66, 0.66); /* マウスオーバー時の濃灰色の境界線、太さ1px */
 }
-````}</style>);
+`}</style>);
 
 };
 
