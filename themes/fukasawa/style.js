@@ -5,7 +5,7 @@
  * @returns
  */
 const Style = () => {
-  return <style jsx global>{````css
+  return <style jsx global>{`
     // 背景色
     body{
         background-color: #eeedee;
@@ -51,7 +51,7 @@ const Style = () => {
             grid-gap: 10px;
             padding: 10px;
         }
-````
+`
     }</style>;
 };
 
