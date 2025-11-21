@@ -1,55 +1,46 @@
 /**
- * サイトのフォント設定（日本語対応版の例）
+ * サイトのフォント設定
  */
 module.exports = {
-  // フォントスタイル: セリフ/サンセリフ + 太さ
-  FONT_STYLE: process.env.NEXT_PUBLIC_FONT_STYLE || 'font-sans font-light',
+  // 本文を明朝系にしたいので、全体は serif ベースに
+  // （テーマによっては見出しに sans を使ったりします）
+  FONT_STYLE: process.env.NEXT_PUBLIC_FONT_STYLE || 'font-serif font-light',
 
-  // 読み込む Web フォント
+  // ここを「日本語だけ」の Web フォントに絞る
   FONT_URL: [
-    // 見出しなど欧文で Bitter を使いたければ残す
-    'https://fonts.googleapis.com/css?family=Bitter:300,400,700&display=swap',
-
-    // 日本語サンセリフ
     'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap',
-
-    // 日本語セリフ
     'https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&display=swap'
   ],
 
-  // フォント表示の最適化
+  // フォントの読み込み設定
   FONT_DISPLAY: process.env.NEXT_PUBLIC_FONT_DISPLAY || 'swap',
   FONT_PRELOAD: process.env.NEXT_PUBLIC_FONT_PRELOAD || true,
-
-  // 使用するサブセット（日本語）
+  // 日本語サイトなので subset も japanese に
   FONT_SUBSET: process.env.NEXT_PUBLIC_FONT_SUBSET || 'japanese',
 
-  // サンセリフ系フォント
+  // サンセリフ体（見出しなどで使用される可能性あり）
   FONT_SANS: [
     '"Noto Sans JP"',
-    'system-ui',
     '-apple-system',
     'BlinkMacSystemFont',
     '"Hiragino Sans"',
-    '"Yu Gothic"',
+    '"Yu Gothic UI"',
+    '"YuGothic"',
     '"Meiryo"',
     '"Segoe UI Emoji"',
     '"Segoe UI Symbol"',
     '"Segoe UI"',
-    '"Helvetica Neue"',
-    'Helvetica',
-    'Arial',
+    'system-ui',
     'sans-serif',
     '"Apple Color Emoji"'
   ],
 
-  // セリフ系フォント
+  // 明朝系（本文はこちらを優先して使わせたい）
   FONT_SERIF: [
     '"Noto Serif JP"',
     '"Yu Mincho"',
     '"Hiragino Mincho ProN"',
     '"MS PMincho"',
-    'Bitter',
     '"Times New Roman"',
     'Times',
     'serif',
