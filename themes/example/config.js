@@ -7,7 +7,7 @@ const CONFIG = {
   EXAMPLE_MENU_TAG: true, // タグを表示
   EXAMPLE_MENU_ARCHIVE: true, // アーカイブを表示
   EXAMPLE_MENU_SEARCH: true, // 検索を表示
-
+  IS_SHOW_ARTICLE_EMBED: true,
   EXAMPLE_POST_LIST_COVER: true, // 一覧に記事のカバー画像を表示
 
   EXAMPLE_TITLE_IMAGE: false, // タイトルバーに背景画像を使用するか
