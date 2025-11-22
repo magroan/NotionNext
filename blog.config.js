@@ -24,7 +24,7 @@ const BLOG = {
   BEI_AN_GONGAN: process.env.NEXT_PUBLIC_BEI_AN_GONGAN || '', // 公安?案号，例如 '浙公网安?3xxxxxxxx8号'
 
   // RSS??
-  ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || true, // 是否??RSS??功能
+  ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || false, // 是否??RSS??功能
 
   // 其它??配置
   // 原配置文件??，且并非所有人都会用到，故此将配置拆分到/conf/目?下, 按需找到??文件并修改即可
