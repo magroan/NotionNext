@@ -115,14 +115,14 @@ const BLOG = {
   // UUID を slug へリダイレクトするか
   UUID_REDIRECT: process.env.UUID_REDIRECT || false
   // Sitemap（必須）
-ENABLE_SITEMAP: true,
+  ENABLE_SITEMAP: true,
 
 // robots.txt（必須）
-ENABLE_ROBOTS: true,
+  ENABLE_ROBOTS: true,
 
 // SEO（タイトル・description が重要）
-SEO_TITLE: '情報科の教員',
-SEO_DESCRIPTION: '"匿名の私"がメモしておくべきことを書き殴る場所。',
+  SEO_TITLE: '情報科の教員',
+  SEO_DESCRIPTION: '"匿名の私"がメモしておくべきことを書き殴る場所。',
 
 }
 
