@@ -1,22 +1,22 @@
-import BLOG from '@/blog.config'
-import { getOrSetDataWithCache } from '@/lib/cache/cache_manager'
-import { getAllCategories } from '@/lib/notion/getAllCategories'
-import getAllPageIds from '@/lib/notion/getAllPageIds'
-import { getAllTags } from '@/lib/notion/getAllTags'
-import { getConfigMapFromConfigPage } from '@/lib/notion/getNotionConfig'
+import BLOG from '@/blog.config';
+import { getOrSetDataWithCache } from '@/lib/cache/cache_manager';
+import { getAllCategories } from '@/lib/notion/getAllCategories';
+import getAllPageIds from '@/lib/notion/getAllPageIds';
+import { getAllTags } from '@/lib/notion/getAllTags';
+import { getConfigMapFromConfigPage } from '@/lib/notion/getNotionConfig';
 import getPageProperties, {
-  adjustPageProperties
-} from '@/lib/notion/getPageProperties'
-import { fetchInBatches, getPage } from '@/lib/notion/getPostBlocks'
-import { compressImage, mapImgUrl } from '@/lib/notion/mapImage'
-import { deepClone } from '@/lib/utils'
-import { idToUuid } from 'notion-utils'
-import { siteConfig } from '../config'
-import { extractLangId, extractLangPrefix, getShortId } from '../utils/pageId'
+  adjustPageProperties } from
+'@/lib/notion/getPageProperties';
+import { fetchInBatches, getPage } from '@/lib/notion/getPostBlocks';
+import { compressImage, mapImgUrl } from '@/lib/notion/mapImage';
+import { deepClone } from '@/lib/utils';
+import { idToUuid } from 'notion-utils';
+import { siteConfig } from '../config';
+import { extractLangId, extractLangPrefix, getShortId } from '../utils/pageId';
 
-export { getAllTags } from '../notion/getAllTags'
-export { getPost } from '../notion/getNotionPost'
-export { getPage as getPostBlocks } from '../notion/getPostBlocks'
+export { getAllTags } from '../notion/getAllTags';
+export { getPost } from '../notion/getNotionPost';
+export { getPage as getPostBlocks } from '../notion/getPostBlocks';
 
 /**
  * 获取博客数据; 基于Notion实现
@@ -32,30 +32,30 @@ export async function getGlobalData({
   locale
 }) {
   // 获取站点数据 ， 如果pageId有逗号隔开则分次取数据
-  const siteIds = pageId?.split(',') || []
-  let data = EmptyData(pageId)
+  const siteIds = pageId?.split(',') || [];
+  let data = EmptyData(pageId);
 
   if (BLOG.BUNDLE_ANALYZER) {
-    return data
+    return data;
   }
 
   try {
     for (let index = 0; index < siteIds.length; index++) {
-      const siteId = siteIds[index]
-      const id = extractLangId(siteId)
-      const prefix = extractLangPrefix(siteId)
+      const siteId = siteIds[index];
+      const id = extractLangId(siteId);
+      const prefix = extractLangPrefix(siteId);
       // 第一个id站点默认语言
       if (index === 0 || locale === prefix) {
         data = await getSiteDataByPageId({
           pageId: id,
           from
-        })
+        });
       }
     }
   } catch (error) {
-    console.error('异常', error)
+    console.error("\u7570\u5E38", error);
   }
-  return handleDataBeforeReturn(deepClone(data))
+  return handleDataBeforeReturn(deepClone(data));
 }
 
 /**
@@ -69,12 +69,12 @@ export async function getSiteDataByPageId({ pageId, from }) {
   return await getOrSetDataWithCache(
     `site_data_${pageId}`,
     async (pageId, from) => {
-      const pageRecordMap = await getPage(pageId, from)
-      return convertNotionToSiteData(pageId, from, deepClone(pageRecordMap))
+      const pageRecordMap = await getPage(pageId, from);
+      return convertNotionToSiteData(pageId, from, deepClone(pageRecordMap));
     },
     pageId,
     from
-  )
+  );
 }
 
 /**
@@ -82,11 +82,11 @@ export async function getSiteDataByPageId({ pageId, from }) {
  */
 async function getNotice(post) {
   if (!post) {
-    return null
+    return null;
   }
 
-  post.blockMap = await getPage(post.id, 'data-notice')
-  return post
+  post.blockMap = await getPage(post.id, 'data-notice');
+  return post;
 }
 
 /**
@@ -94,28 +94,28 @@ async function getNotice(post) {
  * @param {*} pageId
  * @returns
  */
-const EmptyData = pageId => {
+const EmptyData = (pageId) => {
   const empty = {
     notice: null,
     siteInfo: getSiteInfo({}),
     allPages: [
-      {
-        id: 1,
-        title: `无法获取Notion数据，请检查Notion_ID： \n 当前 ${pageId}`,
-        summary:
-          '访问文档获取帮助 → https://docs.tangly1024.com/article/vercel-deploy-notion-next',
-        status: 'Published',
-        type: 'Post',
-        slug: 'oops',
-        publishDay: '2024-11-13',
-        pageCoverThumbnail: BLOG.HOME_BANNER_IMAGE || '/bg_image.jpg',
-        date: {
-          start_date: '2023-04-24',
-          lastEditedDay: '2023-04-24',
-          tagItems: []
-        }
+    {
+      id: 1,
+      title: `Notionデータを取得できません。Notion_IDを確認してください：  
+ 現在${pageId}`, summary:
+      "\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\u306B\u30A2\u30AF\u30BB\u30B9\u3057\u3066\u30D8\u30EB\u30D7\u3092\u53D6\u5F97 \u2192 https://docs.tangly1024.com/article/vercel-deploy-notion-next",
+      status: 'Published',
+      type: 'Post',
+      slug: 'oops',
+      publishDay: '2024-11-13',
+      pageCoverThumbnail: BLOG.HOME_BANNER_IMAGE || '/bg_image.jpg',
+      date: {
+        start_date: '2023-04-24',
+        lastEditedDay: '2023-04-24',
+        tagItems: []
       }
-    ],
+    }],
+
     allNavPages: [],
     collection: [],
     collectionQuery: {},
@@ -132,9 +132,9 @@ const EmptyData = pageId => {
     postCount: 1,
     pageIds: [],
     latestPosts: []
-  }
-  return empty
-}
+  };
+  return empty;
+};
 
 /**
  * 将Notion数据转站点数据
@@ -143,147 +143,147 @@ const EmptyData = pageId => {
  */
 async function convertNotionToSiteData(pageId, from, pageRecordMap) {
   if (!pageRecordMap) {
-    console.error('can`t get Notion Data ; Which id is: ', pageId)
-    return {}
+    console.error('can`t get Notion Data ; Which id is: ', pageId);
+    return {};
   }
-  pageId = idToUuid(pageId)
-  let block = pageRecordMap.block || {}
-  const rawMetadata = block[pageId]?.value
+  pageId = idToUuid(pageId);
+  let block = pageRecordMap.block || {};
+  const rawMetadata = block[pageId]?.value;
   // Check Type Page-Database和Inline-Database
   if (
-    rawMetadata?.type !== 'collection_view_page' &&
-    rawMetadata?.type !== 'collection_view'
-  ) {
-    console.error(`pageId "${pageId}" is not a database`)
-    return EmptyData(pageId)
+  rawMetadata?.type !== 'collection_view_page' &&
+  rawMetadata?.type !== 'collection_view')
+  {
+    console.error(`pageId "${pageId}" is not a database`);
+    return EmptyData(pageId);
   }
-  const collection = Object.values(pageRecordMap.collection)[0]?.value || {}
-  const collectionId = rawMetadata?.collection_id
-  const collectionQuery = pageRecordMap.collection_query
-  const collectionView = pageRecordMap.collection_view
-  const schema = collection?.schema
+  const collection = Object.values(pageRecordMap.collection)[0]?.value || {};
+  const collectionId = rawMetadata?.collection_id;
+  const collectionQuery = pageRecordMap.collection_query;
+  const collectionView = pageRecordMap.collection_view;
+  const schema = collection?.schema;
 
-  const viewIds = rawMetadata?.view_ids
-  const collectionData = []
+  const viewIds = rawMetadata?.view_ids;
+  const collectionData = [];
 
   const pageIds = getAllPageIds(
     collectionQuery,
     collectionId,
     collectionView,
     viewIds
-  )
+  );
 
   if (pageIds?.length === 0) {
     console.error(
-      '获取到的文章列表为空，请检查notion模板',
+      "\u53D6\u5F97\u3057\u305F\u8A18\u4E8B\u30EA\u30B9\u30C8\u306F\u7A7A\u3067\u3059\u3002Notion\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
       collectionQuery,
       collection,
       collectionView,
       viewIds,
       pageRecordMap
-    )
+    );
   } else {
+
     // console.log('有效Page数量', pageIds?.length)
   }
-
   // 抓取主数据库最多抓取1000个blocks，溢出的数block这里统一抓取一遍
-  const blockIdsNeedFetch = []
+  const blockIdsNeedFetch = [];
   for (let i = 0; i < pageIds.length; i++) {
-    const id = pageIds[i]
-    const value = block[id]?.value
+    const id = pageIds[i];
+    const value = block[id]?.value;
     if (!value) {
-      blockIdsNeedFetch.push(id)
+      blockIdsNeedFetch.push(id);
     }
   }
-  const fetchedBlocks = await fetchInBatches(blockIdsNeedFetch)
-  block = Object.assign({}, block, fetchedBlocks)
+  const fetchedBlocks = await fetchInBatches(blockIdsNeedFetch);
+  block = Object.assign({}, block, fetchedBlocks);
 
   // 获取每篇文章基础数据
   for (let i = 0; i < pageIds.length; i++) {
-    const id = pageIds[i]
-    const value = block[id]?.value || fetchedBlocks[id]?.value
+    const id = pageIds[i];
+    const value = block[id]?.value || fetchedBlocks[id]?.value;
     const properties =
-      (await getPageProperties(
-        id,
-        value,
-        schema,
-        null,
-        getTagOptions(schema)
-      )) || null
+    (await getPageProperties(
+      id,
+      value,
+      schema,
+      null,
+      getTagOptions(schema)
+    )) || null;
 
     if (properties) {
-      collectionData.push(properties)
+      collectionData.push(properties);
     }
   }
 
   // 站点配置优先读取配置表格，否则读取blog.config.js 文件
-  const NOTION_CONFIG = (await getConfigMapFromConfigPage(collectionData)) || {}
+  const NOTION_CONFIG = (await getConfigMapFromConfigPage(collectionData)) || {};
 
   // 处理每一条数据的字段
   collectionData.forEach(function (element) {
-    adjustPageProperties(element, NOTION_CONFIG)
-  })
+    adjustPageProperties(element, NOTION_CONFIG);
+  });
 
   // 站点基础信息
-  const siteInfo = getSiteInfo({ collection, block, NOTION_CONFIG })
+  const siteInfo = getSiteInfo({ collection, block, NOTION_CONFIG });
 
   // 文章计数
-  let postCount = 0
+  let postCount = 0;
 
   // 查找所有的Post和Page
-  const allPages = collectionData.filter(post => {
+  const allPages = collectionData.filter((post) => {
     if (post?.type === 'Post' && post.status === 'Published') {
-      postCount++
+      postCount++;
     }
 
     return (
       post &&
-      post?.slug &&
+      post?.slug && (
       //   !post?.slug?.startsWith('http') &&
-      (post?.status === 'Invisible' || post?.status === 'Published')
-    )
-  })
+      post?.status === 'Invisible' || post?.status === 'Published'));
+
+  });
 
   // Sort by date
   if (siteConfig('POSTS_SORT_BY', null, NOTION_CONFIG) === 'date') {
     allPages.sort((a, b) => {
-      return b?.publishDate - a?.publishDate
-    })
+      return b?.publishDate - a?.publishDate;
+    });
   }
 
   const notice = await getNotice(
-    collectionData.filter(post => {
+    collectionData.filter((post) => {
       return (
         post &&
         post?.type &&
         post?.type === 'Notice' &&
-        post.status === 'Published'
-      )
+        post.status === 'Published');
+
     })?.[0]
-  )
+  );
   // 所有分类
   const categoryOptions = getAllCategories({
     allPages,
     categoryOptions: getCategoryOptions(schema)
-  })
+  });
   // 所有标签
-  const tagSchemaOptions = getTagOptions(schema)
+  const tagSchemaOptions = getTagOptions(schema);
   const tagOptions =
-    getAllTags({
-      allPages: allPages ?? [],
-      tagOptions: tagSchemaOptions ?? [],
-      NOTION_CONFIG
-    }) ?? null
+  getAllTags({
+    allPages: allPages ?? [],
+    tagOptions: tagSchemaOptions ?? [],
+    NOTION_CONFIG
+  }) ?? null;
   // 旧的菜单
   const customNav = getCustomNav({
     allPages: collectionData.filter(
-      post => post?.type === 'Page' && post.status === 'Published'
+      (post) => post?.type === 'Page' && post.status === 'Published'
     )
-  })
+  });
   // 新的菜单
-  const customMenu = getCustomMenu({ collectionData, NOTION_CONFIG })
-  const latestPosts = getLatestPosts({ allPages, from, latestPostCount: 6 })
-  const allNavPages = getNavPages({ allPages })
+  const customMenu = getCustomMenu({ collectionData, NOTION_CONFIG });
+  const latestPosts = getLatestPosts({ allPages, from, latestPostCount: 6 });
+  const allNavPages = getNavPages({ allPages });
 
   return {
     NOTION_CONFIG,
@@ -306,7 +306,7 @@ async function convertNotionToSiteData(pageId, from, pageRecordMap) {
     postCount,
     pageIds,
     latestPosts
-  }
+  };
 }
 
 /**
@@ -318,81 +318,81 @@ async function convertNotionToSiteData(pageId, from, pageRecordMap) {
  */
 function handleDataBeforeReturn(db) {
   // 清理多余数据
-  delete db.block
-  delete db.schema
-  delete db.rawMetadata
-  delete db.pageIds
-  delete db.viewIds
-  delete db.collection
-  delete db.collectionQuery
-  delete db.collectionId
-  delete db.collectionView
+  delete db.block;
+  delete db.schema;
+  delete db.rawMetadata;
+  delete db.pageIds;
+  delete db.viewIds;
+  delete db.collection;
+  delete db.collectionQuery;
+  delete db.collectionId;
+  delete db.collectionView;
 
   // 清理多余的块
   if (db?.notice) {
-    db.notice = cleanBlock(db?.notice)
-    delete db.notice?.id
+    db.notice = cleanBlock(db?.notice);
+    delete db.notice?.id;
   }
-  db.categoryOptions = cleanIds(db?.categoryOptions)
-  db.customMenu = cleanIds(db?.customMenu)
+  db.categoryOptions = cleanIds(db?.categoryOptions);
+  db.customMenu = cleanIds(db?.customMenu);
 
   //   db.latestPosts = shortenIds(db?.latestPosts)
-  db.allNavPages = shortenIds(db?.allNavPages)
+  db.allNavPages = shortenIds(db?.allNavPages);
   //   db.allPages = cleanBlocks(db?.allPages)
 
-  db.allNavPages = cleanPages(db?.allNavPages, db.tagOptions)
-  db.allPages = cleanPages(db.allPages, db.tagOptions)
-  db.latestPosts = cleanPages(db.latestPosts, db.tagOptions)
+  db.allNavPages = cleanPages(db?.allNavPages, db.tagOptions);
+  db.allPages = cleanPages(db.allPages, db.tagOptions);
+  db.latestPosts = cleanPages(db.latestPosts, db.tagOptions);
   // 必须在使用完毕后才能进行清理
-  db.tagOptions = cleanTagOptions(db?.tagOptions)
+  db.tagOptions = cleanTagOptions(db?.tagOptions);
 
   const POST_SCHEDULE_PUBLISH = siteConfig(
     'POST_SCHEDULE_PUBLISH',
     null,
     db.NOTION_CONFIG
-  )
+  );
   if (POST_SCHEDULE_PUBLISH) {
     //   console.log('[定时发布] 开启检测')
-    db.allPages?.forEach(p => {
+    db.allPages?.forEach((p) => {
       // 新特性，判断文章的发布和下架时间，如果不在有效期内则进行下架处理
-      const publish = isInRange(p.title, p.date)
+      const publish = isInRange(p.title, p.date);
       if (!publish) {
-        const currentTimestamp = Date.now()
+        const currentTimestamp = Date.now();
         const startTimestamp = getTimestamp(
           p.date.start_date,
           p.date.start_time || '00:00',
           p.date.time_zone
-        )
+        );
         const endTimestamp = getTimestamp(
           p.date.end_date,
           p.date.end_time || '23:59',
           p.date.time_zone
-        )
+        );
         console.log(
-          '[定时发布] 隐藏--> 文章:',
+          "[\u5B9A\u6642\u516C\u958B] \u975E\u8868\u793A --> \u8A18\u4E8B:",
           p.title,
-          '当前时间戳:',
+          "\u73FE\u5728\u306E\u30BF\u30A4\u30E0\u30B9\u30BF\u30F3\u30D7:",
           currentTimestamp,
-          '目标时间戳:',
+          "\u76EE\u6A19\u30BF\u30A4\u30E0\u30B9\u30BF\u30F3\u30D7:",
           startTimestamp,
           '-',
           endTimestamp
-        )
+        );
         console.log(
-          '[定时发布] 隐藏--> 文章:',
+          "[\u5B9A\u6642\u516C\u958B] \u975E\u8868\u793A --> \u8A18\u4E8B:",
           p.title,
-          '当前时间:',
+          "\u73FE\u5728\u306E\u6642\u523B:",
           new Date(),
-          '目标时间:',
+          "\u76EE\u6A19\u6642\u9593:",
           p.date
-        )
+        );
         // 隐藏
-        p.status = 'Invisible'
+        p.status = 'Invisible';
       }
-    })
+    });
   }
 
-  return db
+  return db;
 }
 
 /**
@@ -404,30 +404,30 @@ function handleDataBeforeReturn(db) {
 function cleanPages(allPages, tagOptions) {
   // 校验参数是否为数组
   if (!Array.isArray(allPages) || !Array.isArray(tagOptions)) {
-    console.warn('Invalid input: allPages and tagOptions should be arrays.')
-    return allPages || [] // 返回空数组或原始值
+    console.warn('Invalid input: allPages and tagOptions should be arrays.');
+    return allPages || []; // 返回空数组或原始值
   }
 
   // 提取 tagOptions 中所有合法的标签名
   const validTags = new Set(
-    tagOptions
-      .map(tag => (typeof tag.name === 'string' ? tag.name : null))
-      .filter(Boolean) // 只保留合法的字符串
-  )
+    tagOptions.
+    map((tag) => typeof tag.name === 'string' ? tag.name : null).
+    filter(Boolean) // 只保留合法的字符串
+  );
 
   // 遍历所有的 pages
-  allPages.forEach(page => {
+  allPages.forEach((page) => {
     // 确保 tagItems 是数组
     if (Array.isArray(page.tagItems)) {
       // 对每个 page 的 tagItems 进行过滤
       page.tagItems = page.tagItems.filter(
-        tagItem =>
-          validTags.has(tagItem?.name) && typeof tagItem.name === 'string' // 校验 tagItem.name 是否是字符串
-      )
+        (tagItem) =>
+        validTags.has(tagItem?.name) && typeof tagItem.name === 'string' // 校验 tagItem.name 是否是字符串
+      );
     }
-  })
+  });
 
-  return allPages
+  return allPages;
 }
 
 /**
@@ -438,14 +438,14 @@ function cleanPages(allPages, tagOptions) {
 function shortenIds(items) {
   if (items && Array.isArray(items)) {
     return deepClone(
-      items.map(item => {
-        item.short_id = getShortId(item.id)
-        delete item.id
-        return item
+      items.map((item) => {
+        item.short_id = getShortId(item.id);
+        delete item.id;
+        return item;
       })
-    )
+    );
   }
-  return items
+  return items;
 }
 
 /**
@@ -456,13 +456,13 @@ function shortenIds(items) {
 function cleanIds(items) {
   if (items && Array.isArray(items)) {
     return deepClone(
-      items.map(item => {
-        delete item.id
-        return item
+      items.map((item) => {
+        delete item.id;
+        return item;
       })
-    )
+    );
   }
-  return items
+  return items;
 }
 
 /**
@@ -473,48 +473,48 @@ function cleanIds(items) {
 function cleanTagOptions(tagOptions) {
   if (tagOptions && Array.isArray(tagOptions)) {
     return deepClone(
-      tagOptions
-        .filter(tagOption => tagOption.source === 'Published')
-        .map(({ id, source, ...newTagOption }) => newTagOption)
-    )
+      tagOptions.
+      filter((tagOption) => tagOption.source === 'Published').
+      map(({ id, source, ...newTagOption }) => newTagOption)
+    );
   }
-  return tagOptions
+  return tagOptions;
 }
 
 /**
  * 清理block数据
  */
 function cleanBlock(item) {
-  const post = deepClone(item)
-  const pageBlock = post?.blockMap?.block
+  const post = deepClone(item);
+  const pageBlock = post?.blockMap?.block;
   //   delete post?.id
   //   delete post?.blockMap?.collection
 
   if (pageBlock) {
     for (const i in pageBlock) {
-      pageBlock[i] = cleanBlock(pageBlock[i])
-      delete pageBlock[i]?.role
-      delete pageBlock[i]?.value?.version
-      delete pageBlock[i]?.value?.created_by_table
-      delete pageBlock[i]?.value?.created_by_id
-      delete pageBlock[i]?.value?.last_edited_by_table
-      delete pageBlock[i]?.value?.last_edited_by_id
-      delete pageBlock[i]?.value?.space_id
-      delete pageBlock[i]?.value?.version
-      delete pageBlock[i]?.value?.format?.copied_from_pointer
-      delete pageBlock[i]?.value?.format?.block_locked_by
-      delete pageBlock[i]?.value?.parent_table
-      delete pageBlock[i]?.value?.copied_from_pointer
-      delete pageBlock[i]?.value?.copied_from
-      delete pageBlock[i]?.value?.created_by_table
-      delete pageBlock[i]?.value?.created_by_id
-      delete pageBlock[i]?.value?.last_edited_by_table
-      delete pageBlock[i]?.value?.last_edited_by_id
-      delete pageBlock[i]?.value?.permissions
-      delete pageBlock[i]?.value?.alive
+      pageBlock[i] = cleanBlock(pageBlock[i]);
+      delete pageBlock[i]?.role;
+      delete pageBlock[i]?.value?.version;
+      delete pageBlock[i]?.value?.created_by_table;
+      delete pageBlock[i]?.value?.created_by_id;
+      delete pageBlock[i]?.value?.last_edited_by_table;
+      delete pageBlock[i]?.value?.last_edited_by_id;
+      delete pageBlock[i]?.value?.space_id;
+      delete pageBlock[i]?.value?.version;
+      delete pageBlock[i]?.value?.format?.copied_from_pointer;
+      delete pageBlock[i]?.value?.format?.block_locked_by;
+      delete pageBlock[i]?.value?.parent_table;
+      delete pageBlock[i]?.value?.copied_from_pointer;
+      delete pageBlock[i]?.value?.copied_from;
+      delete pageBlock[i]?.value?.created_by_table;
+      delete pageBlock[i]?.value?.created_by_id;
+      delete pageBlock[i]?.value?.last_edited_by_table;
+      delete pageBlock[i]?.value?.last_edited_by_id;
+      delete pageBlock[i]?.value?.permissions;
+      delete pageBlock[i]?.value?.alive;
     }
   }
-  return post
+  return post;
 }
 
 /**
@@ -524,15 +524,15 @@ function cleanBlock(item) {
  */
 function getLatestPosts({ allPages, from, latestPostCount }) {
   const allPosts = allPages?.filter(
-    page => page.type === 'Post' && page.status === 'Published'
-  )
+    (page) => page.type === 'Post' && page.status === 'Published'
+  );
 
   const latestPosts = Object.create(allPosts).sort((a, b) => {
-    const dateA = new Date(a?.lastEditedDate || a?.publishDate)
-    const dateB = new Date(b?.lastEditedDate || b?.publishDate)
-    return dateB - dateA
-  })
-  return latestPosts.slice(0, latestPostCount)
+    const dateA = new Date(a?.lastEditedDate || a?.publishDate);
+    const dateB = new Date(b?.lastEditedDate || b?.publishDate);
+    return dateB - dateA;
+  });
+  return latestPosts.slice(0, latestPostCount);
 }
 
 /**
@@ -542,20 +542,20 @@ function getLatestPosts({ allPages, from, latestPostCount }) {
  * @returns {Promise<[]|*[]>}
  */
 function getCustomNav({ allPages }) {
-  const customNav = []
+  const customNav = [];
   if (allPages && allPages.length > 0) {
-    allPages.forEach(p => {
-      p.to = p.slug
+    allPages.forEach((p) => {
+      p.to = p.slug;
       customNav.push({
         icon: p.icon || null,
         name: p.title || p.name || '',
         href: p.href,
         target: p.target,
         show: true
-      })
-    })
+      });
+    });
   }
-  return customNav
+  return customNav;
 }
 
 /**
@@ -565,29 +565,29 @@ function getCustomNav({ allPages }) {
  */
 function getCustomMenu({ collectionData, NOTION_CONFIG }) {
   const menuPages = collectionData.filter(
-    post =>
-      post.status === 'Published' &&
-      (post?.type === 'Menu' || post?.type === 'SubMenu')
-  )
-  const menus = []
+    (post) =>
+    post.status === 'Published' && (
+    post?.type === 'Menu' || post?.type === 'SubMenu')
+  );
+  const menus = [];
   if (menuPages && menuPages.length > 0) {
-    menuPages.forEach(e => {
-      e.show = true
+    menuPages.forEach((e) => {
+      e.show = true;
       if (e.type === 'Menu') {
-        menus.push(e)
+        menus.push(e);
       } else if (e.type === 'SubMenu') {
-        const parentMenu = menus[menus.length - 1]
+        const parentMenu = menus[menus.length - 1];
         if (parentMenu) {
           if (parentMenu.subMenus) {
-            parentMenu.subMenus.push(e)
+            parentMenu.subMenus.push(e);
           } else {
-            parentMenu.subMenus = [e]
+            parentMenu.subMenus = [e];
           }
         }
       }
-    })
+    });
   }
-  return menus
+  return menus;
 }
 
 /**
@@ -596,11 +596,11 @@ function getCustomMenu({ collectionData, NOTION_CONFIG }) {
  * @returns {undefined}
  */
 function getTagOptions(schema) {
-  if (!schema) return {}
+  if (!schema) return {};
   const tagSchema = Object.values(schema).find(
-    e => e.name === BLOG.NOTION_PROPERTY_NAME.tags
-  )
-  return tagSchema?.options || []
+    (e) => e.name === BLOG.NOTION_PROPERTY_NAME.tags
+  );
+  return tagSchema?.options || [];
 }
 
 /**
@@ -609,11 +609,11 @@ function getTagOptions(schema) {
  * @returns {{}|*|*[]}
  */
 function getCategoryOptions(schema) {
-  if (!schema) return {}
+  if (!schema) return {};
   const categorySchema = Object.values(schema).find(
-    e => e.name === BLOG.NOTION_PROPERTY_NAME.category
-  )
-  return categorySchema?.options || []
+    (e) => e.name === BLOG.NOTION_PROPERTY_NAME.category
+  );
+  return categorySchema?.options || [];
 }
 
 /**
@@ -623,12 +623,12 @@ function getCategoryOptions(schema) {
  * @returns {Promise<{title,description,pageCover,icon}>}
  */
 function getSiteInfo({ collection, block, NOTION_CONFIG }) {
-  const defaultTitle = NOTION_CONFIG?.TITLE || 'NotionNext BLOG'
+  const defaultTitle = NOTION_CONFIG?.TITLE || 'NotionNext BLOG';
   const defaultDescription =
-    NOTION_CONFIG?.DESCRIPTION || '这是一个由NotionNext生成的站点'
-  const defaultPageCover = NOTION_CONFIG?.HOME_BANNER_IMAGE || '/bg_image.jpg'
-  const defaultIcon = NOTION_CONFIG?.AVATAR || '/avatar.svg'
-  const defaultLink = NOTION_CONFIG?.LINK || BLOG.LINK
+  NOTION_CONFIG?.DESCRIPTION || "\u3053\u308C\u306FNotionNext\u306B\u3088\u3063\u3066\u751F\u6210\u3055\u308C\u305F\u30B5\u30A4\u30C8\u3067\u3059";
+  const defaultPageCover = NOTION_CONFIG?.HOME_BANNER_IMAGE || '/bg_image.jpg';
+  const defaultIcon = NOTION_CONFIG?.AVATAR || '/avatar.svg';
+  const defaultLink = NOTION_CONFIG?.LINK || BLOG.LINK;
   // 空数据的情况返回默认值
   if (!collection && !block) {
     return {
@@ -637,33 +637,33 @@ function getSiteInfo({ collection, block, NOTION_CONFIG }) {
       pageCover: defaultPageCover,
       icon: defaultIcon,
       link: defaultLink
-    }
+    };
   }
 
-  const title = collection?.name?.[0][0] || defaultTitle
-  const description = collection?.description
-    ? Object.assign(collection).description[0][0]
-    : defaultDescription
+  const title = collection?.name?.[0][0] || defaultTitle;
+  const description = collection?.description ?
+  Object.assign(collection).description[0][0] :
+  defaultDescription;
 
-  const pageCover = collection?.cover
-    ? mapImgUrl(collection?.cover, collection, 'collection')
-    : defaultPageCover
+  const pageCover = collection?.cover ?
+  mapImgUrl(collection?.cover, collection, 'collection') :
+  defaultPageCover;
 
   // 用户头像压缩一下
   let icon = compressImage(
-    collection?.icon
-      ? mapImgUrl(collection?.icon, collection, 'collection')
-      : defaultIcon
-  )
+    collection?.icon ?
+    mapImgUrl(collection?.icon, collection, 'collection') :
+    defaultIcon
+  );
   // 站点网址
-  const link = NOTION_CONFIG?.LINK || defaultLink
+  const link = NOTION_CONFIG?.LINK || defaultLink;
 
   // 站点图标不能是emoji
-  const emojiPattern = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g
+  const emojiPattern = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
   if (!icon || emojiPattern.test(icon)) {
-    icon = defaultIcon
+    icon = defaultIcon;
   }
-  return { title, description, pageCover, icon, link }
+  return { title, description, pageCover, icon, link };
 }
 
 /**
@@ -684,25 +684,25 @@ function isInRange(title, date = {}) {
     end_date,
     end_time = '23:59',
     time_zone = 'Asia/Shanghai'
-  } = date
+  } = date;
 
   // 获取当前时间的时间戳（基于目标时区）
-  const currentTimestamp = Date.now()
+  const currentTimestamp = Date.now();
 
   // 获取开始和结束时间的时间戳
-  const startTimestamp = getTimestamp(start_date, start_time, time_zone)
-  const endTimestamp = getTimestamp(end_date, end_time, time_zone)
+  const startTimestamp = getTimestamp(start_date, start_time, time_zone);
+  const endTimestamp = getTimestamp(end_date, end_time, time_zone);
 
   // 判断是否在范围内
   if (startTimestamp && currentTimestamp < startTimestamp) {
-    return false
+    return false;
   }
 
   if (endTimestamp && currentTimestamp > endTimestamp) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 
 /**
@@ -762,7 +762,7 @@ function convertToUTC(dateStr, timeZone = 'Asia/Shanghai') {
     // 北极与南极
     'Antarctica/Palmer': -3, // 南极洲帕尔默
     'Antarctica/McMurdo': 13 // 南极洲麦克默多
-  }
+  };
 
   // 预设每个大洲的默认时区
   const continentDefaults = {
@@ -774,40 +774,40 @@ function convertToUTC(dateStr, timeZone = 'Asia/Shanghai') {
     Pacific: 'Pacific/Auckland',
     Antarctica: 'Antarctica/Palmer',
     UTC: 'UTC'
-  }
+  };
 
   // 获取目标时区的偏移量（以小时为单位）
-  let offsetHours = timeZoneOffsets[timeZone]
+  let offsetHours = timeZoneOffsets[timeZone];
 
   // 未被支持的时区采用兼容
   if (offsetHours === undefined) {
     // 获取时区所属大洲（"Continent/City" -> "Continent"）
-    const continent = timeZone.split('/')[0]
+    const continent = timeZone.split('/')[0];
 
     // 选择该大洲的默认时区
-    const fallbackZone = continentDefaults[continent] || 'UTC'
-    offsetHours = timeZoneOffsets[fallbackZone]
+    const fallbackZone = continentDefaults[continent] || 'UTC';
+    offsetHours = timeZoneOffsets[fallbackZone];
 
     console.warn(
       `Warning: Unsupported time zone "${timeZone}". Using default "${fallbackZone}" for continent "${continent}".`
-    )
+    );
   }
 
   // 将日期字符串转换为本地时间的 Date 对象
-  const localDate = new Date(`${dateStr.replace(' ', 'T')}Z`)
+  const localDate = new Date(`${dateStr.replace(' ', 'T')}Z`);
   if (isNaN(localDate.getTime())) {
-    throw new Error(`Invalid date string: ${dateStr}`)
+    throw new Error(`Invalid date string: ${dateStr}`);
   }
 
   // 计算 UTC 时间的时间戳
-  const utcTimestamp = localDate.getTime() - offsetHours * 60 * 60 * 1000
-  return new Date(utcTimestamp)
+  const utcTimestamp = localDate.getTime() - offsetHours * 60 * 60 * 1000;
+  return new Date(utcTimestamp);
 }
 
 // 辅助函数：生成指定日期时间的时间戳（基于目标时区）
 function getTimestamp(date, time = '00:00', time_zone) {
-  if (!date) return null
-  return convertToUTC(`${date} ${time}:00`, time_zone).getTime()
+  if (!date) return null;
+  return convertToUTC(`${date} ${time}:00`, time_zone).getTime();
 }
 
 /**
@@ -817,16 +817,16 @@ function getTimestamp(date, time = '00:00', time_zone) {
  * @param {*} param0
  */
 export function getNavPages({ allPages }) {
-  const allNavPages = allPages?.filter(post => {
+  const allNavPages = allPages?.filter((post) => {
     return (
       post &&
       post?.slug &&
       post?.type === 'Post' &&
-      post?.status === 'Published'
-    )
-  })
+      post?.status === 'Published');
 
-  return allNavPages.map(item => ({
+  });
+
+  return allNavPages.map((item) => ({
     id: item.id,
     title: item.title || '',
     pageCoverThumbnail: item.pageCoverThumbnail || '',
@@ -839,5 +839,5 @@ export function getNavPages({ allPages }) {
     lastEditedDate: item.lastEditedDate,
     publishDate: item.publishDate,
     ext: item.ext || {}
-  }))
+  }));
 }
