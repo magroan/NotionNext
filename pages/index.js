@@ -26,6 +26,28 @@ export async function getStaticProps(req) {
   const { locale } = req
   const from = 'index'
   const props = await getGlobalData({ from, locale })
+
+  // ここで一度、不正な日付をフィルタリングする
+  const sanitizeDate = value => {
+    if (!value) return null
+    const d = new Date(value)
+    if (isNaN(d.getTime())) {
+      return null
+    }
+    return d.toISOString()
+  }
+
+  if (props?.allPages) {
+    props.allPages = props.allPages.map(p => {
+      return {
+        ...p,
+        publishDate: sanitizeDate(p.publishDate || p.publishDay),
+        lastEditedDate: sanitizeDate(p.lastEditedDate)
+      }
+    })
+  }
+
+  // ↓ 既存処理はそのまま
   const POST_PREVIEW_LINES = siteConfig(
     'POST_PREVIEW_LINES',
     12,
