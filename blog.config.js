@@ -4,6 +4,7 @@
 const BLOG = {
   API_BASE_URL: process.env.API_BASE_URL || 'https://www.notion.so/api/v3', 
   // API のデフォルトリクエスト先。独自 URL（例：https://[xxxxx].notion.site/api/v3）にも変更可能。
+  IS_SHOW_ARTICLE_EMBED: true,
 
   // 重要：page_id！！ テンプレートを以下から複製して使用：
   // https://tanghh.notion.site/02ab3b8678004aa69e9e415905ef32a5
