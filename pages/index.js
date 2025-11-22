@@ -19,6 +19,75 @@ const Index = props => {
 }
 
 /**
+ * help: 日付が壊れている post を探す
+ */
+function findInvalidDatePosts(posts) {
+  if (!Array.isArray(posts)) return []
+
+  const bad = []
+
+  for (const p of posts) {
+    // publishDate / lastEditedDate / publishDay を検査
+    const candidates = [
+      ['publishDate', p?.publishDate],
+      ['lastEditedDate', p?.lastEditedDate],
+      ['publishDay', p?.publishDay]
+    ]
+
+    for (const [name, value] of candidates) {
+      if (!value) continue
+      const d = new Date(value)
+      if (Number.isNaN(d.getTime())) {
+        bad.push({
+          slug: p.slug,
+          title: p.title,
+          field: name,
+          value
+        })
+      }
+    }
+  }
+
+  return bad
+}
+
+/**
+ * help: NaN になる日付をとりあえず安全な値に補正する
+ */
+function normalizePostDates(posts) {
+  if (!Array.isArray(posts)) return posts
+
+  return posts.map(p => {
+    const fixed = { ...p }
+
+    const fixField = fieldName => {
+      const v = fixed[fieldName]
+      if (!v) return
+      const d = new Date(v)
+      if (Number.isNaN(d.getTime())) {
+        // フォーマットがおかしい or 文字列じゃない
+        console.warn(
+          '[normalizePostDates] invalid date field',
+          fieldName,
+          'slug =',
+          fixed.slug,
+          'raw =',
+          v
+        )
+        // とりあえず 1970-01-01 に補正
+        fixed[fieldName] = '1970-01-01'
+      }
+    }
+
+    fixField('publishDate')
+    fixField('lastEditedDate')
+    fixField('publishDay')
+
+    return fixed
+  })
+}
+
+/**
  * SSG 获取数据
  * @returns
  */
@@ -26,28 +95,6 @@ export async function getStaticProps(req) {
   const { locale } = req
   const from = 'index'
   const props = await getGlobalData({ from, locale })
-
-  // ここで一度、不正な日付をフィルタリングする
-  const sanitizeDate = value => {
-    if (!value) return null
-    const d = new Date(value)
-    if (isNaN(d.getTime())) {
-      return null
-    }
-    return d.toISOString()
-  }
-
-  if (props?.allPages) {
-    props.allPages = props.allPages.map(p => {
-      return {
-        ...p,
-        publishDate: sanitizeDate(p.publishDate || p.publishDay),
-        lastEditedDate: sanitizeDate(p.lastEditedDate)
-      }
-    })
-  }
-
-  // ↓ 既存処理はそのまま
   const POST_PREVIEW_LINES = siteConfig(
     'POST_PREVIEW_LINES',
     12,
@@ -56,6 +103,16 @@ export async function getStaticProps(req) {
   props.posts = props.allPages?.filter(
     page => page.type === 'Post' && page.status === 'Published'
   )
+
+  // ★ ここで「壊れた日付を検出」してログを出す
+  const bad = findInvalidDatePosts(props.posts)
+  if (bad.length > 0) {
+    console.warn('==== [DEBUG] invalid date posts detected ====')
+    console.warn(JSON.stringify(bad, null, 2))
+  }
+
+  // ★ 暫定対処：壊れた日付を安全な値にしておく
+  props.posts = normalizePostDates(props.posts)
 
   // 处理分页
   if (siteConfig('POST_LIST_STYLE') === 'scroll') {
@@ -90,8 +147,6 @@ export async function getStaticProps(req) {
     // 生成重定向 JSON
     generateRedirectJson(props)
   }
-
-  // 生成全文索引 - 仅在 yarn build 时执行 && process.env.npm_lifecycle_event === 'build'
 
   delete props.allPages
 
