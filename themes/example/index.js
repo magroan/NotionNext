@@ -25,9 +25,9 @@ import CONFIG from './config';
 import { Style } from './style';
 
 /**
- * 基础布局框架
- * 1.其它页面都嵌入在LayoutBase中
- * 2.采用左右两侧布局，移动端使用顶部导航栏
+ * 基本レイアウトフレーム
+ * 1. 他のページはすべて LayoutBase に埋め込まれる
+ * 2. PC では左右 2 カラムレイアウト、モバイルでは上部ナビゲーションバーを使用
  * @returns {JSX.Element}
  * @constructor
  */
@@ -35,11 +35,11 @@ const LayoutBase = (props) => {
   const { children, post } = props;
   const { onLoading, fullWidth, locale } = useGlobal();
 
-  // 文章详情页左右布局改为上下布局
+  // 記事詳細ページの左右レイアウトを上下レイアウトに切り替える
   const LAYOUT_VERTICAL =
   post && siteConfig('EXAMPLE_ARTICLE_LAYOUT_VERTICAL', false, CONFIG);
 
-  // 网站左右布局颠倒
+  // サイトの左右レイアウトを入れ替える
   const LAYOUT_SIDEBAR_REVERSE = siteConfig('LAYOUT_SIDEBAR_REVERSE', false);
 
   return (
@@ -48,12 +48,12 @@ const LayoutBase = (props) => {
       className={`${siteConfig('FONT_STYLE')} dark:text-gray-300  bg-white dark:bg-black scroll-smooth`}>
       <Style />
 
-      {/* 页头 */}
+      {/* ヘッダー */}
       <Header {...props} />
-      {/* 标题栏 */}
+      {/* タイトルバー */}
       <TitleBar {...props} />
 
-      {/* 主体 */}
+      {/* メイン */}
       <div id='container-inner' className='w-full relative z-10'>
         <div
           id='container-wrapper'
@@ -61,7 +61,7 @@ const LayoutBase = (props) => {
           ${LAYOUT_SIDEBAR_REVERSE ? 'flex-row-reverse' : ''} 
           ${LAYOUT_VERTICAL ? 'items-center flex-col' : 'items-start'} 
           `}>
-          {/* 内容 */}
+          {/* コンテンツ */}
           <div
             className={`${fullWidth ? '' : LAYOUT_VERTICAL ? 'max-w-5xl' : 'max-w-3xl'} w-full xl:px-14 lg:px-4`}>
             <Transition
@@ -74,13 +74,13 @@ const LayoutBase = (props) => {
               leaveFrom='opacity-100 translate-y-0'
               leaveTo='opacity-0 -translate-y-16'
               unmount={false}>
-              {/* 嵌入模块 */}
+              {/* スロット挿入モジュール */}
               {props.slotTop}
               {children}
             </Transition>
           </div>
 
-          {/* 侧边栏 */}
+          {/* サイドバー */}
           {!fullWidth &&
           <div
             className={`${
@@ -94,10 +94,10 @@ const LayoutBase = (props) => {
         </div>
       </div>
 
-      {/* 页脚 */}
+      {/* フッター */}
       <Footer {...props} />
 
-      {/* 回顶按钮 */}
+      {/* ページトップに戻るボタン */}
       <div className='fixed right-4 bottom-4 z-10'>
         <div
           title={locale.POST.TOP}
@@ -111,16 +111,16 @@ const LayoutBase = (props) => {
 };
 
 /**
- * 首页
+ * トップページ
  * @param {*} props
- * @returns 此主题首页就是列表
+ * @returns このテーマのトップページは記事一覧になります
  */
 const LayoutIndex = (props) => {
   return <LayoutPostList {...props} />;
 };
 
 /**
- * 文章列表
+ * 記事一覧
  * @param {*} props
  * @returns
  */
@@ -129,14 +129,14 @@ const LayoutPostList = (props) => {
 
   return (
     <>
-      {/* 显示分类 */}
+      {/* カテゴリを表示 */}
       {category &&
       <div className='pb-12'>
           <i className='mr-1 fas fa-folder-open' />
           {category}
         </div>
       }
-      {/* 显示标签 */}
+      {/* タグを表示 */}
       {tag && <div className='pb-12'>#{tag}</div>}
 
       {siteConfig('POST_LIST_STYLE') === 'page' ?
@@ -149,7 +149,7 @@ const LayoutPostList = (props) => {
 };
 
 /**
- * 文章详情页
+ * 記事詳細ページ
  * @param {*} props
  * @returns
  */
@@ -158,7 +158,7 @@ const LayoutSlug = (props) => {
   const router = useRouter();
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000;
   useEffect(() => {
-    // 404
+    // 404 処理
     if (!post) {
       setTimeout(
         () => {
@@ -194,20 +194,20 @@ const LayoutSlug = (props) => {
 };
 
 /**
- * 404页
+ * 404 ページ
  * @param {*} props
  * @returns
  */
 const Layout404 = (props) => {
   const router = useRouter();
   useEffect(() => {
-    // 延时3秒如果加载失败就返回首页
+    // 3 秒待っても読み込めない場合はホームに戻る
     setTimeout(() => {
       const article = isBrowser && document.getElementById('article-wrapper');
       if (!article) {
         router.push('/').then(() => {
 
-          // console.log('找不到页面', router.asPath)
+          // console.log('ページが見つかりません', router.asPath)
         });}
     }, 3000);
   }, []);
@@ -217,7 +217,7 @@ const Layout404 = (props) => {
             <div className='dark:text-gray-200'>
                 <h2 className='inline-block border-r-2 border-gray-600 mr-2 px-3 py-2 align-top'><i className='mr-2 fas fa-spinner animate-spin' />404</h2>
                 <div className='inline-block text-left h-32 leading-10 items-center'>
-                    <h2 className='m-0 p-0'>页面无法加载，即将返回首页</h2>
+                    <h2 className='m-0 p-0'>ページを読み込めなかったため、まもなくホームに戻ります</h2>
                 </div>
             </div>
         </div>
@@ -225,7 +225,7 @@ const Layout404 = (props) => {
 };
 
 /**
- * 搜索页
+ * 検索ページ
  * @param {*} props
  * @returns
  */
@@ -234,7 +234,7 @@ const LayoutSearch = (props) => {
   const router = useRouter();
   useEffect(() => {
     if (isBrowser) {
-      // 高亮搜索到的结果
+      // 検索結果をハイライト表示する
       const container = document.getElementById('posts-wrapper');
       if (keyword && container) {
         replaceSearchResult({
@@ -260,9 +260,9 @@ const LayoutSearch = (props) => {
 };
 
 /**
- * 归档列表
+ * アーカイブ一覧
  * @param {*} props
- * @returns 按照日期将文章分组排序
+ * @returns 日付ごとに記事をグループ化して並べ替え
  */
 const LayoutArchive = (props) => {
   const { archivePosts } = props;
@@ -282,7 +282,7 @@ const LayoutArchive = (props) => {
 };
 
 /**
- * 分类列表
+ * カテゴリ一覧
  * @param {*} props
  * @returns
  */
@@ -312,7 +312,7 @@ const LayoutCategoryIndex = (props) => {
 };
 
 /**
- * 标签列表
+ * タグ一覧
  * @param {*} props
  * @returns
  */
