@@ -11,7 +11,7 @@ const BLOG = {
 
   PSEUDO_STATIC: process.env.NEXT_PUBLIC_PSEUDO_STATIC || false, // ?静?路径，??后所有文章URL都以 .html ?尾。
   NEXT_REVALIDATE_SECOND: process.env.NEXT_PUBLIC_REVALIDATE_SECOND || 60, // 更新?存?隔 ?位(秒)；即?个?面有60秒的?静?期、此期?无?多少次??都不会抓取notion数据；?大??有助于?省Vercel?源、同?提升??速率，但也会使文章更新有延?。
-  APPEARANCE: process.env.NEXT_PUBLIC_APPEARANCE || 'auto', // ['light', 'dark', 'auto'], // light 日?模式 ， dark夜?模式， auto根据??和主?自?夜?模式
+  APPEARANCE: process.env.NEXT_PUBLIC_APPEARANCE || 'light', // ['light', 'dark', 'auto'], // light 日?模式 ， dark夜?模式， auto根据??和主?自?夜?模式
   APPEARANCE_DARK_TIME: process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || [18, 6], // 夜?模式起至??，false???根据??自?切?夜?模式
 
   AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'asami', // ?的昵称 例如 tangly1024
