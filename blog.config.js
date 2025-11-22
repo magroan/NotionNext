@@ -36,7 +36,7 @@ const BLOG = {
   APPEARANCE_DARK_TIME: process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || [18, 6], 
   // 夜モードの時間帯（開始, 終了）。false でデバイス設定に従う。
 
-  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'asami', 
+  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || '@_asami', 
   // 著者名
 
   BIO: process.env.NEXT_PUBLIC_BIO || '情報科の教員', 
