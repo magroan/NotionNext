@@ -94,7 +94,7 @@ const BLOG = {
   CUSTOM_EXTERNAL_CSS: [''],
 
   // カスタムメニュー
-  CUSTOM_MENU: process.env.NEXT_PUBLIC_CUSTOM_MENU || false, 
+  CUSTOM_MENU: process.env.NEXT_PUBLIC_CUSTOM_MENU || true, 
   // Menu 型のカスタムメニュー。3.12 以前の Page 型を置き換え。
 
   // 記事のコピー可否
