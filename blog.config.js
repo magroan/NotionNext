@@ -59,6 +59,8 @@ const BLOG = {
 
   // RSS 配信
   ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || true, 
+  RSS: process.env.NEXT_PUBLIC_RSS || '/rss/feed.xml',
+
   // RSS 機能の有効化
 
   // その他の詳細設定（conf フォルダへ分割されている）
