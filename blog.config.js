@@ -18,7 +18,7 @@ const BLOG = {
   LANG: process.env.NEXT_PUBLIC_LANG || 'ja-JP', 
   // 言語（例：'zh-CN', 'en-US'）。詳細は /lib/lang.js を参照。
 
-  SINCE: process.env.NEXT_PUBLIC_SINCE || 2025, 
+  SINCE: process.env.NEXT_PUBLIC_SINCE || 2017, 
   // サイト開始年。空にすると自動的に現在の年が使用される。
 
   PSEUDO_STATIC: process.env.NEXT_PUBLIC_PSEUDO_STATIC || false, 
