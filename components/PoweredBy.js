@@ -1,16 +1,17 @@
+// components/PoweredBy.js
 import { siteConfig } from '@/lib/config'
 
 /**
- * 驱动版权
- * @returns
+ * 「Powered by NotionNext x.x.x」の表記
  */
 export default function PoweredBy(props) {
   return (
     <div className={`inline text-sm font-serif ${props.className || ''}`}>
       <span className='mr-1'>Powered by</span>
       <a
-        href='https://github.com/tangly1024/NotionNext'
-        className='underline justify-start'>
+        href='https://github.com/magroan/NotionNext'
+        className='underline justify-start'
+      >
         NotionNext {siteConfig('VERSION')}
       </a>
       .

@@ -45,9 +45,6 @@ const BLOG = {
   LINK: process.env.NEXT_PUBLIC_LINK || 'https://asami.chiba.jp', 
   // Web サイトのURL
 
-  KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || '情報,高校,情報科,ICT,情報学,DX,教育,情報教育', 
-  // サイト SEO 用キーワード（カンマ区切り）
-
   BLOG_FAVICON: process.env.NEXT_PUBLIC_FAVICON || '/favicon.ico', 
   // Favicon。外部画像URLも指定可能（例：https://img.imesong.com/favicon.png）
 
@@ -55,10 +52,10 @@ const BLOG = {
   // （中国向け）ICP登録番号
 
   BEI_AN_LINK: process.env.NEXT_PUBLIC_BEI_AN_LINK || '', 
-  // ICP 登録ページリンク（萌国备案等を使用する場合など）
+  // ICP 登録ページリンク（萌国$5907案等を使用する場合など）
 
   BEI_AN_GONGAN: process.env.NEXT_PUBLIC_BEI_AN_GONGAN || '', 
-  // 公安备案番号（例：浙公网安备xxxxxxxxxxx号）
+  // 公安$5907案番号（例：浙公网安$5907xxxxxxxxxxx号）
 
   // RSS 配信
   ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || true, 
