@@ -9,7 +9,7 @@ export default function PoweredBy(props) {
     <div className={`inline text-sm font-serif ${props.className || ''}`}>
       <span className='mr-1'>Based on</span>
       <a
-        href='https://github.com/tangly1024/NotionNext'
+        href='https://github.com/asamid/NotionNext'
         className='underline justify-start'
         target='_blank'
         rel='noreferrer'
@@ -18,7 +18,7 @@ export default function PoweredBy(props) {
       </a>
       <span className='ml-1'>customized by</span>
       <a
-        href='https://asami.chiba.jp'
+        href='https://x.com/_asami'
         className='underline ml-1'
         target='_blank'
         rel='noreferrer'
