@@ -16,7 +16,13 @@
 /* ================================
    共通：コメント行を赤＋太字に統一
    ================================ */
+/* できるだけ広く .token.comment を捕まえる */
 .notion .notion-code pre[class*='language-'] .token.comment,
+.notion .notion-code pre code .token.comment,
+.notion .notion-code code[class*='language-'] .token.comment,
+.notion pre[class*='language-'] .token.comment,
+.notion code[class*='language-'] .token.comment,
+.token.comment,
 .notion .notion-code pre[class*='language-'] .token.prolog,
 .notion .notion-code pre[class*='language-'] .token.doctype,
 .notion .notion-code pre[class*='language-'] .token.cdata {
