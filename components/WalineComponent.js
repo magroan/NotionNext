@@ -30,9 +30,7 @@ const WalineComponent = (props) => {
         el: containerRef.current,
         serverURL: siteConfig('COMMENT_WALINE_SERVER_URL'),
         lang: siteConfig('LANG'),
-
-        reaction: true
-
+        reaction: true,
         dark: 'html.dark',
 
         // コメント本文で使えるスタンプセット（必要に応じて調整）
