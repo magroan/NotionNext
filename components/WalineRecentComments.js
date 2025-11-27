@@ -1,4 +1,4 @@
-// components/WalineRecentComments.js
+ï»¿// components/WalineRecentComments.js
 import { useEffect, useState } from 'react'
 import { siteConfig } from '@/lib/config'
 
@@ -25,16 +25,16 @@ export default function WalineRecentComments() {
   }, [])
 
   if (!items.length) {
-    // 1Œ‚à‚È‚¢‚Æ‚«‚Í‰½‚à•`‰æ‚µ‚È‚¢B˜g‚¾‚¯o‚µ‚½‚¯‚ê‚Î‚±‚±‚ğ’²®
+    // 1ä»¶ã‚‚ãªã„ã¨ãã¯ä½•ã‚‚æç”»ã—ãªã„ã€‚æ ã ã‘å‡ºã—ãŸã‘ã‚Œã°ã“ã“ã‚’èª¿æ•´
     return null
   }
 
   return (
     <div className="waline-recent-content">
-      <div className="font-bold mb-2">Å‹ß‚ÌƒRƒƒ“ƒg</div>
+      <div className="font-bold mb-2">æœ€è¿‘ã®ã‚³ãƒ¡ãƒ³ãƒˆ</div>
       <ul className="space-y-2 text-sm">
         {items.map(item => {
-          // Waline ‚ÌƒŒƒXƒ|ƒ“ƒX: link: "asami.chiba.jp", url: "/article/xxx"
+          // Waline ã®ãƒ¬ã‚¹ãƒãƒ³ã‚¹: link: "asami.chiba.jp", url: "/article/xxx"
           const href = `https://${item.link}${item.url}`
 
           return (
@@ -42,7 +42,7 @@ export default function WalineRecentComments() {
               <a href={href} className="hover:underline">
                 <span className="font-semibold">{item.nick}</span>
                 <span className="ml-1 text-gray-500">
-                  u{item.orig}v
+                  ã€Œ{item.orig}ã€
                 </span>
               </a>
             </li>
