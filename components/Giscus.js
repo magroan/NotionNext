@@ -25,7 +25,7 @@ const GiscusComponent = () => {
       data-repo-id={siteConfig('COMMENT_GISCUS_REPO_ID')}
       data-category-id={siteConfig('COMMENT_GISCUS_CATEGORY_ID')}
       data-mapping={siteConfig('COMMENT_GISCUS_MAPPING')}
-      data-strict={siteConfig('COMMENT_GISCUS_STRICT')}       {/* ← 追加 */}
+      data-strict={siteConfig('COMMENT_GISCUS_STRICT')}
       data-reactions-enabled={siteConfig('COMMENT_GISCUS_REACTIONS_ENABLED')}
       data-emit-metadata={siteConfig('COMMENT_GISCUS_EMIT_METADATA')}
       data-input-position={siteConfig('COMMENT_GISCUS_INPUT_POSITION')}
