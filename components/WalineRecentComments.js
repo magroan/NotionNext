@@ -1,9 +1,9 @@
-﻿// components/WalineRecentComments.js
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { siteConfig } from '@/lib/config'
 
 export default function WalineRecentComments() {
-  const [items, setItems] = useState([])
+  // null: 未取得 / []: 0件 / [..]: コメントあり
+  const [items, setItems] = useState(null)
 
   useEffect(() => {
     const server = siteConfig('COMMENT_WALINE_SERVER_URL')
@@ -13,42 +13,58 @@ export default function WalineRecentComments() {
     const url = `${base}/comment?type=recent&count=5`
 
     fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        if (res?.errno === 0 && Array.isArray(res.data)) {
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('[Waline recent] response:', res)
+        if (res && res.errno === 0 && Array.isArray(res.data)) {
           setItems(res.data)
+        } else {
+          setItems([]) // 想定外のレスポンス → 0件扱い
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('[Waline recent] fetch error', err)
+        setItems([]) // エラー時も空配列にして「0件」と表示
       })
   }, [])
 
-  if (!items.length) {
-    // 1件もないときは何も描画しない。枠だけ出したければここを調整
-    return null
+  // まだ取得中
+  if (items === null) {
+    return (
+      <div className="text-sm text-gray-500">
+        読み込み中…
+      </div>
+    )
   }
 
-  return (
-    <div className="waline-recent-content">
-      <div className="font-bold mb-2">最近のコメント</div>
-      <ul className="space-y-2 text-sm">
-        {items.map(item => {
-          // Waline のレスポンス: link: "asami.chiba.jp", url: "/article/xxx"
-          const href = `https://${item.link}${item.url}`
+  // コメント 0 件
+  if (!items.length) {
+    return (
+      <div className="text-sm text-gray-500">
+        まだコメントはありません。
+      </div>
+    )
+  }
 
-          return (
-            <li key={item.objectId}>
-              <a href={href} className="hover:underline">
-                <span className="font-semibold">{item.nick}</span>
-                <span className="ml-1 text-gray-500">
-                  「{item.orig}」
-                </span>
-              </a>
-            </li>
-          )
-        })}
-      </ul>
-    </div>
+  // コメントあり
+  return (
+    <ul className="space-y-2 text-sm">
+      {items.map((item) => {
+        // Waline のレスポンス例:
+        // link: "asami.chiba.jp", url: "/article/xxxx"
+        const href = `https://${item.link}${item.url}`
+
+        return (
+          <li key={item.objectId}>
+            <a href={href} className="hover:underline">
+              <span className="font-semibold">{item.nick}</span>
+              <span className="ml-1 text-gray-500">
+                「{item.orig}」
+              </span>
+            </a>
+          </li>
+        )
+      })}
+    </ul>
   )
 }
