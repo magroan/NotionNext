@@ -31,15 +31,7 @@ const WalineComponent = (props) => {
         serverURL: siteConfig('COMMENT_WALINE_SERVER_URL'),
         lang: siteConfig('LANG'),
 
-        // 教育向けのポジティブなリアクション絵文字
-        reaction: [
-        '👍', // よくできました
-        '😊', // うれしい・たのしい
-        '✨', // ナイスアイデア
-        '📚', // 勉強になった
-        '💡', // ひらめいた
-        '👏'  // 拍手！
-        ],
+        reaction: true
 
         dark: 'html.dark',
 
