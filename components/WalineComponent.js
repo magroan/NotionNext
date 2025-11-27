@@ -1,23 +1,25 @@
-import  { createRef, useEffect } from 'react'
+import { createRef, useEffect } from 'react'
 import { init } from '@waline/client'
 import { useRouter } from 'next/router'
 import '@waline/client/style'
 import { siteConfig } from '@/lib/config'
 
-const path = ''
 let waline = null
+let currentPath = ''
+
 /**
+ * Waline コメントコンポーネント
  * @see https://waline.js.org/guide/get-started.html
- * @param {*} props
- * @returns
  */
 const WalineComponent = (props) => {
   const containerRef = createRef()
   const router = useRouter()
 
-  const updateWaline = url => {
-    if (url !== path && waline) {
-      waline.update(props)
+  // ルートが変わったときに Waline 側のパスを更新
+  const updateWaline = (url) => {
+    if (waline && url !== currentPath) {
+      currentPath = url
+      waline.update({ path: url })
     }
   }
 
@@ -28,29 +30,52 @@ const WalineComponent = (props) => {
         el: containerRef.current,
         serverURL: siteConfig('COMMENT_WALINE_SERVER_URL'),
         lang: siteConfig('LANG'),
-        reaction: true,
+
+        // 教育向けのポジティブなリアクション絵文字
+        reaction: [
+          '👍', // よくできました
+          '😊', // うれしい・たのしい
+          '✨', // ナイスアイデア
+          '📚', // 勉強になった
+          '💡', // ひらめいた
+          '👏'  // 拍手！
+        ],
+
         dark: 'html.dark',
+
+        // コメント本文で使えるスタンプセット（必要に応じて調整）
         emoji: [
           '//npm.elemecdn.com/@waline/emojis@1.1.0/tieba',
           '//npm.elemecdn.com/@waline/emojis@1.1.0/weibo',
           '//npm.elemecdn.com/@waline/emojis@1.1.0/bilibili'
-        ]
+        ],
+  // ★ 追加：リアクションタイトルの文言を上書き
+        locale: {
+          reactionTitle: 'Comment'
+	  // 必要なら reaction0〜reaction5 で各リアクションのラベルも変えられます
+          // reaction0: 'とても良かった', など
+        }
+        // 現在のページパス
+        path: router.asPath
       })
+
+      currentPath = router.asPath
     }
 
-    // 跳转评论
+    // コメント欄へのスクロール用処理を設定
     router.events.on('routeChangeComplete', updateWaline)
     const anchor = window.location.hash
+
     if (anchor) {
-      // 选择需要观察变动的节点
+      // 変化を監視したい要素（コメントリスト）を取得
       const targetNode = document.getElementsByClassName('wl-cards')[0]
 
-      // 当观察到变动时执行的回调函数
+      // DOM の変化を検知したときに実行するコールバック
       const mutationCallback = (mutations) => {
         for (const mutation of mutations) {
-          const type = mutation.type
-          if (type === 'childList') {
+          if (mutation.type === 'childList') {
             const anchorElement = document.getElementById(anchor.substring(1))
+            // 対象のコメント要素が見つかったらスクロール＆アニメーション
             if (anchorElement && anchorElement.className === 'wl-item') {
               anchorElement.scrollIntoView({ block: 'end', behavior: 'smooth' })
               setTimeout(() => {
@@ -63,15 +88,18 @@ const WalineComponent = (props) => {
         }
       }
 
-      // 观察子节点 变化
+      // 子要素の追加・削除を監視する
       const observer = new MutationObserver(mutationCallback)
-      observer.observe(targetNode, { childList: true })
+      if (targetNode) {
+        observer.observe(targetNode, { childList: true })
+      }
     }
 
     return () => {
       if (waline) {
         waline.destroy()
         waline = null
+        currentPath = ''
       }
       router.events.off('routeChangeComplete', updateWaline)
     }
