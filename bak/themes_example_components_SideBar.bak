@@ -6,37 +6,34 @@ import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
 import Announcement from './Announcement'
 import Catalog from './Catalog'
-
-// Waline 最近コメント（SSR 無効）
-const WalineRecentComments = dynamic(
-  () => import('@/components/WalineRecentComments'),
-  { ssr: false }
+const ExampleRecentComments = dynamic(
+  () => import('./RecentCommentListForExample')
 )
 
 /**
- * サイドバー
+ * 侧边栏
  */
 export const SideBar = props => {
   const { locale } = useGlobal()
   const { latestPosts, categoryOptions, notice, post } = props
-  // コメント関連
+  // 评论相关
   const COMMENT_WALINE_SERVER_URL = siteConfig(
     'COMMENT_WALINE_SERVER_URL',
     false
   )
   const COMMENT_WALINE_RECENT = siteConfig('COMMENT_WALINE_RECENT', false)
 
-  // 記事詳細ページでお知らせ欄を非表示にするかどうか
+  // 文章详情页特殊布局
   const HIDDEN_NOTIFICATION =
     post && siteConfig('EXAMPLE_ARTICLE_HIDDEN_NOTIFICATION', false, CONFIG)
 
-  // 記事詳細ページのレイアウトを左右ではなく上下にするかどうか
+  // 文章详情页左右布局改为上下布局
   const LAYOUT_VERTICAL =
     post && siteConfig('EXAMPLE_ARTICLE_LAYOUT_VERTICAL', false, CONFIG)
 
   return (
     <>
-      {/* 目次 */}
+      {/* 目录 */}
       {post?.toc && post?.toc.length > 2 && (
         <aside className='w-full rounded shadow overflow-hidden mb-6 pb-4'>
           <h3 className='text-sm bg-gray-100 text-gray-700 dark:bg-hexo-black-gray dark:text-gray-200 py-3 px-4 dark:border-hexo-black-gray border-b'>
@@ -46,7 +43,7 @@ export const SideBar = props => {
         </aside>
       )}
 
-      {/* カテゴリ一覧 */}
+      {/* 分类 */}
       <aside className='w-full rounded shadow overflow-hidden mb-6'>
         <h3 className='text-sm bg-gray-100 text-gray-700 dark:bg-hexo-black-gray dark:text-gray-200 py-3 px-4 dark:border-hexo-black-gray border-b'>
           {locale.COMMON.CATEGORY}
@@ -76,7 +73,7 @@ export const SideBar = props => {
         </div>
       </aside>
 
-      {/* 最新記事 */}
+      {/* 最新文章 */}
       <aside className='w-full rounded shadow overflow-hidden mb-6'>
         <h3 className='text-sm bg-gray-100 text-gray-700 dark:bg-hexo-black-gray dark:text-gray-200 py-3 px-4 dark:border-hexo-black-gray border-b'>
           {locale.COMMON.LATEST_POSTS}
@@ -102,10 +99,11 @@ export const SideBar = props => {
         </div>
       </aside>
 
-      {/* お知らせ */}
+      {/* 公告 */}
+      {/* 公告栏 */}
       {!HIDDEN_NOTIFICATION && <Announcement post={notice} />}
 
-      {/* 最近のコメント（Waline） */}
+      {/* 最近评论 */}
       {COMMENT_WALINE_SERVER_URL && COMMENT_WALINE_RECENT && (
         <aside className='w-full rounded shadow overflow-hidden mb-6'>
           <h3 className='text-sm bg-gray-100 text-gray-700 dark:bg-hexo-black-gray dark:text-gray-200 py-3 px-4 dark:border-hexo-black-gray border-b'>
@@ -113,12 +111,12 @@ export const SideBar = props => {
           </h3>
 
           <div className='p-4'>
-            <WalineRecentComments />
+            <ExampleRecentComments />
           </div>
         </aside>
       )}
 
-      {/* マスコット（Live2D）ウィジェット */}
+      {/* 宠物挂件 */}
       <aside
         className={`rounded overflow-hidden mb-6 ${LAYOUT_VERTICAL ? 'hidden md:fixed right-4 bottom-20' : ''}`}>
         <Live2D />

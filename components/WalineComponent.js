@@ -33,12 +33,12 @@ const WalineComponent = (props) => {
 
         // 教育向けのポジティブなリアクション絵文字
         reaction: [
-          '👍', // よくできました
-          '😊', // うれしい・たのしい
-          '✨', // ナイスアイデア
-          '📚', // 勉強になった
-          '💡', // ひらめいた
-          '👏'  // 拍手！
+          '$D83D$DC4D', // よくできました
+          '$D83D$DE0A', // うれしい・たのしい
+          '$2728', // ナイスアイデア
+          '$D83D$DCDA', // 勉強になった
+          '$D83D$DCA1', // ひらめいた
+          '$D83D$DC4F'  // 拍手！
         ],
 
         dark: 'html.dark',
@@ -49,12 +49,10 @@ const WalineComponent = (props) => {
           '//npm.elemecdn.com/@waline/emojis@1.1.0/weibo',
           '//npm.elemecdn.com/@waline/emojis@1.1.0/bilibili'
         ],
-  // ★ 追加：リアクションタイトルの文言を上書き
+  //リアクションタイトルの文言を上書き
         locale: {
           reactionTitle: 'Comment'
-	  // 必要なら reaction0〜reaction5 で各リアクションのラベルも変えられます
-          // reaction0: 'とても良かった', など
-        }
+        },
         // 現在のページパス
         path: router.asPath
       })
