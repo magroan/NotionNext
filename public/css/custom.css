@@ -1,8 +1,187 @@
-/* 静态文件导入 自定义样式*/
+/*custom.css*/
 
 #theme-fukasawa .sideLeft hr{
     opacity: .04;
 }
 .fa-info:before {
     content: "\f05a";
+}
+
+/* =========================================================
+   NotionNext テーマ "example" 用 コードブロック色分け
+   - Prism.js の token クラスを上書き
+   - コメント行をグレー
+   - 言語ごとのキーワード／文字列などに色
+   ========================================================= */
+
+/* 共通: コメント系はグレー */
+.notion .notion-code pre[class*='language-'] .token.comment,
+.notion .notion-code pre[class*='language-'] .token.prolog,
+.notion .notion-code pre[class*='language-'] .token.doctype,
+.notion .notion-code pre[class*='language-'] .token.cdata {
+  color: #9ca3af !important;  /* Tailwind の gray-400 相当 */
+  opacity: 0.85;
+}
+
+/* ================================
+   JavaScript / TypeScript
+   ================================ */
+.notion .notion-code pre code.language-javascript .token.keyword,
+.notion .notion-code pre code.language-js .token.keyword,
+.notion .notion-code pre code.language-typescript .token.keyword,
+.notion .notion-code pre code.language-ts .token.keyword {
+  color: #1a73e8 !important; /* キーワード: 青 */
+}
+
+.notion .notion-code pre code.language-javascript .token.string,
+.notion .notion-code pre code.language-js .token.string,
+.notion .notion-code pre code.language-typescript .token.string,
+.notion .notion-code pre code.language-ts .token.string {
+  color: #139c46 !important; /* 文字列: 緑 */
+}
+
+.notion .notion-code pre code.language-javascript .token.function,
+.notion .notion-code pre code.language-typescript .token.function {
+  color: #c792ea !important; /* 関数名: 紫 */
+}
+
+/* ================================
+   Python
+   ================================ */
+.notion .notion-code pre code.language-python .token.keyword {
+  color: #b58900 !important; /* キーワード: 黄土色 */
+}
+
+.notion .notion-code pre code.language-python .token.string {
+  color: #2aa198 !important; /* 文字列: ティール */
+}
+
+.notion .notion-code pre code.language-python .token.function {
+  color: #268bd2 !important; /* 関数名: 青 */
+}
+
+/* ================================
+   Shell / Bash
+   ================================ */
+.notion .notion-code pre code.language-bash .token.keyword,
+.notion .notion-code pre code.language-shell .token.keyword {
+  color: #a3e635 !important; /* キーワード: 黄緑 */
+}
+
+.notion .notion-code pre code.language-bash .token.string,
+.notion .notion-code pre code.language-shell .token.string {
+  color: #86efac !important; /* 文字列: 薄い緑 */
+}
+
+.notion .notion-code pre code.language-bash .token.command {
+  color: #60a5fa !important; /* コマンド: 青 */
+}
+
+/* ================================
+   HTML
+   ================================ */
+.notion .notion-code pre code.language-html .token.tag {
+  color: #ec4899 !important; /* タグ名: ピンク */
+}
+
+.notion .notion-code pre code.language-html .token.attr-name {
+  color: #fb923c !important; /* 属性名: オレンジ */
+}
+
+.notion .notion-code pre code.language-html .token.attr-value {
+  color: #22c55e !important; /* 属性値: 緑 */
+}
+
+/* ================================
+   CSS
+   ================================ */
+.notion .notion-code pre code.language-css .token.property {
+  color: #3b82f6 !important; /* プロパティ名: 青 */
+}
+
+.notion .notion-code pre code.language-css .token.string,
+.notion .notion-code pre code.language-css .token.url {
+  color: #22c55e !important; /* 値: 緑 */
+}
+
+.notion .notion-code pre code.language-css .token.selector {
+  color: #ec4899 !important; /* セレクタ: ピンク */
+}
+
+/* ================================
+   JSON
+   ================================ */
+.notion .notion-code pre code.language-json .token.property {
+  color: #3b82f6 !important; /* キー: 青 */
+}
+
+.notion .notion-code pre code.language-json .token.string {
+  color: #22c55e !important; /* 文字列: 緑 */
+}
+
+.notion .notion-code pre code.language-json .token.number {
+  color: #eab308 !important; /* 数値: 黄 */
+}
+
+/* ================================
+   SQL
+   ================================ */
+.notion .notion-code pre code.language-sql .token.keyword {
+  color: #a855f7 !important; /* SELECT, WHERE など: 紫 */
+}
+
+.notion .notion-code pre code.language-sql .token.string {
+  color: #22c55e !important; /* 文字列: 緑 */
+}
+
+.notion .notion-code pre code.language-sql .token.number {
+  color: #f59e0b !important; /* 数値: オレンジ */
+}
+
+/* ================================
+   Markdown
+   ================================ */
+.notion .notion-code pre code.language-markdown .token.url {
+  color: #3b82f6 !important; /* リンク: 青 */
+}
+
+.notion .notion-code pre code.language-markdown .token.bold {
+  color: #ec4899 !important; /* 太字: ピンク */
+}
+
+.notion .notion-code pre code.language-markdown .token.italic {
+  color: #a855f7 !important; /* 斜体: 紫 */
+}
+
+/* ================================
+   C / C++
+   ================================ */
+.notion .notion-code pre code.language-c .token.keyword,
+.notion .notion-code pre code.language-cpp .token.keyword {
+  color: #2563eb !important; /* キーワード: 青 */
+}
+
+.notion .notion-code pre code.language-c .token.class-name,
+.notion .notion-code pre code.language-cpp .token.class-name {
+  color: #9333ea !important; /* 型名: 紫 */
+}
+
+.notion .notion-code pre code.language-c .token.string,
+.notion .notion-code pre code.language-cpp .token.string {
+  color: #16a34a !important; /* 文字列: 緑 */
+}
+
+/* ================================
+   Java
+   ================================ */
+.notion .notion-code pre code.language-java .token.keyword {
+  color: #fb923c !important; /* キーワード: オレンジ */
+}
+
+.notion .notion-code pre code.language-java .token.class-name {
+  color: #a855f7 !important; /* クラス名: 紫 */
+}
+
+.notion .notion-code pre code.language-java .token.string {
+  color: #22c55e !important; /* 文字列: 緑 */
 }
