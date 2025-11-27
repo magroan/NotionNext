@@ -126,11 +126,14 @@ module.exports = {
     process.env.NEXT_PUBLIC_VALINE_PLACEHOLDER || '気軽にコメントしてね?',
   // プレースホルダー（管理パネル連携でコメント確認・通知が可能）
 
+
   COMMENT_WALINE_SERVER_URL:
-    process.env.NEXT_PUBLIC_WALINE_SERVER_URL || '',
+    process.env.NEXT_PUBLIC_WALINE_SERVER_URL || 'https://comment.asami.chiba.jp',
   // Waline の完全なサーバーURL（例：https://preview-waline.tangly1024.com）
-  COMMENT_WALINE_RECENT: process.env.NEXT_PUBLIC_WALINE_RECENT || false,
+  COMMENT_WALINE_RECENT:
+    process.env.NEXT_PUBLIC_WALINE_RECENT || true,
   // 最新コメントの表示
+
 
   /**
    * WebMention ベースのコメントシステム
