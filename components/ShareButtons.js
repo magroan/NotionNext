@@ -1,54 +1,55 @@
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import {
-  // EmailIcon,
-  // EmailShareButton,
+  EmailIcon,
+  EmailShareButton,
   FacebookIcon,
+  FacebookMessengerIcon,
+  FacebookMessengerShareButton,
   FacebookShareButton,
-  // FacebookMessengerIcon,
-  // FacebookMessengerShareButton,
-  // HatenaIcon,
-  // HatenaShareButton,
-  // InstapaperIcon,
-  // InstapaperShareButton,
+  HatenaIcon,
+  HatenaShareButton,
+  InstapaperIcon,
+  InstapaperShareButton,
   LineIcon,
   LineShareButton,
   LinkedinIcon,
   LinkedinShareButton,
-  // LivejournalIcon,
-  // LivejournalShareButton,
-  // MailruIcon,
-  // MailruShareButton,
-  // OKIcon,
-  // OKShareButton,
-  // PinterestIcon,
-  // PinterestShareButton,
-  // PocketIcon,
-  // PocketShareButton,
-  // RedditIcon,
-  // RedditShareButton,
-  // TelegramIcon,
-  // TelegramShareButton,
-  // TumblrIcon,
-  // TumblrShareButton,
+  LivejournalIcon,
+  LivejournalShareButton,
+  MailruIcon,
+  MailruShareButton,
+  OKIcon,
+  OKShareButton,
+  PinterestIcon,
+  PinterestShareButton,
+  PocketIcon,
+  PocketShareButton,
+  RedditIcon,
+  RedditShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  TumblrIcon,
+  TumblrShareButton,
   TwitterIcon,
   TwitterShareButton,
-  // ThreadsIcon,
-  // ThreadsShareButton,
-  // ViberIcon,
-  // ViberShareButton,
-  // VKIcon,
-  // VKShareButton,
-  // WeiboIcon,
-  // WeiboShareButton,
-  // WhatsappIcon,
-  // WhatsappShareButton,
-  // WorkplaceIcon,
-  // WorkplaceShareButton
+  ThreadsIcon,
+  ThreadsShareButton,
+  ViberIcon,
+  ViberShareButton,
+  VKIcon,
+  VKShareButton,
+  WeiboIcon,
+  WeiboShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+  WorkplaceIcon,
+  WorkplaceShareButton
 } from 'react-share'
 
 const QrCode = dynamic(() => import('@/components/QrCode'), { ssr: false })
@@ -74,7 +75,7 @@ const ShareButtons = ({ post }) => {
   const [qrCodeShow, setQrCodeShow] = useState(false)
 
   const copyUrl = () => {
-    // ?保 shareUrl 是一个正?的字符串并?行解?
+    // 确保 shareUrl 是一个正确的字符串并进行解码
     const decodedUrl = decodeURIComponent(shareUrl)
     navigator?.clipboard?.writeText(decodedUrl)
     alert(locale.COMMON.URL_COPIED + ' \n' + decodedUrl)
@@ -86,7 +87,14 @@ const ShareButtons = ({ post }) => {
   const closePopover = () => {
     setQrCodeShow(false)
   }
-
+  const openRedirectShare = base => {
+    if (!shareUrl || typeof window === 'undefined') return
+    window.open(
+      `${base}${encodeURIComponent(shareUrl)}`,
+      '_blank',
+      'noopener,noreferrer'
+    )
+  }
   useEffect(() => {
     setShareUrl(window.location.href)
   }, [])
@@ -95,7 +103,6 @@ const ShareButtons = ({ post }) => {
     <>
       {services.map(singleService => {
         switch (singleService) {
-          //Facebook だけ残す
           case 'facebook':
             return (
               <FacebookShareButton
@@ -106,20 +113,16 @@ const ShareButtons = ({ post }) => {
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
             )
-
-          //Messenger 無効化
-          // case 'messenger':
-          //   return (
-          //     <FacebookMessengerShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       appId={siteConfig('FACEBOOK_APP_ID')}
-          //       className='mx-1'>
-          //       <FacebookMessengerIcon size={32} round />
-          //     </FacebookMessengerShareButton>
-          //   )
-
-          //LINE 残す
+          case 'messenger':
+            return (
+              <FacebookMessengerShareButton
+                key={singleService}
+                url={shareUrl}
+                appId={siteConfig('FACEBOOK_APP_ID')}
+                className='mx-1'>
+                <FacebookMessengerIcon size={32} round />
+              </FacebookMessengerShareButton>
+            )
           case 'line':
             return (
               <LineShareButton
@@ -129,35 +132,29 @@ const ShareButtons = ({ post }) => {
                 <LineIcon size={32} round />
               </LineShareButton>
             )
-
-          //Reddit 無効化
-          // case 'reddit':
-          //   return (
-          //     <RedditShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       windowWidth={660}
-          //       windowHeight={460}
-          //       className='mx-1'>
-          //       <RedditIcon size={32} round />
-          //     </RedditShareButton>
-          //   )
-
-          //Email 無効化
-          // case 'email':
-          //   return (
-          //     <EmailShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       subject={titleWithSiteInfo}
-          //       body={body}
-          //       className='mx-1'>
-          //       <EmailIcon size={32} round />
-          //     </EmailShareButton>
-          //   )
-
-          //Twitter(X) 残す
+          case 'reddit':
+            return (
+              <RedditShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                windowWidth={660}
+                windowHeight={460}
+                className='mx-1'>
+                <RedditIcon size={32} round />
+              </RedditShareButton>
+            )
+          case 'email':
+            return (
+              <EmailShareButton
+                key={singleService}
+                url={shareUrl}
+                subject={titleWithSiteInfo}
+                body={body}
+                className='mx-1'>
+                <EmailIcon size={32} round />
+              </EmailShareButton>
+            )
           case 'twitter':
             return (
               <TwitterShareButton
@@ -169,33 +166,27 @@ const ShareButtons = ({ post }) => {
                 <TwitterIcon size={32} round />
               </TwitterShareButton>
             )
-
-          //Telegram 無効化
-          // case 'telegram':
-          //   return (
-          //     <TelegramShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       className='mx-1'>
-          //       <TelegramIcon size={32} round />
-          //     </TelegramShareButton>
-          //   )
-
-          //Whatsapp 無効化
-          // case 'whatsapp':
-          //   return (
-          //     <WhatsappShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       separator=':: '
-          //       className='mx-1'>
-          //       <WhatsappIcon size={32} round />
-          //     </WhatsappShareButton>
-          //   )
-
-          //LinkedIn 残す
+          case 'telegram':
+            return (
+              <TelegramShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                className='mx-1'>
+                <TelegramIcon size={32} round />
+              </TelegramShareButton>
+            )
+          case 'whatsapp':
+            return (
+              <WhatsappShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                separator=':: '
+                className='mx-1'>
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
+            )
           case 'linkedin':
             return (
               <LinkedinShareButton
@@ -205,186 +196,156 @@ const ShareButtons = ({ post }) => {
                 <LinkedinIcon size={32} round />
               </LinkedinShareButton>
             )
-
-          //Pinterest 無効化
-          // case 'pinterest':
-          //   return (
-          //     <PinterestShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       media={image}
-          //       className='mx-1'>
-          //       <PinterestIcon size={32} round />
-          //     </PinterestShareButton>
-          //   )
-
-          //VK 無効化
-          // case 'vkshare':
-          //   return (
-          //     <VKShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       image={image}
-          //       className='mx-1'>
-          //       <VKIcon size={32} round />
-          //     </VKShareButton>
-          //   )
-
-          //OK 無効化
-          // case 'okshare':
-          //   return (
-          //     <OKShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       image={image}
-          //       className='mx-1'>
-          //       <OKIcon size={32} round />
-          //     </OKShareButton>
-          //   )
-
-          //Tumblr 無効化
-          // case 'tumblr':
-          //   return (
-          //     <TumblrShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       tags={tags}
-          //       className='mx-1'>
-          //       <TumblrIcon size={32} round />
-          //     </TumblrShareButton>
-          //   )
-
-          //Livejournal 無効化
-          // case 'livejournal':
-          //   return (
-          //     <LivejournalShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       description={shareUrl}
-          //       className='mx-1'>
-          //       <LivejournalIcon size={32} round />
-          //     </LivejournalShareButton>
-          //   )
-
-          //Mailru 無効化
-          // case 'mailru':
-          //   return (
-          //     <MailruShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       className='mx-1'>
-          //       <MailruIcon size={32} round />
-          //     </MailruShareButton>
-          //   )
-
-          //Viber 無効化
-          // case 'viber':
-          //   return (
-          //     <ViberShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       className='mx-1'>
-          //       <ViberIcon size={32} round />
-          //     </ViberShareButton>
-          //   )
-
-          //Workplace 無効化
-          // case 'workplace':
-          //   return (
-          //     <WorkplaceShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       quote={titleWithSiteInfo}
-          //       hashtag={hashTags}
-          //       className='mx-1'>
-          //       <WorkplaceIcon size={32} round />
-          //     </WorkplaceShareButton>
-          //   )
-
-          //Weibo 無効化
-          // case 'weibo':
-          //   return (
-          //     <WeiboShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       image={image}
-          //       className='mx-1'>
-          //       <WeiboIcon size={32} round />
-          //     </WeiboShareButton>
-          //   )
-
-          //Pocket 無効化
-          // case 'pocket':
-          //   return (
-          //     <PocketShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       className='mx-1'>
-          //       <PocketIcon size={32} round />
-          //     </PocketShareButton>
-          //   )
-
-          //Instapaper 無効化
-          // case 'instapaper':
-          //   return (
-          //     <InstapaperShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       className='mx-1'>
-          //       <InstapaperIcon size={32} round />
-          //     </InstapaperShareButton>
-          //   )
-
-          //Hatena 無効化
-          // case 'hatena':
-          //   return (
-          //     <HatenaShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       windowWidth={660}
-          //       windowHeight={460}
-          //       className='mx-1'>
-          //       <HatenaIcon size={32} round />
-          //     </HatenaShareButton>
-          //   )
-
-          //Threads 無効化
-          // case 'threads':
-          //   return (
-          //     <ThreadsShareButton
-          //       key={singleService}
-          //       url={shareUrl}
-          //       title={titleWithSiteInfo}
-          //       className='mx-1'>
-          //       <ThreadsIcon size={32} round />
-          //     </ThreadsShareButton>
-          //   )
-
-          //QQ は元から "QQ 共有" アイコンなので、今回は無効化
-          // case 'qq':
-          //   return (
-          //     <button
-          //       key={singleService}
-          //       className='cursor-pointer bg-blue-600 text-white rounded-full mx-1'>
-          //       <a
-          //         target='_blank'
-          //         rel='noreferrer'
-          //         aria-label='Share by QQ'
-          //         href={`http://connect.qq.com/widget/shareqq/index.html?url=${shareUrl}&sharesource=qzone&title=${title}&desc=${body}`}>
-          //         <i className='fab fa-qq w-8' />
-          //       </a>
-          //     </button>
-          //   )
-
-          //WeChat = QR コード共有として残す
+          case 'pinterest':
+            return (
+              <PinterestShareButton
+                key={singleService}
+                url={shareUrl}
+                media={image}
+                className='mx-1'>
+                <PinterestIcon size={32} round />
+              </PinterestShareButton>
+            )
+          case 'vkshare':
+            return (
+              <VKShareButton
+                key={singleService}
+                url={shareUrl}
+                image={image}
+                className='mx-1'>
+                <VKIcon size={32} round />
+              </VKShareButton>
+            )
+          case 'okshare':
+            return (
+              <OKShareButton
+                key={singleService}
+                url={shareUrl}
+                image={image}
+                className='mx-1'>
+                <OKIcon size={32} round />
+              </OKShareButton>
+            )
+          case 'tumblr':
+            return (
+              <TumblrShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                tags={tags}
+                className='mx-1'>
+                <TumblrIcon size={32} round />
+              </TumblrShareButton>
+            )
+          case 'livejournal':
+            return (
+              <LivejournalShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                description={shareUrl}
+                className='mx-1'>
+                <LivejournalIcon size={32} round />
+              </LivejournalShareButton>
+            )
+          case 'mailru':
+            return (
+              <MailruShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                className='mx-1'>
+                <MailruIcon size={32} round />
+              </MailruShareButton>
+            )
+          case 'viber':
+            return (
+              <ViberShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                className='mx-1'>
+                <ViberIcon size={32} round />
+              </ViberShareButton>
+            )
+          case 'workplace':
+            return (
+              <WorkplaceShareButton
+                key={singleService}
+                url={shareUrl}
+                quote={titleWithSiteInfo}
+                hashtag={hashTags}
+                className='mx-1'>
+                <WorkplaceIcon size={32} round />
+              </WorkplaceShareButton>
+            )
+          case 'weibo':
+            return (
+              <WeiboShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                image={image}
+                className='mx-1'>
+                <WeiboIcon size={32} round />
+              </WeiboShareButton>
+            )
+          case 'pocket':
+            return (
+              <PocketShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                className='mx-1'>
+                <PocketIcon size={32} round />
+              </PocketShareButton>
+            )
+          case 'instapaper':
+            return (
+              <InstapaperShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                className='mx-1'>
+                <InstapaperIcon size={32} round />
+              </InstapaperShareButton>
+            )
+          case 'hatena':
+            return (
+              <HatenaShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                windowWidth={660}
+                windowHeight={460}
+                className='mx-1'>
+                <HatenaIcon size={32} round />
+              </HatenaShareButton>
+            )
+          case 'threads':
+            return (
+              <ThreadsShareButton
+                key={singleService}
+                url={shareUrl}
+                title={titleWithSiteInfo}
+                className='mx-1'>
+                <ThreadsIcon size={32} round />
+              </ThreadsShareButton>
+            )
+          case 'qq':
+            return (
+              <button
+                key={singleService}
+                className='cursor-pointer bg-blue-600 text-white rounded-full mx-1'>
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  aria-label='Share by QQ'
+                  href={`http://connect.qq.com/widget/shareqq/index.html?url=${shareUrl}&sharesource=qzone&title=${title}&desc=${body}`}>
+                  <i className='fab fa-qq w-8' />
+                </a>
+              </button>
+            )
           case 'wechat':
             return (
               <button
@@ -413,8 +374,6 @@ const ShareButtons = ({ post }) => {
                 </div>
               </button>
             )
-
-          //Linkコピー 残す
           case 'link':
             return (
               <button
@@ -426,7 +385,47 @@ const ShareButtons = ({ post }) => {
                 </div>
               </button>
             )
-
+          case 'csdn':
+            return (
+              <button
+                aria-label={singleService}
+                key={singleService}
+                onClick={() => openRedirectShare('https://link.csdn.net/?target=')}
+                className='cursor-pointer rounded-full mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500'>
+                <div className='w-8 h-8 rounded-full items-center justify-center'
+                  style={{backgroundColor: '#ff6a00'}}>
+                  <Image
+                    src='/svg/csdn.svg'
+                    alt='CSDN'
+                    width={28}
+                    height={28}
+                    className='w-5 h-5'
+                    loading='lazy'
+                    style={{ transform: 'translateY(3px)' }}
+                  />
+                </div>
+              </button>
+            )
+          case 'juejin':
+            return (
+              <button
+                aria-label={singleService}
+                key={singleService}
+                onClick={() => openRedirectShare('https://link.juejin.cn/?target=')}
+                className='cursor-pointer rounded-full mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500'>
+                <div className='w-8 h-8 rounded-full flex items-center justify-center'
+                     style={{ backgroundColor: '#5dade2' }}>
+                  <Image
+                    src='/svg/juejin.svg'
+                    alt='掘金'
+                    width={24}
+                    height={24}
+                    className='w-5 h-5'
+                    loading='lazy'
+                  />
+                </div>
+              </button>
+            )
           default:
             return <></>
         }

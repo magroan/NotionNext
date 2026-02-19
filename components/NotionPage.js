@@ -1,5 +1,5 @@
 import { siteConfig } from '@/lib/config'
-import { compressImage, mapImgUrl } from '@/lib/notion/mapImage'
+import { compressImage, mapImgUrl } from '@/lib/db/notion/mapImage'
 import { isBrowser, loadExternalResource } from '@/lib/utils'
 import mediumZoom from '@fisch0920/medium-zoom'
 import 'katex/dist/katex.min.css'
@@ -121,6 +121,9 @@ const NotionPage = ({ post, className }) => {
     return () => clearTimeout(timer)
   }, [post])
 
+  // const cleanBlockMap = cleanBlocksWithWarn(post?.blockMap);
+  // console.log('NotionPage render with post:', post);
+
   return (
     <div
       id='notion-article'
@@ -144,6 +147,7 @@ const NotionPage = ({ post, className }) => {
     </div>
   )
 }
+
 
 /**
  * データベース（表）内の URL を無効化する

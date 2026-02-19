@@ -1,21 +1,21 @@
 // pages/sitemap.xml.js
-import { getGlobalData } from '@/lib/db/getSiteData';
-import { useRouter } from 'next/router';
-import Slug from '../[prefix]';
+import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
+import { useRouter } from 'next/router'
+import Slug from '../[prefix]'
 
 /**
 /**
  * @returns
  */
 export const getStaticProps = async () => {
-  const from = `auth`;
-  const props = await getGlobalData({ from });
+  const from = `auth`
+  const props = await fetchGlobalAllData({ from })
 
-  delete props.allPages;
+  delete props.allPages
   return {
     props
-  };
-};
+  }
+}
 
 /**
  * 根据notion的slug访问页面
@@ -23,9 +23,9 @@ export const getStaticProps = async () => {
  * @param {*} props
  * @returns
  */
-const UI = (props) => {
-  const router = useRouter();
-  return <Slug {...props} msg={router?.query?.msg} title={"\u627F\u8A8D\u7D50\u679C"} />;
-};
+const UI = props => {
+  const router = useRouter()
+  return <Slug {...props} msg={router?.query?.msg} title={'授权结果'} />
+}
 
-export default UI;
+export default UI
