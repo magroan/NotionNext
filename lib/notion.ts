@@ -4,40 +4,61 @@ import type { BasePage } from '@/lib/site/site.types'
 
 type SitemapPost = {
   id?: string
-  slug?: string
-  status?: any
-  type?: any
+  slug: string
+  status?: string
+  type?: string
   publishDay?: string
   lastEditedDay?: string
 }
 
-const toYMD = (d: any): string | undefined => {
-  if (!d) return undefined
-  const dt = d instanceof Date ? d : new Date(d)
-  if (Number.isNaN(dt.getTime())) return undefined
-  return dt.toISOString().split('T')[0]
+/**
+ * BLOG.NOTION_PAGE_ID が "xxx,ja-JP:yyy,en-US:zzz" のような形式でも拾う
+ */
+export function extractNotionPageIds(): string[] {
+  const raw = String((BLOG as any).NOTION_PAGE_ID || '').trim()
+  if (!raw) return []
+  return raw
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean)
+    .map(s => {
+      const idx = s.indexOf(':')
+      return idx >= 0 ? s.slice(idx + 1).trim() : s
+    })
+    .filter(Boolean)
 }
 
 /**
- * 環境変数（NOTION_PAGE_ID / NOTION_PAGE_ID_2 ...）と BLOG.NOTION_PAGE_ID をまとめて取得
+ * 安全に YYYY-MM-DD を作る（不正なら undefined）
+ * - number は ms/秒の両方を許容（秒っぽければ ms に補正）
  */
-function extractNotionPageIds(): string[] {
-  const ids: string[] = []
+function toYMD(input: unknown): string | undefined {
+  if (input == null) return undefined
 
-  if (BLOG.NOTION_PAGE_ID) ids.push(String(BLOG.NOTION_PAGE_ID).trim())
+  let d: Date | null = null
 
-  // NOTION_PAGE_ID, NOTION_PAGE_ID_2, NOTION_PAGE_ID_3...
-  for (const [k, v] of Object.entries(process.env || {})) {
-    if (!v) continue
-    if (k === 'NOTION_PAGE_ID' || /^NOTION_PAGE_ID_\d+$/.test(k)) {
-      ids.push(String(v).trim())
-    }
+  if (typeof input === 'number') {
+    const ms = input < 1e12 ? input * 1000 : input
+    d = new Date(ms)
+  } else if (input instanceof Date) {
+    d = input
+  } else if (typeof input === 'string') {
+    d = new Date(input)
   }
 
-  // 重複排除
-  return Array.from(new Set(ids.filter(Boolean)))
+  if (!d || Number.isNaN(d.getTime())) return undefined
+  return d.toISOString().split('T')[0]
 }
 
+function hasVal<T>(v: T | null | undefined): v is T {
+  return v !== undefined && v !== null
+}
+
+/**
+ * site.service の BasePage から sitemap が期待する形へ寄せる
+ * - exactOptionalPropertyTypes 対応：
+ *   undefined の値は「プロパティを付けない」
+ */
 function normalizeForSitemap(p: BasePage): SitemapPost {
   const publishDay =
     // もし既に day 文字列が載っている実装なら優先
@@ -51,22 +72,23 @@ function normalizeForSitemap(p: BasePage): SitemapPost {
     toYMD((p as any).lastEditedDate) ||
     toYMD((p as any).date?.lastEditedDay)
 
-  // exactOptionalPropertyTypes=true の場合、
-  // optional なプロパティに「undefined を明示代入」すると型エラーになるため、
-  // 値があるものだけを詰める。
-  const out: SitemapPost = {}
-
-  const set = (k: keyof SitemapPost, v: any) => {
-    if (v === undefined || v === null) return
-    ;(out as any)[k] = v
+  const out: SitemapPost = {
+    // slug は sitemap 的に必須。呼び出し側で slug ありのみを渡す想定
+    slug: String((p as any)?.slug || '')
   }
 
-  set('id', (p as any).id)
-  set('slug', (p as any).slug)
-  set('status', (p as any).status)
-  set('type', (p as any).type)
-  set('publishDay', publishDay)
-  set('lastEditedDay', lastEditedDay)
+  // optional は undefined を入れない
+  const id = (p as any)?.id
+  if (hasVal(id) && String(id).trim()) out.id = String(id)
+
+  const status = (p as any)?.status
+  if (hasVal(status) && String(status).trim()) out.status = String(status)
+
+  const type = (p as any)?.type
+  if (hasVal(type) && String(type).trim()) out.type = String(type)
+
+  if (hasVal(publishDay)) out.publishDay = publishDay
+  if (hasVal(lastEditedDay)) out.lastEditedDay = lastEditedDay
 
   return out
 }
@@ -79,12 +101,12 @@ export async function getAllPosts(
 ): Promise<SitemapPost[]> {
   const includePages = Boolean(opts?.includePages)
   const pageIds = extractNotionPageIds()
-
-  // 何も取れない場合でも落とさない
   if (pageIds.length === 0) return []
 
   const sites = await Promise.all(
-    pageIds.map(pageId => fetchSite({ pageId, from: 'sitemap:getAllPosts' } as any))
+    pageIds.map(pageId =>
+      fetchSite({ pageId, from: 'sitemap:getAllPosts' } as any)
+    )
   )
 
   // allPages を結合（重複は id で除去）
@@ -102,11 +124,13 @@ export async function getAllPosts(
 
   // includePages=false なら "Page" っぽいものを除外（命名揺れを吸収）
   if (!includePages) {
-    pages = pages.filter(p => String((p as any)?.type || '').toLowerCase() !== 'page')
+    pages = pages.filter(
+      p => String((p as any)?.type || '').toLowerCase() !== 'page'
+    )
   }
 
   return pages
-    .filter(p => (p as any)?.slug) // sitemap 生成的に最低限
+    .filter(p => Boolean((p as any)?.slug))
     .map(normalizeForSitemap)
 }
 
@@ -125,7 +149,9 @@ export async function getAllCategories(
     )
   )
 
-  const merged = sites.flatMap(s => (s as any)?.categoryOptions || []) as CategoryOption[]
+  const merged = sites.flatMap(
+    s => (s as any)?.categoryOptions || []
+  ) as CategoryOption[]
 
   // name で集約（count は足し合わせ）
   const acc = new Map<string, number>()
