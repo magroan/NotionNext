@@ -5,54 +5,39 @@ import type { BasePage } from '@/lib/site/site.types'
 type SitemapPost = {
   id?: string
   slug?: string
-  status?: string
-  type?: string
+  status?: any
+  type?: any
   publishDay?: string
   lastEditedDay?: string
 }
 
-/**
- * BLOG.NOTION_PAGE_ID が "xxx,ja-JP:yyy,en-US:zzz" のような形式でも拾う
- */
-export function extractNotionPageIds(): string[] {
-  const raw = String((BLOG as any).NOTION_PAGE_ID || '').trim()
-  if (!raw) return []
-  return raw
-    .split(',')
-    .map(s => s.trim())
-    .filter(Boolean)
-    .map(s => {
-      const idx = s.indexOf(':')
-      return idx >= 0 ? s.slice(idx + 1).trim() : s
-    })
-    .filter(Boolean)
+const toYMD = (d: any): string | undefined => {
+  if (!d) return undefined
+  const dt = d instanceof Date ? d : new Date(d)
+  if (Number.isNaN(dt.getTime())) return undefined
+  return dt.toISOString().split('T')[0]
 }
 
 /**
- * 安全に YYYY-MM-DD を作る（不正なら undefined）
- * - number は ms/秒の両方を許容（秒っぽければ ms に補正）
+ * 環境変数（NOTION_PAGE_ID / NOTION_PAGE_ID_2 ...）と BLOG.NOTION_PAGE_ID をまとめて取得
  */
-function toYMD(input: unknown): string | undefined {
-  if (input == null) return undefined
+function extractNotionPageIds(): string[] {
+  const ids: string[] = []
 
-  let d: Date | null = null
+  if (BLOG.NOTION_PAGE_ID) ids.push(String(BLOG.NOTION_PAGE_ID).trim())
 
-  if (typeof input === 'number') {
-    const ms = input < 1e12 ? input * 1000 : input
-    d = new Date(ms)
-  } else if (input instanceof Date) {
-    d = input
-  } else if (typeof input === 'string') {
-    d = new Date(input)
+  // NOTION_PAGE_ID, NOTION_PAGE_ID_2, NOTION_PAGE_ID_3...
+  for (const [k, v] of Object.entries(process.env || {})) {
+    if (!v) continue
+    if (k === 'NOTION_PAGE_ID' || /^NOTION_PAGE_ID_\d+$/.test(k)) {
+      ids.push(String(v).trim())
+    }
   }
 
-  if (!d || Number.isNaN(d.getTime())) return undefined
-  return d.toISOString().split('T')[0]
+  // 重複排除
+  return Array.from(new Set(ids.filter(Boolean)))
 }
 
-/**
- * site.service の BasePage から sitemap が期待する形へ寄せる
- */
 function normalizeForSitemap(p: BasePage): SitemapPost {
   const publishDay =
     // もし既に day 文字列が載っている実装なら優先
@@ -66,14 +51,24 @@ function normalizeForSitemap(p: BasePage): SitemapPost {
     toYMD((p as any).lastEditedDate) ||
     toYMD((p as any).date?.lastEditedDay)
 
-  return {
-    id: p.id,
-    slug: p.slug,
-    status: (p as any).status,
-    type: (p as any).type,
-    publishDay,
-    lastEditedDay
+  // exactOptionalPropertyTypes=true の場合、
+  // optional なプロパティに「undefined を明示代入」すると型エラーになるため、
+  // 値があるものだけを詰める。
+  const out: SitemapPost = {}
+
+  const set = (k: keyof SitemapPost, v: any) => {
+    if (v === undefined || v === null) return
+    ;(out as any)[k] = v
   }
+
+  set('id', (p as any).id)
+  set('slug', (p as any).slug)
+  set('status', (p as any).status)
+  set('type', (p as any).type)
+  set('publishDay', publishDay)
+  set('lastEditedDay', lastEditedDay)
+
+  return out
 }
 
 /**
@@ -97,7 +92,9 @@ export async function getAllPosts(
   const dedup = new Map<string, BasePage>()
 
   for (const p of merged) {
-    const key = String((p as any)?.id || `${(p as any)?.type || ''}:${(p as any)?.slug || ''}`)
+    const key = String(
+      (p as any)?.id || `${(p as any)?.type || ''}:${(p as any)?.slug || ''}`
+    )
     if (!dedup.has(key)) dedup.set(key, p)
   }
 
