@@ -1,108 +1,102 @@
-// pages/sitemap.xml.js
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
-import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
-import { extractLangId, extractLangPrefix } from '@/lib/utils/pageId'
-import { getServerSideSitemap } from 'next-sitemap'
+import { getAllPosts } from '@/lib/db/SiteDataApi'
 
-const ymd = d => d.toISOString().split('T')[0]
+const toYMD = d => d.toISOString().split('T')[0]
 
-const safeYMDFromPost = post => {
-  const candidates = [
-    post?.publishDate,
-    post?.lastEditedTime,
-    post?.lastEditedDate,
-    post?.createdTime,
-    post?.date?.start_date
-  ]
-  for (const v of candidates) {
-    if (!v) continue
-    const d = new Date(v)
-    if (!Number.isNaN(d.getTime())) return ymd(d)
-  }
-  return ymd(new Date())
+const parseDate = v => {
+  if (!v) return null
+  const d = new Date(v)
+  return isNaN(d.getTime()) ? null : d
 }
 
-export const getServerSideProps = async ctx => {
-  let fields = []
-  const siteIds = BLOG.NOTION_PAGE_ID.split(',')
-
-  for (let index = 0; index < siteIds.length; index++) {
-    const siteId = siteIds[index]
-    const id = extractLangId(siteId)
-    const locale = extractLangPrefix(siteId)
-
-    const siteData = await fetchGlobalAllData({
-      pageId: id,
-      from: 'sitemap.xml'
-    })
-    const link = siteConfig(
-      'LINK',
-      siteData?.siteInfo?.link,
-      siteData.NOTION_CONFIG
-    )
-    const localeFields = generateLocalesSitemap(link, siteData.allPages, locale)
-    fields = fields.concat(localeFields)
-  }
-
-  fields = getUniqueFields(fields)
-
-  ctx.res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, stale-while-revalidate=59'
-  )
-  return getServerSideSitemap(ctx, fields)
+export default function Sitemap() {
+  // getServerSideProps が実体
+  return null
 }
 
-function generateLocalesSitemap(link, allPages, locale) {
+export async function getServerSideProps({ res }) {
+  const data = await getAllPosts({ from: 'sitemap.xml' })
+  const allPages = data?.allPages || []
+  const NOTION_CONFIG = data?.NOTION_CONFIG || {}
+
+  let link = siteConfig('LINK', BLOG.LINK, NOTION_CONFIG)
   if (link && link.endsWith('/')) link = link.slice(0, -1)
-  if (locale && locale.length > 0 && locale.indexOf('/') !== 0) locale = '/' + locale
 
-  const dateNow = ymd(new Date())
-  const defaultFields = [
-    { loc: `${link}${locale}`, lastmod: dateNow, changefreq: 'daily', priority: '0.7' },
-    { loc: `${link}${locale}/archive`, lastmod: dateNow, changefreq: 'daily', priority: '0.7' },
-    { loc: `${link}${locale}/category`, lastmod: dateNow, changefreq: 'daily', priority: '0.7' },
-    { loc: `${link}${locale}/rss/feed.xml`, lastmod: dateNow, changefreq: 'daily', priority: '0.7' },
-    { loc: `${link}${locale}/search`, lastmod: dateNow, changefreq: 'daily', priority: '0.7' },
-    { loc: `${link}${locale}/tag`, lastmod: dateNow, changefreq: 'daily', priority: '0.7' }
+  const urls = [
+    {
+      loc: `${link}`,
+      lastmod: toYMD(new Date()),
+      changefreq: 'daily',
+      priority: 1.0
+    },
+    {
+      loc: `${link}/archive`,
+      lastmod: toYMD(new Date()),
+      changefreq: 'daily',
+      priority: 1.0
+    },
+    {
+      loc: `${link}/category`,
+      lastmod: toYMD(new Date()),
+      changefreq: 'daily'
+    },
+    {
+      loc: `${link}/tag`,
+      lastmod: toYMD(new Date()),
+      changefreq: 'daily'
+    }
   ]
 
-  const postFields =
-    allPages
-      ?.filter(p => p.status === BLOG.NOTION_PROPERTY_NAME.status_publish)
-      ?.map(post => {
-        const slugWithoutLeadingSlash = post?.slug?.startsWith('/')
-          ? post.slug.slice(1)
-          : post.slug
-        return {
-          loc: `${link}${locale}/${slugWithoutLeadingSlash}`,
-          lastmod: safeYMDFromPost(post),
-          changefreq: 'daily',
-          priority: '0.7'
-        }
-      }) ?? []
+  const seen = new Set()
+  for (const post of allPages) {
+    const slugWithoutLeadingSlash = post?.slug?.startsWith('/')
+      ? post?.slug?.slice(1)
+      : post?.slug
 
-  return defaultFields.concat(postFields)
-}
+    if (!slugWithoutLeadingSlash) continue
+    const loc = `${link}/${slugWithoutLeadingSlash}`
+    if (seen.has(loc)) continue
+    seen.add(loc)
 
-function getUniqueFields(fields) {
-  const uniqueFieldsMap = new Map()
+    const d =
+      parseDate(post?.publishDate) ||
+      parseDate(post?.lastEditedTime) ||
+      parseDate(post?.date?.start_date) ||
+      new Date()
 
-  const toTime = s => {
-    const d = new Date(s)
-    const t = d.getTime()
-    return Number.isNaN(t) ? 0 : t
+    urls.push({
+      loc,
+      lastmod: toYMD(d),
+      changefreq: 'daily'
+    })
   }
 
-  fields.forEach(field => {
-    const existingField = uniqueFieldsMap.get(field.loc)
-    if (!existingField || toTime(field.lastmod) > toTime(existingField.lastmod)) {
-      uniqueFieldsMap.set(field.loc, field)
-    }
+  const xml = createSitemapXml(urls)
+  res.setHeader('Content-Type', 'text/xml; charset=utf-8')
+  res.write(xml)
+  res.end()
+  return { props: {} }
+}
+
+function createSitemapXml(urls) {
+  let urlsXml = ''
+  urls.forEach(u => {
+    urlsXml += `<url>
+    <loc>${u.loc}</loc>
+    <lastmod>${u.lastmod}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    </url>
+    `
   })
 
-  return Array.from(uniqueFieldsMap.values())
+  return `
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    ${urlsXml}
+    </urlset>
+    `
 }
-
-export default () => {}
