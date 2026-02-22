@@ -6,8 +6,14 @@ import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
 import Announcement from './Announcement'
 import Catalog from './Catalog'
+
+// 最近コメント（SSR無効 + 読み込み表示）
 const ExampleRecentComments = dynamic(
-  () => import('./RecentCommentListForExample')
+  () => import('@/components/WalineRecentComments'),
+  {
+    ssr: false,
+    loading: () => <div className='text-sm text-gray-500'>読み込み中…</div>
+  }
 )
 
 /**
@@ -16,12 +22,17 @@ const ExampleRecentComments = dynamic(
 export const SideBar = props => {
   const { locale } = useGlobal()
   const { latestPosts, categoryOptions, notice, post } = props
+
   // 评论相关
   const COMMENT_WALINE_SERVER_URL = siteConfig(
     'COMMENT_WALINE_SERVER_URL',
     false
   )
   const COMMENT_WALINE_RECENT = siteConfig('COMMENT_WALINE_RECENT', false)
+
+  // 何件表示するか（未設定なら5件）
+  const COMMENT_WALINE_RECENT_COUNT =
+    siteConfig('COMMENT_WALINE_RECENT_COUNT', 5) || 5
 
   // 文章详情页特殊布局
   const HIDDEN_NOTIFICATION =
@@ -100,7 +111,6 @@ export const SideBar = props => {
       </aside>
 
       {/* 公告 */}
-      {/* 公告栏 */}
       {!HIDDEN_NOTIFICATION && <Announcement post={notice} />}
 
       {/* 最近评论 */}
@@ -111,14 +121,17 @@ export const SideBar = props => {
           </h3>
 
           <div className='p-4'>
-            <ExampleRecentComments />
+            {/* count は任意。未指定ならコンポーネント側のデフォルトに従う */}
+            <ExampleRecentComments count={COMMENT_WALINE_RECENT_COUNT} />
           </div>
         </aside>
       )}
 
       {/* 宠物挂件 */}
       <aside
-        className={`rounded overflow-hidden mb-6 ${LAYOUT_VERTICAL ? 'hidden md:fixed right-4 bottom-20' : ''}`}>
+        className={`rounded overflow-hidden mb-6 ${
+          LAYOUT_VERTICAL ? 'hidden md:fixed right-4 bottom-20' : ''
+        }`}>
         <Live2D />
       </aside>
     </>

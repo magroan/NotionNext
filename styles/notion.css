@@ -75,6 +75,24 @@
   font-family: inherit !important;
 }
 
+/* ---- Ruby (furigana) --------------------------------------------------
+   Custom syntax: {語句|よみ} -> <ruby><rb>語句</rb><rt>よみ</rt></ruby>
+   Keep it subtle and Notion-like.
+*/
+.notion ruby.notion-ruby {
+  ruby-position: over;
+  ruby-align: center;
+}
+
+.notion ruby.notion-ruby rt {
+  font-size: 0.6em;
+  line-height: 1;
+}
+
+.notion ruby.notion-ruby rb {
+  line-height: 1.2;
+}
+
 .notion > * {
   padding: 3px 0;
 }
