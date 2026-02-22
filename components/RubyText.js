@@ -11,11 +11,11 @@ import { formatDate, getHashFragmentValue, useNotionContext } from 'react-notion
  */
 
 // NOTE: base に "|" を含めない想定。ruby 側は "}" までを許容。
-const RUBY_RE = /\{([^|{}]+)\|([^{}]+)\}/g
+const RUBY_RE = /[{｛]\s*([^|｜{}｛｝]+?)\s*[|｜]\s*([^{}｛｝]+?)\s*[}｝]/g
 
 const renderRuby = text => {
   if (!text || typeof text !== 'string') return text
-  if (!text.includes('{') || !text.includes('|') || !text.includes('}')) return text
+  if (!/[{｛]/.test(text) || !/[|｜]/.test(text) || !/[}｝]/.test(text)) return text
 
   const out = []
   let last = 0
