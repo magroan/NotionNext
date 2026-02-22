@@ -6,6 +6,7 @@ import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
+import { applyRubyForNotionPage } from '@/lib/plugins/ruby'
 import RubyText from '@/components/RubyText'
 
 /**
@@ -119,6 +120,17 @@ const NotionPage = ({ post, className }) => {
 
   // const cleanBlockMap = cleanBlocksWithWarn(post?.blockMap);
   // console.log('NotionPage render with post:', post);
+
+  // --- Ruby: {本文|ルビ} / {本文｜ルビ} / ｛本文｜ルビ｝ を <ruby> に変換（DOM後処理）
+  useEffect(() => {
+    // NotionRenderer が DOM を吐き出した後に実行する必要がある
+    const t1 = setTimeout(() => applyRubyForNotionPage(), 50)
+    const t2 = setTimeout(() => applyRubyForNotionPage(), 400)
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+    }
+  }, [post?.id])
 
   return (
     <div
