@@ -17,6 +17,9 @@ const renderRuby = text => {
   if (!text || typeof text !== 'string') return text
   if (!/[{｛]/.test(text) || !/[|｜]/.test(text) || !/[}｝]/.test(text)) return text
 
+  // IMPORTANT: global regex keeps state; reset per call
+  RUBY_RE.lastIndex = 0
+
   const out = []
   let last = 0
   let m
@@ -27,10 +30,7 @@ const renderRuby = text => {
     const base = m[1]
     const rt = m[2]
     out.push(
-      <ruby className='notion-ruby' key={`ruby-${idx}`}>
-        <rb>{base}</rb>
-        <rt>{rt}</rt>
-      </ruby>
+      <ruby className='notion-ruby' key={`ruby-${idx}`}>{base}<rt>{rt}</rt></ruby>
     )
 
     last = idx + m[0].length
