@@ -53,7 +53,7 @@ export default function WalineRecentComments({ count = 5 }) {
   useEffect(() => {
     let cancelled = false
 
-    const loadRecentComments = async () => {
+    async function loadRecentComments() {
       try {
         const response = await fetch(`/api/cache?type=walineRecent&count=${count}`, {
           method: 'GET',

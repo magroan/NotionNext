@@ -32,8 +32,7 @@ function normalizeRecentCommentsResponse(data) {
 }
 
 /**
- * API処理
- * 既存のキャッシュ削除に加えて、Walineの最新コメント取得の中継もここで処理する
+ * キャッシュ削除と Waline 最新コメント取得を処理する
  * @param {*} req
  * @param {*} res
  */
@@ -106,12 +105,15 @@ export default async function handler(req, res) {
 
   try {
     await cleanCache()
-    res
-      .status(200)
-      .json({ status: 'success', message: 'Clean cache successful!' })
+    res.status(200).json({
+      status: 'success',
+      message: 'Clean cache successful!'
+    })
   } catch (error) {
-    res
-      .status(400)
-      .json({ status: 'error', message: 'Clean cache failed!', error })
+    res.status(400).json({
+      status: 'error',
+      message: 'Clean cache failed!',
+      error
+    })
   }
 }

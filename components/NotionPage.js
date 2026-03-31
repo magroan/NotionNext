@@ -10,7 +10,7 @@ import { applyRubyForNotionPage } from '@/lib/plugins/ruby'
 import RubyText from '@/components/RubyText'
 
 /**
- * Notionの本文を表示する
+ * Notion 本文を描画する
  * @param {*} param0
  * @returns
  */
@@ -157,7 +157,7 @@ const NotionPage = ({ post, className }) => {
 }
 
 /**
- * ページ内のデータベースリンクを無効化する
+ * ページ内データベースのリンクを無効化する
  */
 const processDisableDatabaseUrl = () => {
   if (isBrowser) {
@@ -169,7 +169,7 @@ const processDisableDatabaseUrl = () => {
 }
 
 /**
- * ギャラリー画像のクリック時を拡大表示にする
+ * ギャラリー画像を拡大表示にする
  */
 const processGalleryImg = zoom => {
   setTimeout(() => {
@@ -192,7 +192,7 @@ const processGalleryImg = zoom => {
 }
 
 /**
- * URLのハッシュ位置まで自動スクロールする
+ * URL ハッシュ位置へ移動する
  */
 const autoScrollToHash = () => {
   if (!isBrowser) {
@@ -217,60 +217,82 @@ const autoScrollToHash = () => {
  * @returns
  */
 const mapPageUrl = id => {
-  return '/' + id
+  return '/' + id.replace(/-/g, '')
 }
-
-const Tweet = dynamic(
-  () =>
-    import('react-tweet').then(m => {
-      return m.Tweet
-    }),
-  { ssr: false }
-)
-
-const Code = dynamic(() => import('@/components/PrismMac'))
-
-const Collection = dynamic(() =>
-  import('react-notion-x/build/third-party/collection').then(
-    m => m.Collection
-  )
-)
-
-const Equation = dynamic(() => import('@/components/KatexReact'), {
-  ssr: false
-})
-
-const Modal = dynamic(
-  () =>
-    import('react-notion-x/build/third-party/modal').then(m => {
-      return m.Modal
-    }),
-  { ssr: false }
-)
-
-const Pdf = dynamic(() => import('@/components/Pdf'), {
-  ssr: false
-})
-
-const PrismMac = dynamic(() => import('@/components/PrismMac'))
-const AdEmbed = dynamic(() => import('@/components/GoogleAdsense').then(m => m.AdEmbed), {
-  ssr: false
-})
 
 function getMediumZoomMargin() {
   if (!isBrowser) {
     return 0
   }
 
-  if (window.innerWidth < 640) {
+  const width = window.innerWidth
+
+  if (width < 500) {
     return 8
+  } else if (width < 800) {
+    return 20
+  } else if (width < 1280) {
+    return 30
+  } else if (width < 1600) {
+    return 40
+  } else if (width < 1920) {
+    return 48
+  } else {
+    return 72
   }
+}
 
-  if (window.innerWidth < 1024) {
-    return 24
+const Code = dynamic(
+  () =>
+    import('react-notion-x/build/third-party/code').then(m => {
+      return m.Code
+    }),
+  { ssr: false }
+)
+
+const Equation = dynamic(
+  () =>
+    import('@/components/Equation').then(async m => {
+      await import('@/lib/plugins/mhchem')
+      return m.Equation
+    }),
+  { ssr: false }
+)
+
+const Pdf = dynamic(() => import('@/components/Pdf').then(m => m.Pdf), {
+  ssr: false
+})
+
+const PrismMac = dynamic(() => import('@/components/PrismMac'), {
+  ssr: false
+})
+
+const TweetEmbed = dynamic(() => import('react-tweet-embed'), {
+  ssr: false
+})
+
+const AdEmbed = dynamic(
+  () => import('@/components/GoogleAdsense').then(m => m.AdEmbed),
+  { ssr: true }
+)
+
+const Collection = dynamic(
+  () =>
+    import('react-notion-x/build/third-party/collection').then(
+      m => m.Collection
+    ),
+  {
+    ssr: true
   }
+)
 
-  return 40
+const Modal = dynamic(
+  () => import('react-notion-x/build/third-party/modal').then(m => m.Modal),
+  { ssr: false }
+)
+
+const Tweet = ({ id }) => {
+  return <TweetEmbed tweetId={id} />
 }
 
 export default NotionPage

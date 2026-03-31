@@ -1,11 +1,36 @@
 import { useEffect, useState } from 'react'
-import SmartLink from '@/components/SmartLink'
 
 function stripHtml(value) {
   return String(value || '')
     .replace(/<[^>]*>/g, '')
     .replace(/\s+/g, ' ')
     .trim()
+}
+
+function buildHref(item) {
+  const rawUrl = item?.url || item?.path || item?.pathname || ''
+  const rawLink = item?.link || ''
+
+  try {
+    if (/^https?:\/\//i.test(rawUrl)) {
+      return rawUrl
+    }
+
+    if (rawLink) {
+      const base = /^https?:\/\//i.test(rawLink)
+        ? rawLink
+        : `https://${rawLink}`
+      return new URL(rawUrl || '/', base).toString()
+    }
+
+    if (!rawUrl) {
+      return '#'
+    }
+
+    return rawUrl.startsWith('/') ? rawUrl : `/${rawUrl}`
+  } catch (error) {
+    return rawUrl || '#'
+  }
 }
 
 function normalizeRecentCommentsResponse(data) {
@@ -20,55 +45,46 @@ function normalizeRecentCommentsResponse(data) {
   return []
 }
 
-/**
- * 最新コメント一覧を表示する
- * @param {*} props
- * @returns
- */
-const NextRecentComments = props => {
-  const count = props?.count || 5
-  const [comments, setComments] = useState([])
+export default function WalineRecentComments({ count = 5 }) {
   const [loading, setLoading] = useState(true)
+  const [items, setItems] = useState([])
   const [error, setError] = useState('')
 
   useEffect(() => {
     let cancelled = false
 
-    const loadComments = async () => {
+    async function loadRecentComments() {
       try {
-        const response = await fetch(
-          `/api/cache?type=walineRecent&count=${count}`,
-          {
-            method: 'GET',
-            credentials: 'same-origin'
-          }
-        )
+        const response = await fetch(`/api/cache?type=walineRecent&count=${count}`, {
+          method: 'GET',
+          credentials: 'same-origin'
+        })
 
         const json = await response.json()
 
         if (!response.ok || !json?.ok) {
           const message =
             json?.error ||
-            `最新コメントの取得に失敗しました status=${response.status}`
+            `最近のコメントの取得に失敗しました status=${response.status}`
 
           if (!cancelled) {
-            setComments([])
+            setItems([])
             setError(message)
             setLoading(false)
           }
           return
         }
 
-        const list = normalizeRecentCommentsResponse(json)
+        const comments = normalizeRecentCommentsResponse(json)
 
         if (!cancelled) {
-          setComments(list)
+          setItems(comments)
           setError('')
           setLoading(false)
         }
       } catch (errorValue) {
         if (!cancelled) {
-          setComments([])
+          setItems([])
           setError(
             errorValue instanceof Error ? errorValue.message : String(errorValue)
           )
@@ -77,7 +93,7 @@ const NextRecentComments = props => {
       }
     }
 
-    loadComments()
+    loadRecentComments()
 
     return () => {
       cancelled = true
@@ -85,57 +101,45 @@ const NextRecentComments = props => {
   }, [count])
 
   if (loading) {
-    return (
-      <div>
-        読み込み中
-        <i className='ml-2 fas fa-spinner animate-spin' />
-      </div>
-    )
+    return <div className='text-sm text-gray-500'>読み込み中...</div>
   }
 
   if (error) {
     return (
-      <div className='text-sm text-red-600 break-all'>
-        最新コメントの取得に失敗しました
+      <div className='text-sm text-red-600'>
+        最近のコメントの取得に失敗しました。
         <br />
-        {error}
+        <span className='break-all opacity-80'>{error}</span>
       </div>
     )
   }
 
-  if (!comments || comments.length === 0) {
-    return <div>コメントはまだありません</div>
+  if (!items.length) {
+    return <div className='text-sm text-gray-500'>まだコメントはありません。</div>
   }
 
   return (
-    <>
-      {comments.map(comment => {
+    <ul className='space-y-2 text-sm'>
+      {items.map((item, index) => {
+        const href = buildHref(item)
+        const nick = item?.nick || item?.user?.nick || '匿名'
         const preview = stripHtml(
-          comment?.comment || comment?.orig || comment?.content || ''
+          item?.orig || item?.comment || item?.content || ''
         )
-        const shortPreview =
-          preview.length > 60 ? `${preview.slice(0, 60)}...` : preview
+        const short =
+          preview.length > 48 ? `${preview.slice(0, 48)}...` : preview
 
         return (
-          <div key={comment.objectId} className='pb-2'>
-            <div className='dark:text-gray-300 text-gray-600 text-xs waline-recent-content wl-content'>
-              {shortPreview}
-            </div>
-            <div className='dark:text-gray-400 text-gray-500 text-sm text-right cursor-pointer hover:text-red-500 hover:underline pt-1'>
-              <SmartLink
-                href={{
-                  pathname: comment.url,
-                  hash: comment.objectId,
-                  query: { target: 'comment' }
-                }}>
-                --{comment.nick}
-              </SmartLink>
-            </div>
-          </div>
+          <li key={item?.objectId || item?.id || `${index}`}>
+            <a href={href} className='hover:underline'>
+              <span className='font-semibold'>{nick}</span>
+              {short && (
+                <span className='ml-1 text-gray-500'>「{short}」</span>
+              )}
+            </a>
+          </li>
         )
       })}
-    </>
+    </ul>
   )
 }
-
-export default NextRecentComments

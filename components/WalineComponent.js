@@ -8,7 +8,7 @@ const path = ''
 let waline = null
 
 /**
- * Walineコメントを表示する
+ * Waline コメント表示
  * @param {*} props
  * @returns
  */
