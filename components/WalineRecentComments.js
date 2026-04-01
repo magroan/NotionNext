@@ -35,20 +35,74 @@ function buildHref(item) {
   }
 }
 
-function normalizeRecentComments(result) {
-  if (Array.isArray(result)) {
-    return result
+function normalizeRecentCommentsResponse(data) {
+  if (Array.isArray(data)) {
+    return data
   }
 
-  if (result && Array.isArray(result.comments)) {
-    return result.comments
+  if (data && Array.isArray(data.comments)) {
+    return data.comments
   }
 
-  if (result && result.errno === 0 && Array.isArray(result.data)) {
-    return result.data
+  if (data && data.errno === 0 && Array.isArray(data.data)) {
+    return data.data
   }
 
-  return []
+  if (data && data.data) {
+    if (Array.isArray(data.data.comments)) {
+      return data.data.comments
+    }
+
+    if (Array.isArray(data.data.list)) {
+      return data.data.list
+    }
+
+    if (Array.isArray(data.data)) {
+      return data.data
+    }
+  }
+
+  return null
+}
+
+async function fetchRecentCommentsFromAPI(baseURL, count) {
+  const candidates = [
+    `${baseURL}/comment?type=recent&count=${count}`,
+    `${baseURL}/api/comment?type=recent&count=${count}`
+  ]
+
+  let lastError = null
+
+  for (const url of candidates) {
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'omit',
+        headers: {
+          Accept: 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        lastError = `Waline recent API error: ${response.status} ${response.statusText}`
+        continue
+      }
+
+      const json = await response.json()
+      const comments = normalizeRecentCommentsResponse(json)
+
+      if (comments !== null) {
+        return comments
+      }
+
+      lastError = 'Waline recent API returned unsupported payload'
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error)
+    }
+  }
+
+  throw new Error(lastError || 'Waline recent API の取得に失敗しました')
 }
 
 export default function WalineRecentComments({ count = 5 }) {
@@ -58,26 +112,43 @@ export default function WalineRecentComments({ count = 5 }) {
 
   useEffect(() => {
     let cancelled = false
+    let destroyRecentComments = null
 
     async function loadRecentComments() {
       try {
         const serverURL = siteConfig('COMMENT_WALINE_SERVER_URL', false)
 
         if (!serverURL) {
-          if (!cancelled) {
-            setItems([])
-            setError('COMMENT_WALINE_SERVER_URL が未設定です')
-            setLoading(false)
-          }
-          return
+          throw new Error('COMMENT_WALINE_SERVER_URL が未設定です')
         }
 
-        const result = await RecentComments({
-          serverURL,
-          count
-        })
+        const baseURL = String(serverURL).replace(/\/$/, '')
 
-        const comments = normalizeRecentComments(result)
+        try {
+          const result = await RecentComments({
+            serverURL: baseURL,
+            count
+          })
+
+          if (typeof result?.destroy === 'function') {
+            destroyRecentComments = result.destroy
+          }
+
+          const comments = normalizeRecentCommentsResponse(result)
+
+          if (comments !== null) {
+            if (!cancelled) {
+              setItems(comments)
+              setError('')
+              setLoading(false)
+            }
+            return
+          }
+        } catch (error) {
+          // fallback で raw API を試す
+        }
+
+        const comments = await fetchRecentCommentsFromAPI(baseURL, count)
 
         if (!cancelled) {
           setItems(comments)
@@ -99,6 +170,9 @@ export default function WalineRecentComments({ count = 5 }) {
 
     return () => {
       cancelled = true
+      if (typeof destroyRecentComments === 'function') {
+        destroyRecentComments()
+      }
     }
   }, [count])
 
