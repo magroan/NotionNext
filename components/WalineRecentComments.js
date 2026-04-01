@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { RecentComments } from '@waline/client'
+import { siteConfig } from '@/lib/config'
 
 function stripHtml(value) {
   return String(value || '')
@@ -33,13 +35,17 @@ function buildHref(item) {
   }
 }
 
-function normalizeRecentCommentsResponse(data) {
-  if (data && data.ok && Array.isArray(data.comments)) {
-    return data.comments
+function normalizeRecentComments(result) {
+  if (Array.isArray(result)) {
+    return result
   }
 
-  if (Array.isArray(data)) {
-    return data
+  if (result && Array.isArray(result.comments)) {
+    return result.comments
+  }
+
+  if (result && result.errno === 0 && Array.isArray(result.data)) {
+    return result.data
   }
 
   return []
@@ -55,27 +61,23 @@ export default function WalineRecentComments({ count = 5 }) {
 
     async function loadRecentComments() {
       try {
-        const response = await fetch(`/api/cache?type=walineRecent&count=${count}`, {
-          method: 'GET',
-          credentials: 'same-origin'
-        })
+        const serverURL = siteConfig('COMMENT_WALINE_SERVER_URL', false)
 
-        const json = await response.json()
-
-        if (!response.ok || !json?.ok) {
-          const message =
-            json?.error ||
-            `最近のコメントの取得に失敗しました status=${response.status}`
-
+        if (!serverURL) {
           if (!cancelled) {
             setItems([])
-            setError(message)
+            setError('COMMENT_WALINE_SERVER_URL が未設定です')
             setLoading(false)
           }
           return
         }
 
-        const comments = normalizeRecentCommentsResponse(json)
+        const result = await RecentComments({
+          serverURL,
+          count
+        })
+
+        const comments = normalizeRecentComments(result)
 
         if (!cancelled) {
           setItems(comments)
