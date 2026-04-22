@@ -5,9 +5,9 @@ import { cleanCache } from '@/lib/cache/local_file_cache'
  * @param {*} req
  * @param {*} res
  */
-export default async function handler(req, res) {
+export default function handler(req, res) {
   try {
-    await cleanCache()
+    cleanCache()
     res.status(200).json({
       status: 'success',
       message: 'Clean cache successful!'
