@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { siteConfig } from '@/lib/config'
+import { normalizeTaxonomyHref } from '@/lib/utils/taxonomy'
 
 // 过滤 <a> 标签不能识别的 props
 const filterDOMProps = props => {
@@ -9,18 +10,19 @@ const filterDOMProps = props => {
 
 const SmartLink = ({ href, children, ...rest }) => {
   const LINK = siteConfig('LINK')
+  const normalizedHref = normalizeTaxonomyHref(href)
 
   // 获取 URL 字符串用于判断是否是外链
   let urlString = ''
 
-  if (typeof href === 'string') {
-    urlString = href
+  if (typeof normalizedHref === 'string') {
+    urlString = normalizedHref
   } else if (
-    typeof href === 'object' &&
-    href !== null &&
-    typeof href.pathname === 'string'
+    typeof normalizedHref === 'object' &&
+    normalizedHref !== null &&
+    typeof normalizedHref.pathname === 'string'
   ) {
-    urlString = href.pathname
+    urlString = normalizedHref.pathname
   }
 
   const isExternal = urlString.startsWith('http') && !urlString.startsWith(LINK)
@@ -28,7 +30,9 @@ const SmartLink = ({ href, children, ...rest }) => {
   if (isExternal) {
     // 对于外部链接，必须是 string 类型
     const externalUrl =
-      typeof href === 'string' ? href : new URL(href.pathname, LINK).toString()
+      typeof normalizedHref === 'string'
+        ? normalizedHref
+        : new URL(normalizedHref.pathname, LINK).toString()
 
     return (
       <a
@@ -43,7 +47,7 @@ const SmartLink = ({ href, children, ...rest }) => {
 
   // 内部链接（可为对象形式）
   return (
-    <Link href={href} {...rest}>
+    <Link href={normalizedHref} {...rest}>
       {children}
     </Link>
   )

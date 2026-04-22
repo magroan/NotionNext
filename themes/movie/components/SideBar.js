@@ -19,13 +19,11 @@ export const SideBar = (props) => {
                     <ul className="list-reset leading-normal">
                         {categoryOptions?.map(category => {
                           return (
-                              <SmartLink
-                                  key={category.name}
-                                  href={`/category/${category.name}`}
-                                  passHref
-                                  legacyBehavior>
-                                    <li>  <a href={`/category/${category.name}`} className="text-gray-darkest text-sm">{category.name}({category.count})</a></li>
+                              <li key={category.name}>
+                                <SmartLink href={`/category/${category.name}`} className="text-gray-darkest text-sm">
+                                  {category.name}({category.count})
                                 </SmartLink>
+                              </li>
                           )
                         })}
                     </ul>
