@@ -1,8 +1,8 @@
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
-import { normalizeTaxonomyValue, taxonomyFieldMatches } from '@/lib/utils/taxonomy'
 import { DynamicLayout } from '@/themes/theme'
+import { matchesTag, normalizeTaxonomyTerm } from '@/lib/utils/taxonomy'
 
 const Tag = props => {
   const theme = siteConfig('THEME', BLOG.THEME, props.NOTION_CONFIG)
@@ -10,13 +10,13 @@ const Tag = props => {
 }
 
 export async function getStaticProps({ params: { tag, page }, locale }) {
-  const normalizedTag = normalizeTaxonomyValue(tag)
   const from = 'tag-page-props'
+  const normalizedTag = normalizeTaxonomyTerm(tag)
   const props = await fetchGlobalAllData({ from, locale })
   // 过滤状态、标签
   props.posts = props.allPages
     ?.filter(page => page.type === 'Post' && page.status === 'Published')
-    .filter(post => post && taxonomyFieldMatches(post?.tags, normalizedTag))
+    .filter(post => matchesTag(post, normalizedTag))
   // 处理文章数
   props.postCount = props.posts.length
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
@@ -49,7 +49,7 @@ export async function getStaticPaths() {
     // 过滤状态类型
     const tagPosts = allPages
       ?.filter(page => page.type === 'Post' && page.status === 'Published')
-      .filter(post => post && taxonomyFieldMatches(post?.tags, tag.name))
+      .filter(post => matchesTag(post, tag.name))
     // 处理文章页数
     const postCount = tagPosts.length
     const totalPages = Math.ceil(

@@ -1,8 +1,8 @@
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
-import { normalizeTaxonomyValue, taxonomyFieldMatches } from '@/lib/utils/taxonomy'
 import { DynamicLayout } from '@/themes/theme'
+import { matchesCategory, normalizeTaxonomyTerm } from '@/lib/utils/taxonomy'
 
 /**
  * 分类页
@@ -16,14 +16,14 @@ export default function Category(props) {
 }
 
 export async function getStaticProps({ params: { category, page } }) {
-  const normalizedCategory = normalizeTaxonomyValue(category)
   const from = 'category-page-props'
+  const normalizedCategory = normalizeTaxonomyTerm(category)
   let props = await fetchGlobalAllData({ from })
 
   // 过滤状态类型
   props.posts = props.allPages
     ?.filter(page => page.type === 'Post' && page.status === 'Published')
-    .filter(post => post && taxonomyFieldMatches(post?.category, normalizedCategory))
+    .filter(post => matchesCategory(post, normalizedCategory))
   // 处理文章页数
   props.postCount = props.posts.length
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
@@ -62,7 +62,7 @@ export async function getStaticPaths() {
     const categoryPosts = allPages
       ?.filter(page => page.type === 'Post' && page.status === 'Published')
       .filter(
-        post => post && taxonomyFieldMatches(post?.category, category.name)
+        post => matchesCategory(post, category.name)
       )
     // 处理文章页数
     const postCount = categoryPosts.length

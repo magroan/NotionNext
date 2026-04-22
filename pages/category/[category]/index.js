@@ -1,8 +1,8 @@
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
-import { normalizeTaxonomyValue, taxonomyFieldMatches } from '@/lib/utils/taxonomy'
 import { DynamicLayout } from '@/themes/theme'
+import { matchesCategory, normalizeTaxonomyTerm } from '@/lib/utils/taxonomy'
 
 /**
  * 分类页
@@ -15,8 +15,8 @@ export default function Category(props) {
 }
 
 export async function getStaticProps({ params: { category }, locale }) {
-  const normalizedCategory = normalizeTaxonomyValue(category)
   const from = 'category-props'
+  const normalizedCategory = normalizeTaxonomyTerm(category)
   let props = await fetchGlobalAllData({ from, locale })
 
   // 过滤状态
@@ -24,9 +24,7 @@ export async function getStaticProps({ params: { category }, locale }) {
     page => page.type === 'Post' && page.status === 'Published'
   )
   // 处理过滤
-  props.posts = props.posts.filter(
-    post => post && taxonomyFieldMatches(post?.category, normalizedCategory)
-  )
+  props.posts = props.posts.filter(post => matchesCategory(post, normalizedCategory))
   // 处理文章页数
   props.postCount = props.posts.length
   // 处理分页

@@ -1,8 +1,8 @@
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
-import { normalizeTaxonomyValue, taxonomyFieldMatches } from '@/lib/utils/taxonomy'
 import { DynamicLayout } from '@/themes/theme'
+import { matchesTag, normalizeTaxonomyTerm } from '@/lib/utils/taxonomy'
 
 /**
  * 标签下的文章列表
@@ -15,14 +15,14 @@ const Tag = props => {
 }
 
 export async function getStaticProps({ params: { tag }, locale }) {
-  const normalizedTag = normalizeTaxonomyValue(tag)
   const from = 'tag-props'
+  const normalizedTag = normalizeTaxonomyTerm(tag)
   const props = await fetchGlobalAllData({ from, locale })
 
   // 过滤状态
   props.posts = props.allPages
     ?.filter(page => page.type === 'Post' && page.status === 'Published')
-    .filter(post => post && taxonomyFieldMatches(post?.tags, normalizedTag))
+    .filter(post => matchesTag(post, normalizedTag))
 
   // 处理文章页数
   props.postCount = props.posts.length
