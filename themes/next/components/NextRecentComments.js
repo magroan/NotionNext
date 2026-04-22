@@ -85,6 +85,9 @@ async function fetchRecentCommentsFromAPI(baseURL, count) {
       })
 
       if (!response.ok) {
+        if ([401, 403, 404].includes(response.status)) {
+          return []
+        }
         lastError = `Waline recent API error: ${response.status} ${response.statusText}`
         continue
       }
@@ -181,13 +184,7 @@ export default function NextRecentComments({ count = 5 }) {
   }
 
   if (error) {
-    return (
-      <div className='text-sm text-red-600'>
-        最近のコメントの取得に失敗しました。
-        <br />
-        <span className='break-all opacity-80'>{error}</span>
-      </div>
-    )
+    return <div className='text-sm text-gray-500'>コメントは現在利用できません。</div>
   }
 
   if (!items.length) {

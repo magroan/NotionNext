@@ -60,16 +60,26 @@ export const BlogListScroll = props => {
       id='posts-wrapper'
       className={`w-full ${showPageCover ? 'md:pr-2' : 'md:pr-12'}} mb-12`}
       ref={targetRef}>
-      {postsToShow?.map(post => (
-        <BlogItem key={post.id} post={post} />
-      ))}
+      {postsToShow?.length > 0 ? (
+        <>
+          {postsToShow.map(post => (
+            <BlogItem key={post.id} post={post} />
+          ))}
 
-      <div
-        onClick={handleGetMore}
-        className='w-full my-4 py-4 text-center cursor-pointer '>
-        {' '}
-        {hasMore ? locale.COMMON.MORE : `${locale.COMMON.NO_MORE} 😰`}{' '}
-      </div>
+          <div
+            onClick={handleGetMore}
+            className='w-full my-4 py-4 text-center cursor-pointer '>
+            {' '}
+            {hasMore ? locale.COMMON.MORE : `${locale.COMMON.NO_MORE} 😰`}{' '}
+          </div>
+        </>
+      ) : (
+        <div className='rounded border border-gray-200 bg-white p-6 text-sm text-gray-600 shadow-sm dark:border-gray-700 dark:bg-hexo-black-gray dark:text-gray-300'>
+          公開中の記事がまだ見つかりません。
+          <br />
+          Notion 側で公開設定、ステータス、日付、カテゴリの付け方を確認してください。
+        </div>
+      )}
     </div>
   )
 }

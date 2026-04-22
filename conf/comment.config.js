@@ -128,10 +128,10 @@ module.exports = {
 
 
   COMMENT_WALINE_SERVER_URL:
-    process.env.NEXT_PUBLIC_WALINE_SERVER_URL || 'https://comment.asami.chiba.jp',
+    process.env.NEXT_PUBLIC_WALINE_SERVER_URL || '',
   // Waline の完全なサーバーURL（例：https://preview-waline.tangly1024.com）
   COMMENT_WALINE_RECENT:
-    process.env.NEXT_PUBLIC_WALINE_RECENT || true,
+    process.env.NEXT_PUBLIC_WALINE_RECENT || false,
   // 最新コメントの表示
 
 
