@@ -5,6 +5,28 @@ import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
 import { extractLangId, extractLangPrefix } from '@/lib/utils/pageId'
 import { getServerSideSitemap } from 'next-sitemap'
 
+function safeIsoDate(value, fallbackValue = new Date()) {
+  const fallback = new Date(fallbackValue)
+  const fallbackIso = Number.isNaN(fallback.getTime())
+    ? new Date().toISOString()
+    : fallback.toISOString()
+
+  if (!value) {
+    return fallbackIso
+  }
+
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) {
+    return fallbackIso
+  }
+
+  return date.toISOString()
+}
+
+function safeIsoDay(value, fallbackValue = new Date()) {
+  return safeIsoDate(value, fallbackValue).split('T')[0]
+}
+
 export const getServerSideProps = async ctx => {
   let fields = []
   const siteIds = BLOG.NOTION_PAGE_ID.split(',')
@@ -94,7 +116,7 @@ function generateLocalesSitemap(link, allPages, locale) {
           : post.slug
         return {
           loc: `${link}${locale}/${slugWithoutLeadingSlash}`,
-          lastmod: new Date(post?.publishDay).toISOString().split('T')[0],
+          lastmod: safeIsoDay(post?.publishDay),
           changefreq: 'daily',
           priority: '0.7'
         }

@@ -52,3 +52,13 @@ package-lock.json
 # yarn.lock
 
 .notion-api-lock
+# Local rebuild outputs
+.env.local
+.env.*.local
+*.log
+rebuild-logs/
+notionnext-rebuild-logs/
+tsconfig.tsbuildinfo
+.next/
+node_modules/
+.vercel/

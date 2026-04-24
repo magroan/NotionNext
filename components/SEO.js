@@ -5,6 +5,28 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
+function safeIsoDate(value, fallbackValue = new Date()) {
+  const fallback = new Date(fallbackValue)
+  const fallbackIso = Number.isNaN(fallback.getTime())
+    ? new Date().toISOString()
+    : fallback.toISOString()
+
+  if (!value) {
+    return fallbackIso
+  }
+
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) {
+    return fallbackIso
+  }
+
+  return date.toISOString()
+}
+
+function safeIsoDay(value, fallbackValue = new Date()) {
+  return safeIsoDate(value, fallbackValue).split('T')[0]
+}
+
 /**
  * 页面的Head头，有用于SEO
  * @param {*} param0
