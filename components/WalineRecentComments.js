@@ -44,7 +44,8 @@ function getCommentTime(comment) {
     return ''
   }
 
-  const date = typeof value === 'number' ? new Date(value) : new Date(value)
+  const date = new Date(value)
+
   if (Number.isNaN(date.getTime())) {
     return ''
   }
@@ -53,7 +54,6 @@ function getCommentTime(comment) {
 }
 
 export default function WalineRecentComments({ count = 5 }) {
-  const serverURL = siteConfig('COMMENT_WALINE_SERVER_URL')
   const enabled = String(siteConfig('COMMENT_WALINE_RECENT')).toLowerCase() === 'true'
 
   const [items, setItems] = useState([])
@@ -61,7 +61,7 @@ export default function WalineRecentComments({ count = 5 }) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (!enabled || !serverURL) {
+    if (!enabled) {
       setItems([])
       setError('')
       return
@@ -73,28 +73,24 @@ export default function WalineRecentComments({ count = 5 }) {
       try {
         setLoading(true)
 
-        const base = String(serverURL).replace(/\/$/, '')
-        const url = `${base}/api/comment?type=recent&count=${count}&_ts=${Date.now()}`
-
-        const response = await fetch(url, {
+        const response = await fetch(`/api/waline/recent?count=${count}&_ts=${Date.now()}`, {
           method: 'GET',
-          mode: 'cors',
           cache: 'no-store',
-          credentials: 'omit',
           headers: {
             Accept: 'application/json'
           }
         })
 
-        if (!response.ok) {
+        const payload = await response.json()
+
+        if (!response.ok || payload?.errno) {
           if (!cancelled) {
             setItems([])
-            setError(`HTTP ${response.status}`)
+            setError(payload?.errmsg || `HTTP ${response.status}`)
           }
           return
         }
 
-        const payload = await response.json()
         const comments = normalizeRecentComments(payload)
 
         if (!cancelled) {
@@ -120,9 +116,9 @@ export default function WalineRecentComments({ count = 5 }) {
       cancelled = true
       clearInterval(timer)
     }
-  }, [enabled, serverURL, count])
+  }, [enabled, count])
 
-  if (!enabled || !serverURL) {
+  if (!enabled) {
     return null
   }
 
@@ -154,7 +150,7 @@ export default function WalineRecentComments({ count = 5 }) {
             {items.map((comment, index) => {
               const text = stripHtml(comment.comment || comment.content || comment.text || comment.orig)
               const nick = stripHtml(comment.nick || comment.nickname || comment.author || 'anonymous')
-              const path = comment.url || comment.path || comment.link || '/'
+              const path = comment.url || comment.path || '/'
               const time = getCommentTime(comment)
 
               return (
