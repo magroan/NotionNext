@@ -2,6 +2,7 @@ import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData, getPostBlocks } from '@/lib/db/SiteDataApi'
 import { DynamicLayout } from '@/themes/theme'
+import { sortHomePosts } from '@/lib/utils/postOrdering'
 
 /**
  * 文章列表分页
@@ -38,8 +39,10 @@ export async function getStaticProps({ params: { page }, locale }) {
     props?.NOTION_CONFIG
   )
 
-  const allPosts = allPages?.filter(
-    page => page.type === 'Post' && page.status === 'Published'
+  const allPosts = sortHomePosts(
+    allPages?.filter(
+      page => page.type === 'Post' && page.status === 'Published'
+    )
   )
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
   // 处理分页

@@ -3,8 +3,6 @@ import { useGlobal } from '@/lib/global'
 import throttle from 'lodash.throttle'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { BlogItem } from './BlogItem'
-import { sortHomePosts, shouldSortHomePosts } from '@/lib/utils/postOrdering'
-import { useRouter } from 'next/router'
 
 /**
  * 滚动博客列表
@@ -13,20 +11,16 @@ import { useRouter } from 'next/router'
  */
 export default function BlogListScroll(props) {
   const { posts } = props
-  const router = useRouter()
   const { locale, NOTION_CONFIG } = useGlobal()
   const [page, updatePage] = useState(1)
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
-  const orderedPosts = shouldSortHomePosts(router)
-    ? sortHomePosts(posts)
-    : posts
   let hasMore = false
-  const postsToShow = orderedPosts
-    ? Object.assign(orderedPosts).slice(0, POSTS_PER_PAGE * page)
+  const postsToShow = posts
+    ? Object.assign(posts).slice(0, POSTS_PER_PAGE * page)
     : []
 
   if (posts) {
-    const totalCount = orderedPosts.length
+    const totalCount = posts.length
     hasMore = page * POSTS_PER_PAGE < totalCount
   }
   const handleGetMore = () => {

@@ -5,7 +5,6 @@ import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import CONFIG from '../config'
 import { BlogItem } from './BlogItem'
-import { sortHomePosts, shouldSortHomePosts } from '@/lib/utils/postOrdering'
 
 /**
  * 博客列表
@@ -19,9 +18,6 @@ export default function BlogListPage(props) {
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   const totalPage = Math.ceil(postCount / POSTS_PER_PAGE)
   const currentPage = +page
-  const orderedPosts = shouldSortHomePosts(router)
-    ? sortHomePosts(posts)
-    : posts
 
   // 博客列表嵌入广告
   const SIMPLE_POST_AD_ENABLE = siteConfig(
@@ -41,7 +37,7 @@ export default function BlogListPage(props) {
   return (
     <div className='w-full md:pr-8 mb-12'>
       <div id='posts-wrapper'>
-        {orderedPosts?.map((p, index) => (
+        {posts?.map((p, index) => (
           <div key={p.id}>
             {SIMPLE_POST_AD_ENABLE && (index + 1) % 3 === 0 && (
               <AdSlot type='in-article' />

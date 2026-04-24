@@ -7,6 +7,7 @@ import { generateSitemapXml } from '@/lib/utils/sitemap.xml'
 import { DynamicLayout } from '@/themes/theme'
 import { generateRedirectJson } from '@/lib/utils/redirect'
 import { checkDataFromAlgolia } from '@/lib/plugins/algolia'
+import { sortHomePosts } from '@/lib/utils/postOrdering'
 
 /**
  * 首页布局
@@ -31,8 +32,10 @@ export async function getStaticProps(req) {
     12,
     props?.NOTION_CONFIG
   )
-  props.posts = props.allPages?.filter(
-    page => page.type === 'Post' && page.status === 'Published'
+  props.posts = sortHomePosts(
+    props.allPages?.filter(
+      page => page.type === 'Post' && page.status === 'Published'
+    )
   )
 
   // 处理分页
